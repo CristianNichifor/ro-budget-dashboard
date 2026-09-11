@@ -7,7 +7,12 @@ interface DestinationTreemapProps {
   onSelect?: (destinationId: string) => void;
 }
 
-type TreemapDatum = BudgetDestination & Record<string, unknown>;
+/**
+ * Recharts 3 requires numeric node values (string amounts are treated as 0),
+ * so amounts become JS numbers at the chart boundary only — the no-floats
+ * rule applies to calculations, display values stay strings everywhere else.
+ */
+type TreemapDatum = Omit<BudgetDestination, "amount"> & { amount: number };
 
 interface TreemapCellProps {
   x?: number;
@@ -16,7 +21,7 @@ interface TreemapCellProps {
   height?: number;
   id?: string;
   name?: string;
-  amount?: string;
+  amount?: number;
   onSelect?: (destinationId: string) => void;
 }
 
@@ -76,7 +81,7 @@ function TreemapTooltip({
   payload,
 }: {
   active?: boolean;
-  payload?: ReadonlyArray<{ payload?: BudgetDestination }>;
+  payload?: ReadonlyArray<{ payload?: TreemapDatum }>;
 }) {
   if (active !== true || payload === undefined || payload.length === 0) {
     return null;
@@ -101,7 +106,10 @@ export function DestinationTreemap({
   destinations,
   onSelect,
 }: DestinationTreemapProps) {
-  const data = destinations as TreemapDatum[];
+  const data: TreemapDatum[] = destinations.map((destination) => ({
+    ...destination,
+    amount: Number(destination.amount),
+  }));
 
   return (
     <div className="h-80 w-full">
