@@ -1,0 +1,43 @@
+import { useLingui } from "@lingui/react";
+import { Link } from "@tanstack/react-router";
+import { cn } from "../../lib/cn";
+
+const tabs = [
+  { to: "/felia-ta", labelId: "nav.citizenSlice" },
+  { to: "/bilantul-national", labelId: "nav.nationalBalance" },
+] as const;
+
+export function TabNavigation() {
+  const { i18n } = useLingui();
+
+  return (
+    <nav className="mx-auto flex max-w-6xl gap-1 px-4">
+      {tabs.map((tab) => (
+        <Link
+          key={tab.to}
+          to={tab.to}
+          className="text-sm"
+          activeProps={{
+            className: "text-sm font-semibold",
+          }}
+          inactiveProps={{
+            className: "text-sm text-slate-500",
+          }}
+        >
+          {({ isActive }) => (
+            <span
+              className={cn(
+                "inline-block border-b-2 px-3 py-3 transition-colors",
+                isActive
+                  ? "border-budget-blue text-budget-blue"
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              )}
+            >
+              {i18n._({ id: tab.labelId })}
+            </span>
+          )}
+        </Link>
+      ))}
+    </nav>
+  );
+}

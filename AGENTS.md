@@ -1,0 +1,23 @@
+# AGENTS.md
+
+Convenții de lucru pentru `ro-budget-dashboard` (aliniate cu hack-for-facts-eb-client / transparenta-eu-ins-loader).
+
+## Comenzi
+
+- `pnpm dev` — dev server
+- `pnpm check` — typecheck + lint + test + format:check (rulează întotdeauna înainte de commit)
+- `pnpm test` — vitest run
+- `pnpm build` — tsc -b && vite build
+
+## Reguli de cod
+
+1. **No floats pentru bani.** Orice calcul monetar folosește `decimal.js` (`Decimal`). Numerele JS apar doar la granița de afișare (charts) sau pentru procente ne-monetare. Sumele traversează granița API ca `string`.
+2. **Nucleu funcțional pur.** `src/lib/*` sunt funcții pure, fără I/O, fără throw, testate unitar. `src/api` și componentele sunt shell-ul.
+3. **i18n prin Lingui.** UI text prin `i18n._({ id: ... })` / `Trans`; id-urile mesajelor în `src/locales/ro/messages.ts` (sursă) + `en`. Numele proprii din date („Pensii”) rămân în fișierele de date.
+4. **Date demo marcate.** Orice valoare statică are `DEMO NOTE` în comentariu sau `SourceBadge` în UI; sumele bugetare sunt `string`, nu `number`.
+5. **Conventional Commits** + Husky (lint-staged: eslint --fix + prettier). ESLint: import-x, react-hooks, react-refresh.
+
+## Unde stă ce
+
+- Contract API: `src/api/client.ts` (scheme zod). P0 rezolvă local; P2 înlocuiește corpurile cu `fetch` către BFF — schemele nu se schimbă.
+- Date: `src/data/` (seed-uri). Componente vizuale: `src/components/charts/`. Tab-uri: `src/routes/`.

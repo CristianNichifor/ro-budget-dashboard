@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-budget-blue: #2563eb;
+  --color-budget-red: #dc2626;
+  --color-budget-amber: #d97706;
+  --color-budget-slate: #475569;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
