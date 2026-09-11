@@ -20,8 +20,10 @@ import { InsMetricSelect } from "../components/shared/InsMetricSelect";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
+import { YearSelector } from "../components/shared/YearSelector";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
 import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
+import { useBudgetYearStore } from "../store/useBudgetYearStore";
 import { m } from "../messages";
 
 const DEFAULT_CONTEXT_METRIC = "infant-mortality";
@@ -33,15 +35,19 @@ export function NationalBalance() {
     string | null
   >(null);
   const [contextMetric, setContextMetric] = useState(DEFAULT_CONTEXT_METRIC);
+  const year = useBudgetYearStore((state) => state.year);
+  const currentYear = new Date().getFullYear();
 
   const { data: summary } = useQuery({
-    queryKey: ["budget-summary"],
-    queryFn: fetchBudgetSummary,
+    queryKey: ["budget-summary", year],
+    queryFn: () => fetchBudgetSummary(String(year)),
+    enabled: year !== null,
   });
 
   const { data: destinations } = useQuery({
-    queryKey: ["destinations"],
-    queryFn: fetchDestinations,
+    queryKey: ["destinations", year],
+    queryFn: () => fetchDestinations(String(year)),
+    enabled: year !== null,
   });
 
   const { data: budgetTrend } = useQuery({
@@ -107,10 +113,17 @@ export function NationalBalance() {
               {i18n._(m["balance.description"])}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <YearSelector />
             <SourceBadge source="source.budget" />
           </div>
         </div>
+
+        {year === currentYear && (
+          <p className="text-xs text-amber-700">
+            {i18n._(m["year.inProgressCaption"])}
+          </p>
+        )}
 
         {summary !== undefined && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -274,9 +287,10 @@ export function NationalBalance() {
         {investments === undefined && <SkeletonCard className="h-96" />}
       </section>
 
-      {selectedDestination !== null && (
+      {selectedDestination !== null && year !== null && (
         <DrilldownModal
           destination={selectedDestination}
+          year={String(year)}
           onClose={closeDrilldown}
           onBackToOverview={closeDrilldown}
         />

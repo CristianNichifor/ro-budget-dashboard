@@ -30,6 +30,7 @@ function renderModal() {
       <QueryClientProvider client={client}>
         <DrilldownModal
           destination={destination}
+          year="2025"
           onClose={() => {}}
           onBackToOverview={() => {}}
         />

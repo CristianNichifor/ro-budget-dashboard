@@ -11,12 +11,14 @@ import { m } from "../../messages";
 
 interface DrilldownModalProps {
   destination: BudgetDestination;
+  year: string;
   onClose: () => void;
   onBackToOverview: () => void;
 }
 
 export function DrilldownModal({
   destination,
+  year,
   onClose,
   onBackToOverview,
 }: DrilldownModalProps) {
@@ -41,8 +43,8 @@ export function DrilldownModal({
   }, []);
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ["institutions", destination.id],
-    queryFn: () => fetchInstitutions(destination.id),
+    queryKey: ["institutions", destination.id, year],
+    queryFn: () => fetchInstitutions(year, destination.id),
   });
 
   const shares =

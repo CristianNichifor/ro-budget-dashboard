@@ -182,7 +182,15 @@ export const m = {
   "balance.description": msg({
     id: "balance.description",
     message:
-      "Bugetul consolidat 2026: venituri, cheltuieli și deficit, pe modelul Open Budget.",
+      "Bugetul consolidat pe ani: venituri, cheltuieli și deficit, pe modelul Open Budget.",
+  }),
+  "year.label": msg({ id: "year.label", message: "Anul" }),
+  "year.groupLabel": msg({ id: "year.groupLabel", message: "Anul bugetar" }),
+  "year.inProgress": msg({ id: "year.inProgress", message: "în curs" }),
+  "year.inProgressCaption": msg({
+    id: "year.inProgressCaption",
+    message:
+      "Execuție în curs — sumele cresc pe măsură ce rapoartele lunare intră.",
   }),
   "balance.kpi.revenue": msg({
     id: "balance.kpi.revenue",

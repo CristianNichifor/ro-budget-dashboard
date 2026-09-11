@@ -125,17 +125,22 @@ function toSalaryBreakdown(response: SalaryResponse): SalaryBreakdown {
   };
 }
 
-export async function fetchBudgetSummary(): Promise<BudgetSummary> {
-  const remote = await request("/api/budget/summary", budgetSummarySchema);
+export async function fetchBudgetSummary(year: string): Promise<BudgetSummary> {
+  const remote = await request(
+    `/api/budget/summary?year=${encodeURIComponent(year)}`,
+    budgetSummarySchema
+  );
   if (remote !== null) {
     return remote;
   }
   return budgetSummarySchema.parse(BUDGET_SUMMARY);
 }
 
-export async function fetchDestinations(): Promise<BudgetDestination[]> {
+export async function fetchDestinations(
+  year: string
+): Promise<BudgetDestination[]> {
   const remote = await request(
-    "/api/budget/destinations",
+    `/api/budget/destinations?year=${encodeURIComponent(year)}`,
     z.array(budgetDestinationSchema)
   );
   if (remote !== null) {
@@ -153,10 +158,11 @@ export const institutionsResponseSchema = z.object({
 export type InstitutionsResponse = z.infer<typeof institutionsResponseSchema>;
 
 export async function fetchInstitutions(
+  year: string,
   category: string
 ): Promise<InstitutionsResponse> {
   const remote = await request(
-    `/api/budget/institutions?category=${category}`,
+    `/api/budget/institutions?category=${category}&year=${encodeURIComponent(year)}`,
     institutionsResponseSchema
   );
   if (remote !== null) {
@@ -170,6 +176,31 @@ export async function fetchInstitutions(
     total: destination?.amount ?? "0",
     institutions: destination?.subDestinations ?? [],
   };
+}
+
+export const budgetYearsSchema = z.object({
+  years: z.array(z.number().int()),
+});
+
+export type BudgetYears = z.infer<typeof budgetYearsSchema>;
+
+export const FIRST_LOCAL_YEAR = 2020;
+
+export function localBudgetYears(): number[] {
+  const current = new Date().getFullYear();
+  const years: number[] = [];
+  for (let year = FIRST_LOCAL_YEAR; year <= current; year += 1) {
+    years.push(year);
+  }
+  return years;
+}
+
+export async function fetchBudgetYears(): Promise<number[]> {
+  const remote = await request("/api/budget/years", budgetYearsSchema);
+  if (remote !== null) {
+    return remote.years;
+  }
+  return localBudgetYears();
 }
 
 export const countyInvestmentSchema = z.object({
