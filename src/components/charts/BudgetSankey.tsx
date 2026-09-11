@@ -120,7 +120,7 @@ export function BudgetSankey({
       viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
       className="w-full"
       role="img"
-      aria-label="Fluxul banilor publici"
+      aria-label={i18n._(m["sankey.ariaLabel"])}
     >
       {graph.links.map((link, index) => {
         const path = linkPath(link);
@@ -184,9 +184,33 @@ export function BudgetSankey({
               height={node.y1 - node.y0}
               fill={nodeColor(node.id)}
               rx={2}
-              className={isClickable ? "cursor-pointer" : undefined}
+              className={
+                isClickable
+                  ? "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-budget-blue"
+                  : undefined
+              }
+              tabIndex={isClickable ? 0 : undefined}
+              role={isClickable ? "button" : undefined}
+              aria-label={
+                isClickable
+                  ? i18n._({
+                      ...m["sankey.openDestination"],
+                      values: { destination: labelFor(node) },
+                    })
+                  : undefined
+              }
               onClick={() => {
                 if (isClickable && onSelect !== undefined) {
+                  onSelect(node.id);
+                }
+              }}
+              onKeyDown={(event) => {
+                if (
+                  isClickable &&
+                  onSelect !== undefined &&
+                  (event.key === "Enter" || event.key === " ")
+                ) {
+                  event.preventDefault();
                   onSelect(node.id);
                 }
               }}

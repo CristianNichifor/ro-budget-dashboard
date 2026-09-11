@@ -1,6 +1,7 @@
 import { useLingui } from "@lingui/react";
 import { LOCALES, setLocale, type Locale } from "../../i18n-core";
 import { cn } from "../../lib/cn";
+import { m } from "../../messages";
 
 const LABELS: Record<Locale, string> = {
   ro: "RO",
@@ -13,7 +14,7 @@ export function LocaleSwitcher() {
   return (
     <div
       role="group"
-      aria-label="Language"
+      aria-label={i18n._(m["lang.label"])}
       className="flex overflow-hidden rounded-md border border-slate-200"
     >
       {LOCALES.map((locale) => (

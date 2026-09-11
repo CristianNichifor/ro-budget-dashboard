@@ -1,3 +1,5 @@
+import { useLingui } from "@lingui/react";
+import { m } from "../../messages";
 import { formatPercent } from "../../lib/format";
 
 interface DebtGaugeProps {
@@ -69,13 +71,17 @@ export function DebtGauge({
 
   const start = polar(centerX, centerY, radius, 0);
   const needleEnd = polar(centerX, centerY, radius - 6, valueAngle);
+  const { i18n } = useLingui();
 
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
       className="w-full"
       role="img"
-      aria-label={`Deficit ${formatPercent(valuePercent)} din PIB`}
+      aria-label={i18n._({
+        ...m["gauge.ariaLabel"],
+        values: { valuePercent: formatPercent(valuePercent) },
+      })}
     >
       <path
         d={describeArc(centerX, centerY, radius, 0, 180)}

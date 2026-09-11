@@ -17,12 +17,13 @@ export function TabNavigation() {
         <Link
           key={tab.to}
           to={tab.to}
-          className="text-sm"
+          className="text-sm font-medium"
           activeProps={{
-            className: "text-sm font-semibold",
+            className: "text-sm font-medium",
+            "aria-current": "page",
           }}
           inactiveProps={{
-            className: "text-sm text-slate-500",
+            className: "text-sm font-medium text-slate-500",
           }}
         >
           {({ isActive }) => (

@@ -16,7 +16,7 @@ export function RootLayout() {
       <main className="mx-auto max-w-6xl px-4 py-8">
         <Outlet />
       </main>
-      <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs text-slate-400">
+      <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs text-slate-500">
         {i18n._(m["app.footer"])}
       </footer>
     </div>

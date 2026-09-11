@@ -56,7 +56,7 @@ describe("DrilldownModal", () => {
     renderModal();
 
     expect(
-      await screen.findByRole("dialog", { name: "Sănătate" })
+      await screen.findByRole("dialog", { name: /Sănătate/ })
     ).toBeInTheDocument();
     expect(await screen.findByText("Spital A")).toBeInTheDocument();
     expect(screen.getByText("Spital B")).toBeInTheDocument();

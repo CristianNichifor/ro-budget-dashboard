@@ -20,10 +20,17 @@ function getInitialLocale(): Locale {
   return DEFAULT_LOCALE;
 }
 
-i18n.activate(getInitialLocale());
+function applyLocale(locale: Locale): void {
+  i18n.activate(locale);
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = locale;
+  }
+}
+
+applyLocale(getInitialLocale());
 
 export function setLocale(locale: Locale): void {
-  i18n.activate(locale);
+  applyLocale(locale);
   if (typeof localStorage !== "undefined") {
     localStorage.setItem(STORAGE_KEY, locale);
   }
