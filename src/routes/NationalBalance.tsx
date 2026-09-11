@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import {
   fetchBudgetSummary,
   fetchBudgetTrend,
+  fetchCountyInvestments,
   fetchDestinations,
   fetchInsMetric,
 } from "../api/client";
@@ -12,6 +13,7 @@ import { BudgetSankey } from "../components/charts/BudgetSankey";
 import { DebtGauge } from "../components/charts/DebtGauge";
 import { DestinationTreemap } from "../components/charts/DestinationTreemap";
 import { DualAxisTrend } from "../components/charts/DualAxisTrend";
+import { InvestmentCartogram } from "../components/charts/InvestmentCartogram";
 import { DrilldownModal } from "../components/shared/DrilldownModal";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
@@ -45,6 +47,11 @@ export function NationalBalance() {
   const { data: insMetric } = useQuery({
     queryKey: ["ins-metric", CONTEXT_METRIC],
     queryFn: () => fetchInsMetric(CONTEXT_METRIC),
+  });
+
+  const { data: investments } = useQuery({
+    queryKey: ["investments-by-county"],
+    queryFn: fetchCountyInvestments,
   });
 
   const trendData = useMemo(() => {
@@ -201,6 +208,42 @@ export function NationalBalance() {
                 })}
               </p>
             )}
+          </div>
+        )}
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold">
+              {i18n._({ id: "investments.title" })}
+            </h2>
+            <p className="text-sm text-slate-500">
+              {i18n._({ id: "investments.description" })}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <SourceBadge source="source.budget" />
+          </div>
+        </div>
+        {investments != null && investments.counties.length > 0 && (
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <InvestmentCartogram
+              counties={investments.counties}
+              total={investments.total}
+            />
+            <div className="mt-3 flex items-center justify-end gap-2 text-xs text-slate-500">
+              <span>{i18n._({ id: "investments.legendMin" })}</span>
+              <span
+                aria-hidden="true"
+                className="inline-block h-3 w-24 rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(to right, #dbeafe, #bfdbfe, #93c5fd, #60a5fa, #2563eb)",
+                }}
+              />
+              <span>{i18n._({ id: "investments.legendMax" })}</span>
+            </div>
           </div>
         )}
       </section>

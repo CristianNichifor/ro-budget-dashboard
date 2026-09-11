@@ -66,6 +66,13 @@ export const messages: Messages = {
   "drilldown.total": "Total",
   "drilldown.close": "Close",
 
+  "investments.title": "Public investments by county",
+  "investments.description":
+    "The 2026 investments program, by county. Cartogram: area = allocated amount, color = intensity relative to other counties.",
+  "investments.shareOfTotal": "{sharePercent} of total",
+  "investments.legendMin": "less",
+  "investments.legendMax": "more",
+
   "source.demo": "Demo",
   "source.ins": "Source: INS Tempo",
   "source.bnr": "Source: BNR",

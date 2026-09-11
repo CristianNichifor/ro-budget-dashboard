@@ -169,6 +169,25 @@ export async function fetchInstitutions(
   };
 }
 
+export const countyInvestmentSchema = z.object({
+  county: z.string(),
+  region: z.string(),
+  amount: z.string(),
+});
+
+const investmentsByCountySchema = z.object({
+  year: z.number().int(),
+  total: z.string(),
+  counties: z.array(countyInvestmentSchema),
+});
+
+export type InvestmentsByCounty = z.infer<typeof investmentsByCountySchema>;
+export type CountyInvestment = z.infer<typeof countyInvestmentSchema>;
+
+export async function fetchCountyInvestments(): Promise<InvestmentsByCounty | null> {
+  return request("/api/investments/by-county", investmentsByCountySchema);
+}
+
 export async function fetchSalaryBreakdown(
   gross: number
 ): Promise<SalaryBreakdown | null> {

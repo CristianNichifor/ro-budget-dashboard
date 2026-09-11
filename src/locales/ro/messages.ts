@@ -66,6 +66,13 @@ export const messages: Messages = {
   "drilldown.total": "Total",
   "drilldown.close": "Închide",
 
+  "investments.title": "Investiții publice pe județe",
+  "investments.description":
+    "Programul de investiții 2026, pe județe. Cartogramă: suprafața = suma alocată, culoarea = intensitatea față de celelalte județe.",
+  "investments.shareOfTotal": "{sharePercent} din total",
+  "investments.legendMin": "mai puțin",
+  "investments.legendMax": "mai mult",
+
   "source.demo": "Demo",
   "source.ins": "Sursă: INS Tempo",
   "source.bnr": "Sursă: BNR",
