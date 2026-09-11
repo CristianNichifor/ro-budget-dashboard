@@ -16,6 +16,7 @@ import { DestinationTreemap } from "../components/charts/DestinationTreemap";
 import { DualAxisTrend } from "../components/charts/DualAxisTrend";
 import { InvestmentCartogram } from "../components/charts/InvestmentCartogram";
 import { DrilldownModal } from "../components/shared/DrilldownModal";
+import { InsMetricSelect } from "../components/shared/InsMetricSelect";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
@@ -190,26 +191,11 @@ export function NationalBalance() {
           </div>
         </div>
         {insCatalog !== undefined && insCatalog.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <label
-              htmlFor="ins-metric"
-              className="text-sm font-medium text-slate-700"
-            >
-              {i18n._(m["context.metricLabel"])}
-            </label>
-            <select
-              id="ins-metric"
-              className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-budget-blue"
-              value={contextMetric}
-              onChange={(event) => setContextMetric(event.target.value)}
-            >
-              {insCatalog.map((metric) => (
-                <option key={metric.code} value={metric.code}>
-                  {metric.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <InsMetricSelect
+            options={insCatalog}
+            value={contextMetric}
+            onChange={setContextMetric}
+          />
         )}
         {trendData !== null && insMetric !== undefined && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
