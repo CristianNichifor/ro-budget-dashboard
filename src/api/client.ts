@@ -288,3 +288,230 @@ export async function fetchBudgetTrend(metric: string): Promise<BudgetTrend> {
   }
   return { metric, source: "seed demo", data: HEALTH_BUDGET_TREND };
 }
+
+// ── Companii de stat (companiidestat.ro via BFF) ──────────────────────
+
+const soeTopEntrySchema = z.object({
+  cui: z.string(),
+  name: z.string(),
+  marginPercent: z.number(),
+});
+
+const soeTopEmployerSchema = z.object({
+  cui: z.string(),
+  name: z.string(),
+  employees: z.number().int(),
+  revenue: z.string(),
+});
+
+const soePayScaleRowSchema = z.object({
+  kind: z.string(),
+  label: z.string(),
+  value: z.number(),
+  unit: z.string(),
+});
+
+export const soeSummarySchema = z.object({
+  stats: z.object({
+    year: z.number().int(),
+    updatedAt: z.string(),
+    totalCompanies: z.number().int(),
+    companiesWithData: z.number().int(),
+    central: z.number().int(),
+    local: z.number().int(),
+    revenue: z.string(),
+    profit: z.string(),
+    losses: z.string(),
+    companiesOnLoss: z.number().int(),
+  }),
+  payScale: z.array(soePayScaleRowSchema),
+  topProfit: z.array(soeTopEntrySchema),
+  topLoss: z.array(soeTopEntrySchema),
+  topEmployers: z.array(soeTopEmployerSchema),
+  emblematice: z.array(
+    z.object({
+      cui: z.string(),
+      name: z.string(),
+      label: z.string(),
+      status: z.string(),
+      marginPercent: z.number(),
+      maxSalary: z.string(),
+      subsidy2025MiiLei: z.string().nullable(),
+    })
+  ),
+});
+
+export type SoeSummary = z.infer<typeof soeSummarySchema>;
+
+export const soeSectorTrendSchema = z.object({
+  sectors: z.array(
+    z.object({
+      key: z.string(),
+      label: z.string(),
+      series: z.array(
+        z.object({
+          year: z.number().int(),
+          total: z.number().int(),
+          onLoss: z.number().int(),
+          lossPercent: z.number(),
+        })
+      ),
+    })
+  ),
+  sourceNote: z.string(),
+});
+
+export type SoeSectorTrend = z.infer<typeof soeSectorTrendSchema>;
+
+export const soeByCountySchema = z.object({
+  year: z.number().int(),
+  counties: z.array(
+    z.object({
+      code: z.number(),
+      name: z.string(),
+      companies: z.number().int(),
+      onLoss: z.number().int(),
+      lossPercent: z.number(),
+      medianMargin: z.number(),
+      revenue: z.string(),
+      profit: z.string(),
+      losses: z.string(),
+    })
+  ),
+});
+
+export type SoeByCounty = z.infer<typeof soeByCountySchema>;
+
+export const soeScatterSchema = z.object({
+  year: z.number().int(),
+  points: z.array(
+    z.object({
+      cui: z.string(),
+      name: z.string(),
+      marginPercent: z.number(),
+      annualCost: z.string(),
+      maxSalary: z.string(),
+      employees: z.number().int(),
+      levier: z.number(),
+      roe: z.number(),
+    })
+  ),
+});
+
+export type SoeScatter = z.infer<typeof soeScatterSchema>;
+
+export const soeCompanySchema = z.object({
+  cui: z.string(),
+  name: z.string(),
+  county: z.string(),
+  sectorKey: z.string(),
+  sectorLabel: z.string(),
+  caen: z.string(),
+  ticker: z.string().nullable(),
+  listed: z.boolean(),
+  tier: z.number(),
+  status: z.string(),
+  status2025: z.string().nullable(),
+  financials: z.array(
+    z.object({
+      year: z.number().int(),
+      margin: z.number().nullable(),
+      roe: z.number().nullable(),
+      levier: z.number().nullable(),
+      status: z.string(),
+    })
+  ),
+  salaries: z.object({
+    maxSalary: z.string(),
+    annualCost: z.string(),
+    people: z.number().int(),
+  }),
+  mfin: z.object({
+    ca: z.string(),
+    profit: z.string(),
+    loss: z.string(),
+    employees: z.number().int(),
+    capitaluri: z.string(),
+  }),
+  subsidy2025MiiLei: z.string().nullable(),
+  subsidy2025Source: z.string().nullable(),
+});
+
+export type SoeCompany = z.infer<typeof soeCompanySchema>;
+
+export const soeSubsidiesSchema = z.object({
+  year: z.number().int(),
+  total: z.string(),
+  uats: z.number().int(),
+  counties: z.array(
+    z.object({
+      name: z.string(),
+      total: z.string(),
+      tr: z.string(),
+      te: z.string(),
+      uats: z.number().int(),
+    })
+  ),
+  operators: z.array(
+    z.object({
+      cui: z.string(),
+      name: z.string(),
+      uat: z.string(),
+      sector: z.string(),
+      subsidy: z.string(),
+      revenue: z.string(),
+      profit: z.string(),
+      loss: z.string(),
+    })
+  ),
+});
+
+export type SoeSubsidies = z.infer<typeof soeSubsidiesSchema>;
+
+export const soeListedSchema = z.object({
+  companies: z.array(
+    z.object({
+      ticker: z.string(),
+      name: z.string(),
+      listedYear: z.number().int(),
+      statePercent: z.number(),
+      ministry: z.string(),
+      yearlyProfit: z.array(
+        z.object({ year: z.number().int(), profitMldLei: z.number() })
+      ),
+      monthlyPrice: z.array(z.object({ ym: z.string(), priceLei: z.number() })),
+    })
+  ),
+});
+
+export type SoeListed = z.infer<typeof soeListedSchema>;
+
+export async function fetchSoeSummary(): Promise<SoeSummary | null> {
+  return request("/api/soe/summary", soeSummarySchema);
+}
+
+export async function fetchSoeSectorTrend(): Promise<SoeSectorTrend | null> {
+  return request("/api/soe/sector-trend", soeSectorTrendSchema);
+}
+
+export async function fetchSoeByCounty(): Promise<SoeByCounty | null> {
+  return request("/api/soe/by-county", soeByCountySchema);
+}
+
+export async function fetchSoeScatter(): Promise<SoeScatter | null> {
+  return request("/api/soe/scatter", soeScatterSchema);
+}
+
+export async function fetchSoeCompany(cui: string): Promise<SoeCompany | null> {
+  return request(`/api/soe/companies/${cui}`, soeCompanySchema);
+}
+
+export async function fetchSoeSubsidies(
+  year: string
+): Promise<SoeSubsidies | null> {
+  return request(`/api/soe/subsidies?year=${year}`, soeSubsidiesSchema);
+}
+
+export async function fetchSoeListed(): Promise<SoeListed | null> {
+  return request("/api/soe/listed", soeListedSchema);
+}

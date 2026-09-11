@@ -19,6 +19,11 @@ const NationalBalance = lazyRouteComponent(
   "NationalBalance"
 );
 
+const CompaniiDeStat = lazyRouteComponent(
+  () => import("./routes/CompaniiDeStat"),
+  "CompaniiDeStat"
+);
+
 const rootRoute = createRootRoute({
   component: RootLayout,
   errorComponent: DefaultError,
@@ -45,10 +50,17 @@ const nationalBalanceRoute = createRoute({
   component: NationalBalance,
 });
 
+const companiesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/companii-de-stat",
+  component: CompaniiDeStat,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   citizenSliceRoute,
   nationalBalanceRoute,
+  companiesRoute,
 ]);
 
 export const router = createRouter({

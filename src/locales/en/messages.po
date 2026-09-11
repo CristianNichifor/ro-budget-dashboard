@@ -19,47 +19,57 @@ msgstr ""
 #~ msgstr "Static demo data — API integration in phase P2"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:232
+#: src/messages.ts:236
 msgid "drilldown.share"
 msgstr "{sharePercent} of total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:247
+#: src/messages.ts:251
 msgid "investments.shareOfTotal"
 msgstr "{sharePercent} of total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:60
+#: src/messages.ts:64
 msgid "salary.perMonth"
 msgstr "/ month"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:168
+#: src/messages.ts:172
 msgid "sankey.node.rest"
 msgstr "Other destinations"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:46
+#: src/messages.ts:414
+msgid "soe.company.employees"
+msgstr "Employees"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:401
+msgid "soe.company.mfin"
+msgstr "Ministry of Finance balance sheet 2024"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:50
 msgid "nav.nationalBalance"
 msgstr "National balance"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:203
+#: src/messages.ts:207
 msgid "drilldown.breadcrumb.root"
 msgstr "National balance"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:164
+#: src/messages.ts:168
 msgid "sankey.node.budget"
 msgstr "Consolidated budget"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:190
+#: src/messages.ts:194
 msgid "context.budgetLegend"
 msgstr "Health budget (bn lei)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:125
+#: src/messages.ts:129
 msgid "balance.description"
 msgstr "Consolidated budget 2026: revenue, expenditure and deficit, following the Open Budget model."
 
@@ -69,54 +79,114 @@ msgid "app.title"
 msgstr "Romania's Budget"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:185
+#: src/messages.ts:189
 msgid "context.description"
 msgstr "Health budget (bars, bn lei) next to a social indicator (line): money allocated vs. measurable outcome."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:61
+#: src/messages.ts:65
 msgid "salary.rateNote"
 msgstr "Illustrative calculation with the 2026 budget tax rates — not tax advice."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:87
+#: src/messages.ts:418
+msgid "soe.company.capital"
+msgstr "Equity"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:91
 msgid "salary.entry.cas"
 msgstr "CAS — pensions (25%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:91
+#: src/messages.ts:95
 msgid "salary.entry.cass"
 msgstr "CASS — health (10%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:51
+#: src/messages.ts:55
 msgid "salary.description"
 msgstr "How much of your labour cost goes to the state and how much you keep."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:260
+#: src/messages.ts:264
 msgid "error.title"
 msgstr "Something went wrong"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:134
+#: src/messages.ts:138
 msgid "balance.kpi.expenditure"
 msgstr "Expenditure"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:181
+#: src/messages.ts:289
+msgid "soe.kpi.revenue"
+msgstr "Turnover"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:405
+msgid "soe.company.ca"
+msgstr "Turnover"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:46
+msgid "nav.companies"
+msgstr "State companies"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:285
+msgid "soe.kpi.companies"
+msgstr "State-owned companies"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:370
+msgid "soe.listed.title"
+msgstr "State companies listed on the BVB"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:435
+msgid "soe.source"
+msgstr "companiidestat.ro"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:276
+msgid "soe.title"
+msgstr "Romania's state-owned companies"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:344
+msgid "soe.counties.title"
+msgstr "State companies by county"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:331
+msgid "soe.sectors.title"
+msgstr "Loss-making companies, by sector"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:397
+msgid "soe.company.management"
+msgstr "Management"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:185
 msgid "context.title"
 msgstr "Context from INS statistics"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:83
+#: src/messages.ts:87
 msgid "salary.entry.employerContribution"
 msgstr "Employer contribution (CAM 2.25%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:79
+#: src/messages.ts:83
 msgid "salary.entry.gross"
 msgstr "Total employer cost"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:301
+msgid "soe.kpi.updated"
+msgstr "{year} data · updated {date} · {companies} companies with data"
 
 #. js-lingui-explicit-id
 #: src/messages.ts:18
@@ -134,22 +204,22 @@ msgid "dataMode.partial"
 msgstr "Partially demo data"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:147
+#: src/messages.ts:151
 msgid "sankey.title"
 msgstr "Where the money comes from and goes"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:138
+#: src/messages.ts:142
 msgid "balance.kpi.deficit"
 msgstr "Deficit"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:139
+#: src/messages.ts:143
 msgid "balance.kpi.deficitGdp"
 msgstr "Deficit (% GDP)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:160
+#: src/messages.ts:164
 msgid "sankey.node.deficit"
 msgstr "Deficit (borrowing)"
 
@@ -159,7 +229,7 @@ msgid "gauge.ariaLabel"
 msgstr "Deficit {valuePercent} of GDP"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:259
+#: src/messages.ts:263
 msgid "source.demo"
 msgstr "Demo"
 
@@ -174,27 +244,37 @@ msgid "sankey.openDestination"
 msgstr "Open destination {destination}"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:172
+#: src/messages.ts:327
+msgid "soe.scatter.open"
+msgstr "Open {company}"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:176
 msgid "treemap.title"
 msgstr "Spending destinations"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:207
+#: src/messages.ts:211
 msgid "drilldown.breadcrumb.destinations"
 msgstr "Destinations"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:228
+#: src/messages.ts:348
+msgid "soe.counties.description"
+msgstr "Square size = turnover; shade = share of loss-making companies."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:232
 msgid "drilldown.empty"
 msgstr "No institutions listed for this destination."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:198
+#: src/messages.ts:202
 msgid "context.insight"
 msgstr "Compared to 2021, the health budget changed by {budgetChange}; the “{insLabel}” indicator: {insChange}."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:75
+#: src/messages.ts:79
 msgid "salary.vsAverage"
 msgstr "vs. average net salary (INS)"
 
@@ -204,49 +284,69 @@ msgid "nav.citizenSlice"
 msgstr "Your slice"
 
 #. js-lingui-explicit-id
+#: src/messages.ts:309
+msgid "soe.scatter.description"
+msgstr "Each dot is a state company: 2024 net margin (horizontal) vs. the highest monthly salary in management (vertical). Click a dot for the company sheet."
+
+#. js-lingui-explicit-id
 #: src/messages.ts:27
 msgid "sankey.ariaLabel"
 msgstr "Public money flow"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:151
+#: src/messages.ts:155
 msgid "sankey.description"
 msgstr "Public money flow: revenue sources → consolidated budget → destinations. The deficit appears as a source (borrowing)."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:67
+#: src/messages.ts:71
 msgid "salary.stateShareStat"
 msgstr "The state takes"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:95
+#: src/messages.ts:99
 msgid "salary.entry.incomeTax"
 msgstr "Income tax (10%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:237
+#: src/messages.ts:241
 msgid "drilldown.close"
 msgstr "Close"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:194
+#: src/messages.ts:426
+msgid "soe.company.close"
+msgstr "Close"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:198
 msgid "context.metricLabel"
 msgstr "Tracked indicator"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:215
+#: src/messages.ts:280
+msgid "soe.description"
+msgstr "Financial indicators, salaries and subsidies for state-owned companies — public data, 2019–2024."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:219
 msgid "drilldown.description"
 msgstr "Institutions funded from this destination, with each one's share of the total."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:238
+#: src/messages.ts:242
 msgid "investments.title"
 msgstr "Public investments by county"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:66
+#: src/messages.ts:70
 msgid "salary.netStat"
 msgstr "You keep"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:392
+msgid "soe.company.county"
+msgstr "County"
 
 #. js-lingui-explicit-id
 #: src/messages.ts:26
@@ -254,72 +354,152 @@ msgid "lang.label"
 msgstr "Language"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:255
+#: src/messages.ts:259
 msgid "investments.legendMax"
 msgstr "more"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:251
+#: src/messages.ts:255
 msgid "investments.legendMin"
 msgstr "less"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:103
+#: src/messages.ts:314
+msgid "soe.scatter.x"
+msgstr "Net margin (%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:393
+msgid "soe.company.marginHistory"
+msgstr "Net margin by year (%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:107
 msgid "salary.entry.net"
 msgstr "Net salary"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:224
+#: src/messages.ts:228
 msgid "drilldown.error"
 msgstr "Could not load institutions — try again."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:71
+#: src/messages.ts:374
+msgid "soe.listed.description"
+msgstr "Majority state stakes on the Bucharest Stock Exchange, with the share price evolution."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:353
+msgid "soe.counties.lossPct"
+msgstr "on loss"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:410
+msgid "soe.company.loss"
+msgstr "Net loss"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:297
+msgid "soe.kpi.losses"
+msgstr "Net losses"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:335
+msgid "soe.sectors.description"
+msgstr "Share of loss-making companies in each economic sector, 2019–2024."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:340
+msgid "soe.sectors.y"
+msgstr "Share on loss (%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:75
 msgid "salary.effectiveRate"
 msgstr "Effective fiscal burden"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:242
+#: src/messages.ts:319
+msgid "soe.scatter.breakEven"
+msgstr "Break-even"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:293
+msgid "soe.kpi.profit"
+msgstr "Net profit"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:406
+msgid "soe.company.profit"
+msgstr "Net profit"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:379
+msgid "soe.listed.profit"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/messages.ts:246
 msgid "investments.description"
 msgstr "The 2026 investments program, by county. Cartogram: area = allocated amount, color = intensity relative to other counties."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:143
+#: src/messages.ts:147
 msgid "balance.debtGauge.reference"
 msgstr "EU reference (Maastricht): 3% of GDP"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:261
+#: src/messages.ts:265
 msgid "error.reload"
 msgstr "Reload the page or try again later."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:56
+#: src/messages.ts:60
 msgid "salary.grossLabel"
 msgstr "Gross salary (RON/month)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:113
+#: src/messages.ts:315
+msgid "soe.scatter.y"
+msgstr "Highest salary (RON/month)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:323
+msgid "soe.scatter.minWage"
+msgstr "Gross minimum wage"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:117
 msgid "realWage.nominal"
 msgstr "Nominal net wage"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:117
+#: src/messages.ts:121
 msgid "realWage.real"
 msgstr "Real wage (inflation-adjusted)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:108
+#: src/messages.ts:305
+msgid "soe.scatter.title"
+msgstr "Salary vs. performance"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:112
 msgid "realWage.description"
 msgstr "Nominal net wage (INS) adjusted with inflation (BNR). When the red line lags the blue one, purchasing power grows slower than pay."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:104
+#: src/messages.ts:108
 msgid "realWage.title"
 msgstr "Real vs. nominal wage"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:220
+#: src/messages.ts:427
+msgid "soe.company.loading"
+msgstr "Loading company sheet…"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:224
 msgid "drilldown.loading"
 msgstr "Loading institutions…"
 
@@ -329,32 +509,67 @@ msgid "app.loading"
 msgstr "Loading…"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:50
+#: src/messages.ts:391
+msgid "soe.company.sector"
+msgstr "Sector"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:54
 msgid "salary.title"
 msgstr "Your fiscal situation"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:211
+#: src/messages.ts:383
+msgid "soe.listed.state"
+msgstr "State: {percent}%"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:387
+msgid "soe.company.status"
+msgstr "Status"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:215
 msgid "drilldown.title"
 msgstr "Institutional structure: {destination}"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:176
+#: src/messages.ts:422
+msgid "soe.company.subsidy"
+msgstr "2025 subsidy"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:357
+msgid "soe.subsidies.title"
+msgstr "Local subsidies"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:361
+msgid "soe.subsidies.description"
+msgstr "Subsidies paid by city halls to state-owned companies — top operators by value."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:180
 msgid "treemap.description"
 msgstr "Each rectangle's area is proportional to the allocated amount."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:266
+#: src/messages.ts:431
+msgid "soe.unavailable"
+msgstr "Data source is temporarily unavailable."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:270
 msgid "source.bnr"
 msgstr "Source: BNR"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:267
+#: src/messages.ts:271
 msgid "source.budget"
 msgstr "Source: Consolidated budget 2026"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:265
+#: src/messages.ts:269
 msgid "source.ins"
 msgstr "Source: INS Tempo"
 
@@ -364,26 +579,31 @@ msgid "app.subtitle"
 msgstr "Citizen dashboard — consolidated budget"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:236
+#: src/messages.ts:240
 msgid "drilldown.total"
 msgstr "Total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:99
+#: src/messages.ts:366
+msgid "soe.subsidies.total"
+msgstr "Total {year}: {total} lei"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:103
 msgid "salary.entry.estimatedVat"
 msgstr "Estimated VAT (consumption)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:130
+#: src/messages.ts:134
 msgid "balance.kpi.revenue"
 msgstr "Revenue"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:156
+#: src/messages.ts:160
 msgid "sankey.node.revenue"
 msgstr "Revenue"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:121
+#: src/messages.ts:125
 msgid "balance.title"
 msgstr "Revenue and expenditure"

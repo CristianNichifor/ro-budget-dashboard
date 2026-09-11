@@ -43,6 +43,10 @@ export const m = {
   }),
   "app.loading": msg({ id: "app.loading", message: "Se încarcă…" }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),
+  "nav.companies": msg({
+    id: "nav.companies",
+    message: "Companii de stat",
+  }),
   "nav.nationalBalance": msg({
     id: "nav.nationalBalance",
     message: "Bilanțul național",
@@ -268,6 +272,167 @@ export const m = {
     id: "source.budget",
     message: "Sursă: Buget consolidat 2026",
   }),
+  // ── Companii de stat ──────────────────────────────────────────────────
+  "soe.title": msg({
+    id: "soe.title",
+    message: "Companiile de stat ale României",
+  }),
+  "soe.description": msg({
+    id: "soe.description",
+    message:
+      "Indicatori financiari, salarii și subvenții pentru companiile de stat — date publice, 2019–2024.",
+  }),
+  "soe.kpi.companies": msg({
+    id: "soe.kpi.companies",
+    message: "Companii de stat",
+  }),
+  "soe.kpi.revenue": msg({
+    id: "soe.kpi.revenue",
+    message: "Cifra de afaceri",
+  }),
+  "soe.kpi.profit": msg({
+    id: "soe.kpi.profit",
+    message: "Profit net",
+  }),
+  "soe.kpi.losses": msg({
+    id: "soe.kpi.losses",
+    message: "Pierderi nete",
+  }),
+  "soe.kpi.updated": msg({
+    id: "soe.kpi.updated",
+    message: "Date {year} · actualizat {date} · {companies} companii cu date",
+  }),
+  "soe.scatter.title": msg({
+    id: "soe.scatter.title",
+    message: "Salariu vs. performanță",
+  }),
+  "soe.scatter.description": msg({
+    id: "soe.scatter.description",
+    message:
+      "Fiecare punct este o companie de stat: marja netă 2024 (orizontală) față de salariul maxim lunar din conducere (verticală). Clic pe un punct pentru fișa companiei.",
+  }),
+  "soe.scatter.x": msg({ id: "soe.scatter.x", message: "Marja netă (%)" }),
+  "soe.scatter.y": msg({
+    id: "soe.scatter.y",
+    message: "Salariu maxim (lei/lună)",
+  }),
+  "soe.scatter.breakEven": msg({
+    id: "soe.scatter.breakEven",
+    message: "Pragul profitului",
+  }),
+  "soe.scatter.minWage": msg({
+    id: "soe.scatter.minWage",
+    message: "Salariu minim brut",
+  }),
+  "soe.scatter.open": msg({
+    id: "soe.scatter.open",
+    message: "Deschide fișa {company}",
+  }),
+  "soe.sectors.title": msg({
+    id: "soe.sectors.title",
+    message: "Companiile pe pierdere, pe sectoare",
+  }),
+  "soe.sectors.description": msg({
+    id: "soe.sectors.description",
+    message:
+      "Ponderea companiilor pe pierdere în fiecare sector economic, 2019–2024.",
+  }),
+  "soe.sectors.y": msg({
+    id: "soe.sectors.y",
+    message: "Ponderea pe pierdere (%)",
+  }),
+  "soe.counties.title": msg({
+    id: "soe.counties.title",
+    message: "Companiile de stat pe județe",
+  }),
+  "soe.counties.description": msg({
+    id: "soe.counties.description",
+    message:
+      "Dimensiunea pătratului = cifra de afaceri; nuanța = ponderea companiilor pe pierdere.",
+  }),
+  "soe.counties.lossPct": msg({
+    id: "soe.counties.lossPct",
+    message: "pe pierdere",
+  }),
+  "soe.subsidies.title": msg({
+    id: "soe.subsidies.title",
+    message: "Subvenții locale",
+  }),
+  "soe.subsidies.description": msg({
+    id: "soe.subsidies.description",
+    message:
+      "Subvenții plătite de primării companiilor de stat — primii operatori ca valoare.",
+  }),
+  "soe.subsidies.total": msg({
+    id: "soe.subsidies.total",
+    message: "Total {year}: {total} lei",
+  }),
+  "soe.listed.title": msg({
+    id: "soe.listed.title",
+    message: "Companii de stat listate la BVB",
+  }),
+  "soe.listed.description": msg({
+    id: "soe.listed.description",
+    message:
+      "Pachetele majoritare ale statului la Bursa de Valori București, cu evoluția prețului acțiunii.",
+  }),
+  "soe.listed.profit": msg({
+    id: "soe.listed.profit",
+    message: "Profit net consolidat",
+  }),
+  "soe.listed.state": msg({
+    id: "soe.listed.state",
+    message: "Stat: {percent}%",
+  }),
+  "soe.company.status": msg({
+    id: "soe.company.status",
+    message: "Status",
+  }),
+  "soe.company.sector": msg({ id: "soe.company.sector", message: "Sector" }),
+  "soe.company.county": msg({ id: "soe.company.county", message: "Județ" }),
+  "soe.company.marginHistory": msg({
+    id: "soe.company.marginHistory",
+    message: "Marja netă pe ani (%)",
+  }),
+  "soe.company.management": msg({
+    id: "soe.company.management",
+    message: "Conducere",
+  }),
+  "soe.company.mfin": msg({
+    id: "soe.company.mfin",
+    message: "Bilanț MFin 2024",
+  }),
+  "soe.company.ca": msg({ id: "soe.company.ca", message: "Cifra de afaceri" }),
+  "soe.company.profit": msg({
+    id: "soe.company.profit",
+    message: "Profit net",
+  }),
+  "soe.company.loss": msg({
+    id: "soe.company.loss",
+    message: "Pierdere netă",
+  }),
+  "soe.company.employees": msg({
+    id: "soe.company.employees",
+    message: "Angajați",
+  }),
+  "soe.company.capital": msg({
+    id: "soe.company.capital",
+    message: "Capitaluri proprii",
+  }),
+  "soe.company.subsidy": msg({
+    id: "soe.company.subsidy",
+    message: "Subvenție 2025",
+  }),
+  "soe.company.close": msg({ id: "soe.company.close", message: "Închide" }),
+  "soe.company.loading": msg({
+    id: "soe.company.loading",
+    message: "Se încarcă fișa companiei…",
+  }),
+  "soe.unavailable": msg({
+    id: "soe.unavailable",
+    message: "Sursa de date e indisponibilă momentan.",
+  }),
+  "soe.source": msg({ id: "soe.source", message: "companiidestat.ro" }),
 } satisfies Record<string, MessageDescriptor>;
 
 export type MessageId = keyof typeof m;

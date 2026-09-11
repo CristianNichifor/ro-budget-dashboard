@@ -6,6 +6,7 @@ import { lookupMessage } from "../../messages";
 const tabs = [
   { to: "/felia-ta", labelId: "nav.citizenSlice" },
   { to: "/bilantul-national", labelId: "nav.nationalBalance" },
+  { to: "/companii-de-stat", labelId: "nav.companies" },
 ] as const;
 
 export function TabNavigation() {
