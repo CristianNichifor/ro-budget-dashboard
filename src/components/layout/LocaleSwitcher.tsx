@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react";
-import { LOCALES, setLocale, type Locale } from "../../i18n";
+import { LOCALES, setLocale, type Locale } from "../../i18n-core";
 import { cn } from "../../lib/cn";
 
 const LABELS: Record<Locale, string> = {
