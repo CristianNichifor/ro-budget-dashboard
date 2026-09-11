@@ -1,9 +1,4 @@
 import { Decimal } from "decimal.js";
-import {
-  BUDGET_DESTINATIONS,
-  BUDGET_SUMMARY,
-  REVENUE_SOURCES,
-} from "../data/budget2026";
 
 export interface SankeyNodeInput {
   id: string;
@@ -21,65 +16,90 @@ export interface BudgetSankeyData {
   links: SankeyLinkInput[];
 }
 
+export const SANKEY_REVENUE_NODE_ID = "venituri";
 export const SANKEY_BUDGET_NODE_ID = "buget";
 export const SANKEY_DEFICIT_NODE_ID = "deficit";
 export const SANKEY_REST_NODE_ID = "rest";
 export const SANKEY_REST_NODE_NAME = "Alte destinații";
 
+export interface BudgetSankeyInputs {
+  revenue: string;
+  expenditure: string;
+  deficit: string;
+  destinations: { id: string; name: string; amount: string }[];
+}
+
 /**
- * Builds the sankey flow: revenue sources + deficit (borrowing) flow into
- * the consolidated budget, which flows out to spending destinations.
- * The "rest" node absorbs the part of expenditure not covered by the
- * top-level destinations, so in-flow always equals out-flow.
+ * Builds the sankey flow from API-provided totals: revenue + deficit
+ * (borrowing) flow into the consolidated budget, which flows out to the
+ * spending destinations. The "rest" node absorbs the part of expenditure
+ * not covered by the listed destinations, so in-flow equals out-flow.
  * Pure function — numbers only at the display boundary.
  */
-export function buildBudgetSankey(): BudgetSankeyData {
-  const expenditure = new Decimal(BUDGET_SUMMARY.expenditure);
+export function buildBudgetSankey(
+  inputs: BudgetSankeyInputs
+): BudgetSankeyData {
+  const expenditure = new Decimal(inputs.expenditure);
+  const revenue = new Decimal(inputs.revenue);
+  const deficit = new Decimal(inputs.deficit);
 
-  const revenueTotal = REVENUE_SOURCES.reduce(
-    (sum, source) => sum.plus(source.amount),
-    new Decimal(0)
-  );
-  const deficit = expenditure.minus(revenueTotal);
-
-  const destinationsTotal = BUDGET_DESTINATIONS.reduce(
+  const destinationsTotal = inputs.destinations.reduce(
     (sum, destination) => sum.plus(destination.amount),
     new Decimal(0)
   );
   const rest = expenditure.minus(destinationsTotal);
 
   const nodes: SankeyNodeInput[] = [
-    ...REVENUE_SOURCES.map((source) => ({ id: source.id, name: source.name })),
-    { id: SANKEY_DEFICIT_NODE_ID, name: "Deficit (împrumut)" },
+    ...(revenue.gt(0)
+      ? [{ id: SANKEY_REVENUE_NODE_ID, name: "Venituri" }]
+      : []),
+    ...(deficit.gt(0)
+      ? [{ id: SANKEY_DEFICIT_NODE_ID, name: "Deficit (împrumut)" }]
+      : []),
     { id: SANKEY_BUDGET_NODE_ID, name: "Buget consolidat" },
-    ...BUDGET_DESTINATIONS.map((destination) => ({
-      id: destination.id,
-      name: destination.name,
-    })),
-    { id: SANKEY_REST_NODE_ID, name: SANKEY_REST_NODE_NAME },
+    ...inputs.destinations
+      .filter((destination) => new Decimal(destination.amount).gt(0))
+      .map((destination) => ({ id: destination.id, name: destination.name })),
+    ...(rest.gt(0)
+      ? [{ id: SANKEY_REST_NODE_ID, name: SANKEY_REST_NODE_NAME }]
+      : []),
   ];
 
   const links: SankeyLinkInput[] = [
-    ...REVENUE_SOURCES.map((source) => ({
-      source: source.id,
-      target: SANKEY_BUDGET_NODE_ID,
-      value: new Decimal(source.amount).toNumber(),
-    })),
-    {
-      source: SANKEY_DEFICIT_NODE_ID,
-      target: SANKEY_BUDGET_NODE_ID,
-      value: deficit.toNumber(),
-    },
-    ...BUDGET_DESTINATIONS.map((destination) => ({
-      source: SANKEY_BUDGET_NODE_ID,
-      target: destination.id,
-      value: new Decimal(destination.amount).toNumber(),
-    })),
-    {
-      source: SANKEY_BUDGET_NODE_ID,
-      target: SANKEY_REST_NODE_ID,
-      value: rest.toNumber(),
-    },
+    ...(revenue.gt(0)
+      ? [
+          {
+            source: SANKEY_REVENUE_NODE_ID,
+            target: SANKEY_BUDGET_NODE_ID,
+            value: revenue.toNumber(),
+          },
+        ]
+      : []),
+    ...(deficit.gt(0)
+      ? [
+          {
+            source: SANKEY_DEFICIT_NODE_ID,
+            target: SANKEY_BUDGET_NODE_ID,
+            value: deficit.toNumber(),
+          },
+        ]
+      : []),
+    ...inputs.destinations
+      .filter((destination) => new Decimal(destination.amount).gt(0))
+      .map((destination) => ({
+        source: SANKEY_BUDGET_NODE_ID,
+        target: destination.id,
+        value: new Decimal(destination.amount).toNumber(),
+      })),
+    ...(rest.gt(0)
+      ? [
+          {
+            source: SANKEY_BUDGET_NODE_ID,
+            target: SANKEY_REST_NODE_ID,
+            value: rest.toNumber(),
+          },
+        ]
+      : []),
   ];
 
   return { nodes, links };

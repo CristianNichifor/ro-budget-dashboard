@@ -147,12 +147,16 @@ export function NationalBalance() {
             {i18n._(m["sankey.description"])}
           </p>
         </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <BudgetSankey
-            selectableIds={destinationIds}
-            onSelect={setSelectedDestinationId}
-          />
-        </div>
+        {summary !== undefined && destinations !== undefined && (
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <BudgetSankey
+              summary={summary}
+              destinations={destinations}
+              selectableIds={destinationIds}
+              onSelect={setSelectedDestinationId}
+            />
+          </div>
+        )}
       </section>
 
       <section className="space-y-4">

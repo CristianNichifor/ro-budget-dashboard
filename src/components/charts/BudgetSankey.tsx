@@ -7,12 +7,15 @@ import {
   type SankeyNode,
 } from "d3-sankey";
 import { useMemo } from "react";
+import type { BudgetSummary } from "../../api/client";
+import type { BudgetDestination } from "../../data/budget2026";
 import { formatMilliardeLei } from "../../lib/format";
 import {
   buildBudgetSankey,
   SANKEY_BUDGET_NODE_ID,
   SANKEY_DEFICIT_NODE_ID,
   SANKEY_REST_NODE_ID,
+  SANKEY_REVENUE_NODE_ID,
 } from "../../lib/sankey";
 
 type SankeyNodeExtra = SankeyExtraProperties & {
@@ -32,6 +35,9 @@ const WIDTH = 960;
 const HEIGHT = 480;
 
 function nodeColor(id: string): string {
+  if (id === SANKEY_REVENUE_NODE_ID) {
+    return "#0f766e";
+  }
   if (id === SANKEY_BUDGET_NODE_ID) {
     return "#475569";
   }
@@ -44,8 +50,16 @@ function nodeColor(id: string): string {
   return "#2563eb";
 }
 
-function computeLayout(): SankeyGraphD {
-  const data = buildBudgetSankey();
+function computeLayout(
+  summary: BudgetSummary,
+  destinations: BudgetDestination[]
+): SankeyGraphD {
+  const data = buildBudgetSankey({
+    revenue: summary.revenue,
+    expenditure: summary.expenditure,
+    deficit: summary.deficit,
+    destinations,
+  });
 
   const generator = d3Sankey<SankeyNodeD, SankeyLinkD>()
     .nodeId((node) => node.id)
@@ -64,12 +78,22 @@ function computeLayout(): SankeyGraphD {
 }
 
 interface BudgetSankeyProps {
+  summary: BudgetSummary;
+  destinations: BudgetDestination[];
   selectableIds?: ReadonlySet<string>;
   onSelect?: (destinationId: string) => void;
 }
 
-export function BudgetSankey({ selectableIds, onSelect }: BudgetSankeyProps) {
-  const graph = useMemo(() => computeLayout(), []);
+export function BudgetSankey({
+  summary,
+  destinations,
+  selectableIds,
+  onSelect,
+}: BudgetSankeyProps) {
+  const graph = useMemo(
+    () => computeLayout(summary, destinations),
+    [summary, destinations]
+  );
   const linkPath = sankeyLinkHorizontal<SankeyNodeD, SankeyLinkD>();
 
   return (
