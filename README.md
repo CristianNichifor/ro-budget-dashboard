@@ -2,7 +2,7 @@
 
 Tablou de bord cetățenesc pentru bugetul consolidat al României (central, social, sănătate), pe modelul [Open Budget 2026](https://openbudget.ro/buget/2026/), cu context INS (salarii, statistici) și BNR (inflație, datorie).
 
-> **Status: P0/P1 — prototip static.** Toate datele sunt seed-uri demo; integrarea API vine în faza P2.
+> **Status: P2 — integrare BFF.** Frontend-ul apelează `ro-budget-dashboard-bff` (sursa `static` demo); fără BFF disponibil, cade pe datele locale. Datele rămân seed-uri demo până la P3/P4.
 
 ## Tab-uri
 
@@ -55,15 +55,15 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 
 ## Roadmap
 
-| Fază | Deliverable                                                                                                             | Dependențe |
-| ---- | ----------------------------------------------------------------------------------------------------------------------- | ---------- |
-| P0   | Waterfall salariu cu rate 2026 hardcodate                                                                               | —          |
-| P1   | Sankey + treemap cu date buget static                                                                                   | P0         |
-| P2   | Integrare BFF: `fetch*` din `src/api/client.ts` → hack-for-facts-eb-server (GraphQL/REST), schema zod rămâne contractul | P1         |
-| P3   | Trenduri INS via transparenta-eu-ins-loader                                                                             | P2         |
-| P4   | Context BNR: inflație/datorie prin script de actualizare trimestrială sau dataset-uri server                            | P3         |
-| P5   | Drill-down instituțional (modal + breadcrumb)                                                                           | P4         |
-| P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                                     | P5         |
+| Fază | Deliverable                                                                                                       | Status |
+| ---- | ----------------------------------------------------------------------------------------------------------------- | ------ |
+| P0   | Waterfall salariu cu rate 2026 hardcodate                                                                         | ✓      |
+| P1   | Sankey + treemap cu date buget static                                                                             | ✓      |
+| P2   | Integrare BFF: `fetch*` din `src/api/client.ts` → `ro-budget-dashboard-bff` (`VITE_API_BASE_URL`), fallback local | ✓      |
+| P3   | Trenduri INS via transparenta-eu-ins-loader                                                                       | —      |
+| P4   | Context BNR: inflație/datorie prin script de actualizare trimestrială sau dataset-uri server                      | —      |
+| P5   | Drill-down instituțional (modal + breadcrumb)                                                                     | —      |
+| P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                               | —      |
 
 ## Note demo
 

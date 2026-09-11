@@ -1,3 +1,4 @@
+import { Decimal } from "decimal.js";
 import { z } from "zod";
 import {
   BUDGET_DESTINATIONS,
@@ -10,11 +11,32 @@ import { calculateSalaryBreakdown, type SalaryBreakdown } from "../lib/salary";
 
 /**
  * Typed API client.
- * P0: resolves from local demo data (small artificial latency, no network).
- * P2: replace the bodies with fetch() calls against the BFF
- * (hack-for-facts-eb-server GraphQL/REST) — the schemas stay the contract.
+ * P2: calls the BFF (ro-budget-dashboard-bff); falls back to local demo
+ * data when the BFF is unreachable, so the demo always renders.
  * Monetary amounts cross this boundary as STRINGS, per the no-floats rule.
  */
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
+const REQUEST_TIMEOUT_MS = 2500;
+
+async function request<T>(
+  path: string,
+  schema: z.ZodType<T>
+): Promise<T | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    return schema.parse(await response.json());
+  } catch (error) {
+    console.warn(`[api] BFF unreachable for ${path}, using local data`, error);
+    return null;
+  }
+}
 
 export const budgetSummarySchema = z.object({
   year: z.number().int(),
@@ -37,29 +59,102 @@ export const budgetDestinationSchema = budgetSubDestinationSchema.extend({
   subDestinations: z.array(budgetSubDestinationSchema).optional(),
 });
 
-const DEMO_LATENCY_MS = 120;
+const salaryResponseSchema = z.object({
+  gross: z.string(),
+  cas: z.string(),
+  cass: z.string(),
+  incomeTax: z.string(),
+  employerContribution: z.string(),
+  estimatedVat: z.string(),
+  net: z.string(),
+  employerCost: z.string(),
+  stateShare: z.string(),
+  statePercent: z.string(),
+  entries: z.array(
+    z.object({
+      labelKey: z.string(),
+      amount: z.string(),
+    })
+  ),
+});
 
-function simulateNetwork<T>(data: T): Promise<T> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(data), DEMO_LATENCY_MS);
-  });
+type SalaryResponse = z.infer<typeof salaryResponseSchema>;
+
+const monetarySchema = z.object({
+  inflation: z.object({
+    current: z.number(),
+    target: z.number(),
+  }),
+  realWage: z.array(
+    z.object({
+      year: z.number().int(),
+      nominal: z.number(),
+      real: z.number(),
+    })
+  ),
+  debt: z.object({
+    total: z.string(),
+    interestPayment: z.string(),
+    averageRate: z.number(),
+    debtServiceRatio: z.string(),
+  }),
+});
+
+function toSalaryBreakdown(response: SalaryResponse): SalaryBreakdown {
+  return {
+    gross: new Decimal(response.gross),
+    cas: new Decimal(response.cas),
+    cass: new Decimal(response.cass),
+    incomeTax: new Decimal(response.incomeTax),
+    employerContribution: new Decimal(response.employerContribution),
+    estimatedVat: new Decimal(response.estimatedVat),
+    net: new Decimal(response.net),
+    employerCost: new Decimal(response.employerCost),
+    stateShare: new Decimal(response.stateShare),
+    statePercent: new Decimal(response.statePercent),
+    entries: response.entries.map((entry) => ({
+      labelKey: entry.labelKey,
+      amount: new Decimal(entry.amount),
+    })),
+  };
 }
 
-export function fetchBudgetSummary(): Promise<BudgetSummary> {
-  return simulateNetwork(budgetSummarySchema.parse(BUDGET_SUMMARY));
+export async function fetchBudgetSummary(): Promise<BudgetSummary> {
+  const remote = await request("/api/budget/summary", budgetSummarySchema);
+  if (remote !== null) {
+    return remote;
+  }
+  return budgetSummarySchema.parse(BUDGET_SUMMARY);
 }
 
-export function fetchDestinations(): Promise<BudgetDestination[]> {
-  const schema = z.array(budgetDestinationSchema);
-  return simulateNetwork(schema.parse(BUDGET_DESTINATIONS));
+export async function fetchDestinations(): Promise<BudgetDestination[]> {
+  const remote = await request(
+    "/api/budget/destinations",
+    z.array(budgetDestinationSchema)
+  );
+  if (remote !== null) {
+    return remote;
+  }
+  return z.array(budgetDestinationSchema).parse(BUDGET_DESTINATIONS);
 }
 
-export function fetchSalaryBreakdown(
+export async function fetchSalaryBreakdown(
   gross: number
 ): Promise<SalaryBreakdown | null> {
-  return simulateNetwork(calculateSalaryBreakdown(gross));
+  const remote = await request(
+    `/api/salary/calculate?gross=${gross}`,
+    salaryResponseSchema
+  );
+  if (remote !== null) {
+    return toSalaryBreakdown(remote);
+  }
+  return calculateSalaryBreakdown(gross);
 }
 
-export function fetchRealWageSeries(): Promise<RealWagePoint[]> {
-  return simulateNetwork(buildRealWageSeries(BNR_INFLATION_SERIES));
+export async function fetchRealWageSeries(): Promise<RealWagePoint[]> {
+  const remote = await request("/api/context/monetary", monetarySchema);
+  if (remote !== null) {
+    return remote.realWage;
+  }
+  return buildRealWageSeries(BNR_INFLATION_SERIES);
 }
