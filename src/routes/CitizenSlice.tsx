@@ -6,6 +6,7 @@ import { fetchRealWageSeries, fetchSalaryBreakdown } from "../api/client";
 import { RealWageLine } from "../components/charts/RealWageLine";
 import { SalaryWaterfall } from "../components/charts/SalaryWaterfall";
 import { KpiCard } from "../components/shared/KpiCard";
+import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { AVERAGE_NET_SALARY_2026 } from "../data/salaryStats";
 import { formatLei, formatPercent } from "../lib/format";
@@ -90,6 +91,7 @@ export function CitizenSlice() {
         {breakdown !== null && breakdown !== undefined && (
           <>
             <div className="grid gap-4 sm:grid-cols-3">
+              {" "}
               <KpiCard
                 accent="blue"
                 label={i18n._(m["salary.netStat"])}
@@ -121,6 +123,16 @@ export function CitizenSlice() {
             </div>
           </>
         )}
+        {(breakdown === null || breakdown === undefined) && (
+          <>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[0, 1, 2].map((index) => (
+                <SkeletonCard key={index} className="h-28" />
+              ))}
+            </div>
+            <SkeletonCard className="h-72" />
+          </>
+        )}
       </section>
 
       <section className="space-y-4">
@@ -142,13 +154,12 @@ export function CitizenSlice() {
             <RealWageLine series={realWage} />
           </div>
         )}
+        {realWage === undefined && <SkeletonCard className="h-64" />}
       </section>
 
       <section className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
         <Wallet className="size-5 shrink-0" aria-hidden="true" />
-        <p>
-          {i18n._(m["app.dataNote"])} — {i18n._(m["salary.rateNote"])}
-        </p>
+        <p>{i18n._(m["salary.rateNote"])}</p>
       </section>
     </div>
   );

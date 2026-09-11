@@ -18,6 +18,7 @@ import { InvestmentCartogram } from "../components/charts/InvestmentCartogram";
 import { DrilldownModal } from "../components/shared/DrilldownModal";
 import { InsMetricSelect } from "../components/shared/InsMetricSelect";
 import { KpiCard } from "../components/shared/KpiCard";
+import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
 import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
@@ -139,6 +140,13 @@ export function NationalBalance() {
             </div>
           </div>
         )}
+        {summary === undefined && (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[0, 1, 2, 3].map((index) => (
+              <SkeletonCard key={index} className="h-32" />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="space-y-4">
@@ -158,6 +166,9 @@ export function NationalBalance() {
             />
           </div>
         )}
+        {(summary === undefined || destinations === undefined) && (
+          <SkeletonCard className="h-[420px]" />
+        )}
       </section>
 
       <section className="space-y-4">
@@ -175,6 +186,7 @@ export function NationalBalance() {
             />
           </div>
         )}
+        {destinations === undefined && <SkeletonCard className="h-80" />}
       </section>
 
       <section className="space-y-4">
@@ -222,6 +234,7 @@ export function NationalBalance() {
             )}
           </div>
         )}
+        {trendData === null && <SkeletonCard className="h-80" />}
       </section>
 
       <section className="space-y-4">
@@ -258,6 +271,7 @@ export function NationalBalance() {
             </div>
           </div>
         )}
+        {investments === undefined && <SkeletonCard className="h-96" />}
       </section>
 
       {selectedDestination !== null && (

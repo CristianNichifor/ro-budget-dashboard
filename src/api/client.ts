@@ -1,5 +1,6 @@
 import { Decimal } from "decimal.js";
 import { z } from "zod";
+import { useDataModeStore } from "../store/useDataModeStore";
 import {
   BUDGET_DESTINATIONS,
   BUDGET_SUMMARY,
@@ -34,9 +35,11 @@ async function request<T>(
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
+    useDataModeStore.getState().reportRequest(true);
     return schema.parse(await response.json());
   } catch (error) {
     console.warn(`[api] BFF unreachable for ${path}, using local data`, error);
+    useDataModeStore.getState().reportRequest(false);
     return null;
   }
 }

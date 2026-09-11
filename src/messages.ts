@@ -9,11 +9,32 @@ export const m = {
   "app.title": msg({ id: "app.title", message: "Bugetul României" }),
   "app.subtitle": msg({
     id: "app.subtitle",
-    message: "Tablou de bord cetățenesc — buget consolidat 2026",
+    message: "Tablou de bord cetățenesc — buget consolidat",
   }),
-  "app.dataNote": msg({
-    id: "app.dataNote",
-    message: "Date statice demo — integrare API în faza P2",
+  "dataMode.live": msg({
+    id: "dataMode.live",
+    message: "Date live — API public",
+  }),
+  "dataMode.fallback": msg({
+    id: "dataMode.fallback",
+    message: "Date demo — API indisponibil",
+  }),
+  "dataMode.partial": msg({
+    id: "dataMode.partial",
+    message: "Date parțial demo",
+  }),
+  "lang.label": msg({ id: "lang.label", message: "Limbă" }),
+  "sankey.ariaLabel": msg({
+    id: "sankey.ariaLabel",
+    message: "Fluxul banilor publici",
+  }),
+  "sankey.openDestination": msg({
+    id: "sankey.openDestination",
+    message: "Deschide destinația {destination}",
+  }),
+  "gauge.ariaLabel": msg({
+    id: "gauge.ariaLabel",
+    message: "Deficit {valuePercent} din PIB",
   }),
   "app.footer": msg({
     id: "app.footer",
@@ -39,7 +60,8 @@ export const m = {
   "salary.perMonth": msg({ id: "salary.perMonth", message: "/ lună" }),
   "salary.rateNote": msg({
     id: "salary.rateNote",
-    message: "Ratele folosite sunt cele ale bugetului 2026.",
+    message:
+      "Calcul ilustrativ cu ratele fiscale ale bugetului 2026 — nu este consultanță fiscală.",
   }),
   "salary.netStat": msg({ id: "salary.netStat", message: "Îți rămân" }),
   "salary.stateShareStat": msg({
