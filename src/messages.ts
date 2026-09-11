@@ -39,7 +39,7 @@ export const m = {
   "app.footer": msg({
     id: "app.footer",
     message:
-      "Demo educațional — valorile sunt aproximative și provin din date statice; sursele oficiale sunt afișate pe fiecare grafic.",
+      "Proiect educațional — datele provin din surse publice oficiale; sursa fiecărui grafic este afișată pe card.",
   }),
   "app.loading": msg({ id: "app.loading", message: "Se încarcă…" }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),

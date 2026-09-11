@@ -251,7 +251,7 @@ msgstr "Demo"
 #. js-lingui-explicit-id
 #: src/messages.ts:39
 msgid "app.footer"
-msgstr "Educational demo — values are approximate and come from static data; official sources are shown on each chart."
+msgstr "Educational project — data comes from official public sources; each chart's source is shown on its card."
 
 #. js-lingui-explicit-id
 #: src/messages.ts:31

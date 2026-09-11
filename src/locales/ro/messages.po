@@ -251,7 +251,7 @@ msgstr "Demo"
 #. js-lingui-explicit-id
 #: src/messages.ts:39
 msgid "app.footer"
-msgstr "Demo educațional — valorile sunt aproximative și provin din date statice; sursele oficiale sunt afișate pe fiecare grafic."
+msgstr "Proiect educațional — datele provin din surse publice oficiale; sursa fiecărui grafic este afișată pe card."
 
 #. js-lingui-explicit-id
 #: src/messages.ts:31
