@@ -115,6 +115,7 @@ export function Justitie() {
                 color="#dc2626"
                 ariaLabel={i18n._(m["justice.homicides.title"])}
                 valueFormatter={(value) => countFormatter.format(value)}
+                exportFilename="justitie-omucideri.csv"
               />
             </div>
           </section>
@@ -134,6 +135,7 @@ export function Justitie() {
                 color="#475569"
                 ariaLabel={i18n._(m["justice.prison.title"])}
                 valueFormatter={(value) => countFormatter.format(value)}
+                exportFilename="justitie-penitenciar.csv"
               />
             </div>
           </section>
@@ -153,6 +155,7 @@ export function Justitie() {
                 color="#2563eb"
                 ariaLabel={i18n._(m["justice.police.title"])}
                 valueFormatter={(value) => countFormatter.format(value)}
+                exportFilename="justitie-politisti.csv"
               />
             </div>
           </section>

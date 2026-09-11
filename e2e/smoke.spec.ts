@@ -7,6 +7,8 @@ const TABS = [
   "/economie",
   "/societate",
   "/energie",
+  "/piata-muncii",
+  "/justitie",
 ];
 
 test("every tab renders without crashing", async ({ page }) => {
@@ -16,6 +18,16 @@ test("every tab renders without crashing", async ({ page }) => {
     await expect(page.getByText("Ceva nu a mers bine")).toHaveCount(0);
     await expect(page.locator("h2").first()).toBeVisible();
   }
+});
+
+test("new Eurostat tabs render their headings without a backend", async ({
+  page,
+}) => {
+  await page.goto("/piata-muncii");
+  await expect(page.getByText("Piața muncii").first()).toBeVisible();
+
+  await page.goto("/justitie");
+  await expect(page.getByText("Justiția în cifre").first()).toBeVisible();
 });
 
 test("salary tab renders the waterfall and KPIs from static data", async ({

@@ -109,6 +109,7 @@ export function PiataMuncii() {
                 color="#dc2626"
                 ariaLabel={i18n._(m["labour.neet.title"])}
                 valueFormatter={(value) => `${value.toFixed(1)}%`}
+                exportFilename="piata-muncii-neet.csv"
               />
             </div>
           </section>
@@ -128,6 +129,7 @@ export function PiataMuncii() {
                 color="#d97706"
                 ariaLabel={i18n._(m["labour.youth.title"])}
                 valueFormatter={(value) => `${value.toFixed(1)}%`}
+                exportFilename="piata-muncii-somaj-tineri.csv"
               />
             </div>
           </section>
@@ -147,6 +149,7 @@ export function PiataMuncii() {
                 color="#2563eb"
                 ariaLabel={i18n._(m["labour.vacancy.title"])}
                 valueFormatter={(value) => `${value.toFixed(1)}%`}
+                exportFilename="piata-muncii-locuri-vacante.csv"
               />
             </div>
           </section>

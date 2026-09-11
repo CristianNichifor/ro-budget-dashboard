@@ -53,6 +53,12 @@ export const m = {
   "nav.energy": msg({ id: "nav.energy", message: "Energie" }),
   "nav.labour": msg({ id: "nav.labour", message: "Piața muncii" }),
   "nav.justice": msg({ id: "nav.justice", message: "Justiție" }),
+  "chart.downloadCsv": msg({
+    id: "chart.downloadCsv",
+    message: "Descarcă CSV",
+  }),
+  "chart.csv.period": msg({ id: "chart.csv.period", message: "Perioadă" }),
+  "chart.csv.value": msg({ id: "chart.csv.value", message: "Valoare" }),
   "society.title": msg({
     id: "society.title",
     message: "Societatea în cifre",

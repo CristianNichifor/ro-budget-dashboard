@@ -111,6 +111,7 @@ export function Energie() {
                 color="#d97706"
                 ariaLabel={i18n._(m["energy.electricity.title"])}
                 valueFormatter={(value) => `${value.toFixed(4)} €`}
+                exportFilename="energie-pret-electricitate.csv"
               />
             </div>
           </section>
@@ -130,6 +131,7 @@ export function Energie() {
                 color="#16a34a"
                 ariaLabel={i18n._(m["energy.renewables.title"])}
                 valueFormatter={(value) => `${value.toFixed(1)}%`}
+                exportFilename="energie-regenerabile.csv"
               />
             </div>
           </section>
@@ -149,6 +151,7 @@ export function Energie() {
                 color="#dc2626"
                 ariaLabel={i18n._(m["energy.import.title"])}
                 valueFormatter={(value) => `${value.toFixed(1)}%`}
+                exportFilename="energie-dependenta-import.csv"
               />
             </div>
           </section>
