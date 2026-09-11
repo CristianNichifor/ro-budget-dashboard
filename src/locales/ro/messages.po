@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:194
+#: src/messages.ts:210
 msgid "drilldown.share"
 msgstr "{sharePercent} din total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:209
+#: src/messages.ts:225
 msgid "investments.shareOfTotal"
 msgstr "{sharePercent} din total"
 
@@ -29,17 +29,27 @@ msgid "salary.perMonth"
 msgstr "/ lună"
 
 #. js-lingui-explicit-id
+#: src/messages.ts:146
+msgid "sankey.node.rest"
+msgstr "Alte destinații"
+
+#. js-lingui-explicit-id
 #: src/messages.ts:25
 msgid "nav.nationalBalance"
 msgstr "Bilanțul național"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:165
+#: src/messages.ts:181
 msgid "drilldown.breadcrumb.root"
 msgstr "Bilanțul național"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:152
+#: src/messages.ts:142
+msgid "sankey.node.budget"
+msgstr "Buget consolidat"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:168
 msgid "context.budgetLegend"
 msgstr "Buget sănătate (mld. lei)"
 
@@ -54,7 +64,7 @@ msgid "app.title"
 msgstr "Bugetul României"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:147
+#: src/messages.ts:163
 msgid "context.description"
 msgstr "Bugetul sănătății (bare, mld. lei) alături de un indicator social (linie): banii alocați vs. rezultatul măsurabil."
 
@@ -74,7 +84,7 @@ msgid "salary.description"
 msgstr "Câți bani din costul muncii tale ajung la stat și câți îți rămân."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:222
+#: src/messages.ts:238
 msgid "error.title"
 msgstr "Ceva nu a mers bine"
 
@@ -84,7 +94,7 @@ msgid "balance.kpi.expenditure"
 msgstr "Cheltuieli"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:143
+#: src/messages.ts:159
 msgid "context.title"
 msgstr "Context din statisticile INS"
 
@@ -119,7 +129,12 @@ msgid "balance.kpi.deficitGdp"
 msgstr "Deficit (% PIB)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:221
+#: src/messages.ts:138
+msgid "sankey.node.deficit"
+msgstr "Deficit (împrumut)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:237
 msgid "source.demo"
 msgstr "Demo"
 
@@ -129,22 +144,22 @@ msgid "app.footer"
 msgstr "Demo educațional — valorile sunt aproximative și provin din date statice; sursele oficiale sunt afișate pe fiecare grafic."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:134
+#: src/messages.ts:150
 msgid "treemap.title"
 msgstr "Destinația cheltuielilor"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:169
+#: src/messages.ts:185
 msgid "drilldown.breadcrumb.destinations"
 msgstr "Destinații"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:190
+#: src/messages.ts:206
 msgid "drilldown.empty"
 msgstr "Fără instituții listate pentru această destinație."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:160
+#: src/messages.ts:176
 msgid "context.insight"
 msgstr "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}; indicatorul „{insLabel}”: {insChange}."
 
@@ -174,22 +189,22 @@ msgid "salary.entry.incomeTax"
 msgstr "Impozit pe venit (10%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:199
+#: src/messages.ts:215
 msgid "drilldown.close"
 msgstr "Închide"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:156
+#: src/messages.ts:172
 msgid "context.metricLabel"
 msgstr "Indicator urmărit"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:177
+#: src/messages.ts:193
 msgid "drilldown.description"
 msgstr "Instituțiile finanțate din această destinație, cu ponderea fiecăreia în total."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:200
+#: src/messages.ts:216
 msgid "investments.title"
 msgstr "Investiții publice pe județe"
 
@@ -199,12 +214,12 @@ msgid "salary.netStat"
 msgstr "Îți rămân"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:217
+#: src/messages.ts:233
 msgid "investments.legendMax"
 msgstr "mai mult"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:213
+#: src/messages.ts:229
 msgid "investments.legendMin"
 msgstr "mai puțin"
 
@@ -214,7 +229,7 @@ msgid "salary.entry.net"
 msgstr "Net salariat"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:186
+#: src/messages.ts:202
 msgid "drilldown.error"
 msgstr "Nu am putut încărca instituțiile — încearcă din nou."
 
@@ -224,7 +239,7 @@ msgid "salary.effectiveRate"
 msgstr "Povară fiscală efectivă"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:204
+#: src/messages.ts:220
 msgid "investments.description"
 msgstr "Programul de investiții 2026, pe județe. Cartogramă: suprafața = suma alocată, culoarea = intensitatea față de celelalte județe."
 
@@ -239,7 +254,7 @@ msgid "balance.debtGauge.reference"
 msgstr "Referință UE (Maastricht): 3% din PIB"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:223
+#: src/messages.ts:239
 msgid "error.reload"
 msgstr "Reîncarcă pagina sau încearcă din nou mai târziu."
 
@@ -269,7 +284,7 @@ msgid "realWage.title"
 msgstr "Salariul real vs. nominal"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:182
+#: src/messages.ts:198
 msgid "drilldown.loading"
 msgstr "Se încarcă instituțiile…"
 
@@ -284,27 +299,27 @@ msgid "salary.title"
 msgstr "Situația ta fiscală"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:173
+#: src/messages.ts:189
 msgid "drilldown.title"
 msgstr "Structura instituțională: {destination}"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:138
+#: src/messages.ts:154
 msgid "treemap.description"
 msgstr "Suprafața fiecărui dreptunghi este proporțională cu suma alocată."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:228
+#: src/messages.ts:244
 msgid "source.bnr"
 msgstr "Sursă: BNR"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:229
+#: src/messages.ts:245
 msgid "source.budget"
 msgstr "Sursă: Buget consolidat 2026"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:227
+#: src/messages.ts:243
 msgid "source.ins"
 msgstr "Sursă: INS Tempo"
 
@@ -314,7 +329,7 @@ msgid "app.subtitle"
 msgstr "Tablou de bord cetățenesc — buget consolidat 2026"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:198
+#: src/messages.ts:214
 msgid "drilldown.total"
 msgstr "Total"
 
@@ -322,6 +337,11 @@ msgstr "Total"
 #: src/messages.ts:77
 msgid "salary.entry.estimatedVat"
 msgstr "TVA estimat (consum)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:134
+msgid "sankey.node.revenue"
+msgstr "Venituri"
 
 #. js-lingui-explicit-id
 #: src/messages.ts:108

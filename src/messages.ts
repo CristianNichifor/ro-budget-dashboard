@@ -131,6 +131,22 @@ export const m = {
     message:
       "Fluxul banilor publici: surse de venit → buget consolidat → destinații. Deficitul apare ca sursă (împrumut).",
   }),
+  "sankey.node.revenue": msg({
+    id: "sankey.node.revenue",
+    message: "Venituri",
+  }),
+  "sankey.node.deficit": msg({
+    id: "sankey.node.deficit",
+    message: "Deficit (împrumut)",
+  }),
+  "sankey.node.budget": msg({
+    id: "sankey.node.budget",
+    message: "Buget consolidat",
+  }),
+  "sankey.node.rest": msg({
+    id: "sankey.node.rest",
+    message: "Alte destinații",
+  }),
   "treemap.title": msg({
     id: "treemap.title",
     message: "Destinația cheltuielilor",

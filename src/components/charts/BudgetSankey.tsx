@@ -6,10 +6,12 @@ import {
   type SankeyLink,
   type SankeyNode,
 } from "d3-sankey";
+import { useLingui } from "@lingui/react";
 import { useMemo } from "react";
 import type { BudgetSummary } from "../../api/client";
 import type { BudgetDestination } from "../../data/budget2026";
 import { formatMilliardeLei } from "../../lib/format";
+import { m } from "../../messages";
 import {
   buildBudgetSankey,
   SANKEY_BUDGET_NODE_ID,
@@ -96,6 +98,23 @@ export function BudgetSankey({
   );
   const linkPath = sankeyLinkHorizontal<SankeyNodeD, SankeyLinkD>();
 
+  const { i18n } = useLingui();
+
+  const labelFor = (node: SankeyNodeD): string => {
+    switch (node.id) {
+      case SANKEY_REVENUE_NODE_ID:
+        return i18n._(m["sankey.node.revenue"]);
+      case SANKEY_DEFICIT_NODE_ID:
+        return i18n._(m["sankey.node.deficit"]);
+      case SANKEY_BUDGET_NODE_ID:
+        return i18n._(m["sankey.node.budget"]);
+      case SANKEY_REST_NODE_ID:
+        return i18n._(m["sankey.node.rest"]);
+      default:
+        return node.name;
+    }
+  };
+
   return (
     <svg
       viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -172,7 +191,7 @@ export function BudgetSankey({
                 }
               }}
             >
-              <title>{node.name}</title>
+              <title>{labelFor(node)}</title>
             </rect>
             <text
               x={labelX}
@@ -181,7 +200,7 @@ export function BudgetSankey({
               fontSize={10}
               fill="#334155"
             >
-              {node.name}
+              {labelFor(node)}
             </text>
           </g>
         );
