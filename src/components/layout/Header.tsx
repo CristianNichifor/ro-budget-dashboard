@@ -1,6 +1,7 @@
 import { useLingui } from "@lingui/react";
 import { Database } from "lucide-react";
 import { SourceBadge } from "../shared/SourceBadge";
+import { m } from "../../messages";
 
 export function Header() {
   const { i18n } = useLingui();
@@ -14,17 +15,17 @@ export function Header() {
           </span>
           <div>
             <h1 className="text-lg font-bold leading-tight">
-              {i18n._({ id: "app.title" })}
+              {i18n._(m["app.title"])}
             </h1>
             <p className="text-xs text-slate-500">
-              {i18n._({ id: "app.subtitle" })}
+              {i18n._(m["app.subtitle"])}
             </p>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
           <SourceBadge source="source.demo" />
           <span className="text-xs text-slate-500">
-            {i18n._({ id: "app.dataNote" })}
+            {i18n._(m["app.dataNote"])}
           </span>
         </div>
       </div>

@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { formatLei } from "../../lib/format";
 import type { WaterfallRow } from "../../lib/waterfall";
+import { lookupMessage } from "../../messages";
 
 interface WaterfallChartDatum {
   name: string;
@@ -99,7 +100,7 @@ export function SalaryWaterfall({ rows }: SalaryWaterfallProps) {
             content={(props) => (
               <WaterfallTooltip
                 {...props}
-                labelId={(id) => i18n._({ id, message: id })}
+                labelId={(id) => i18n._(lookupMessage(id))}
               />
             )}
             cursor={{ fill: "#f1f5f9" }}

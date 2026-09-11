@@ -1,0 +1,304 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-09-11 14:22+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ro\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:55
+msgid "drilldown.share"
+msgstr "{sharePercent} din total"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:60
+msgid "investments.shareOfTotal"
+msgstr "{sharePercent} din total"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:13
+msgid "nav.nationalBalance"
+msgstr "Bilanțul național"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:48
+msgid "drilldown.breadcrumb.root"
+msgstr "Bilanțul național"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:45
+msgid "context.budgetLegend"
+msgstr "Buget sănătate (mld. lei)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:33
+msgid "balance.description"
+msgstr "Bugetul consolidat 2026: venituri, cheltuieli și deficit, pe modelul Open Budget."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:9
+msgid "app.title"
+msgstr "Bugetul României"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:44
+msgid "context.description"
+msgstr "Bugetul sănătății (bare, mld. lei) alături de un indicator social (linie): banii alocați vs. rezultatul măsurabil."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:23
+msgid "salary.entry.cas"
+msgstr "CAS — pensii (25%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:24
+msgid "salary.entry.cass"
+msgstr "CASS — sănătate (10%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:15
+msgid "salary.description"
+msgstr "Câți bani din costul muncii tale ajung la stat și câți îți rămân."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:35
+msgid "balance.kpi.expenditure"
+msgstr "Cheltuieli"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:43
+msgid "context.title"
+msgstr "Context din statisticile INS"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:22
+msgid "salary.entry.employerContribution"
+msgstr "Contribuție angajator (CAM 2,25%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:21
+msgid "salary.entry.gross"
+msgstr "Cost total angajator"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:11
+msgid "app.dataNote"
+msgstr "Date statice demo — integrare API în faza P2"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:39
+msgid "sankey.title"
+msgstr "De unde vin banii și unde se duc"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:36
+msgid "balance.kpi.deficit"
+msgstr "Deficit"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:37
+msgid "balance.kpi.deficitGdp"
+msgstr "Deficit (% PIB)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:63
+msgid "source.demo"
+msgstr "Demo"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:41
+msgid "treemap.title"
+msgstr "Destinația cheltuielilor"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:49
+msgid "drilldown.breadcrumb.destinations"
+msgstr "Destinații"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:54
+msgid "drilldown.empty"
+msgstr "Fără instituții listate pentru această destinație."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:47
+msgid "context.insight"
+msgstr "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}, iar {insLabel} cu {insChange}."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:20
+msgid "salary.vsAverage"
+msgstr "față de salariul mediu net (INS)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:12
+msgid "nav.citizenSlice"
+msgstr "Feliuța ta"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:40
+msgid "sankey.description"
+msgstr "Fluxul banilor publici: surse de venit → buget consolidat → destinații. Deficitul apare ca sursă (împrumut)."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:18
+msgid "salary.stateShareStat"
+msgstr "Ia statul"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:25
+msgid "salary.entry.incomeTax"
+msgstr "Impozit pe venit (10%)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:57
+msgid "drilldown.close"
+msgstr "Închide"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:46
+msgid "context.metricLabel"
+msgstr "Indicator urmărit"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:51
+msgid "drilldown.description"
+msgstr "Instituțiile finanțate din această destinație, cu ponderea fiecăreia în total."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:58
+msgid "investments.title"
+msgstr "Investiții publice pe județe"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:17
+msgid "salary.netStat"
+msgstr "Îți rămân"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:62
+msgid "investments.legendMax"
+msgstr "mai mult"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:61
+msgid "investments.legendMin"
+msgstr "mai puțin"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:27
+msgid "salary.entry.net"
+msgstr "Net salariat"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:53
+msgid "drilldown.error"
+msgstr "Nu am putut încărca instituțiile — încearcă din nou."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:19
+msgid "salary.effectiveRate"
+msgstr "Povară fiscală efectivă"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:59
+msgid "investments.description"
+msgstr "Programul de investiții 2026, pe județe. Cartogramă: suprafața = suma alocată, culoarea = intensitatea față de celelalte județe."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:38
+msgid "balance.debtGauge.reference"
+msgstr "Referință UE (Maastricht): 3% din PIB"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:16
+msgid "salary.grossLabel"
+msgstr "Salariu brut (lei/lună)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:30
+msgid "realWage.nominal"
+msgstr "Salariu net nominal"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:31
+msgid "realWage.real"
+msgstr "Salariu real (ajustat la inflație)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:29
+msgid "realWage.description"
+msgstr "Salariul net nominal (INS) ajustat cu inflația (BNR). Când linia roșie scade sub cea albastră, puterea de cumpărare crește mai încet decât salariul."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:28
+msgid "realWage.title"
+msgstr "Salariul real vs. nominal"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:52
+msgid "drilldown.loading"
+msgstr "Se încarcă instituțiile…"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:14
+msgid "salary.title"
+msgstr "Situația ta fiscală"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:50
+msgid "drilldown.title"
+msgstr "Structura instituțională: {destination}"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:42
+msgid "treemap.description"
+msgstr "Suprafața fiecărui dreptunghi este proporțională cu suma alocată."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:65
+msgid "source.bnr"
+msgstr "Sursă: BNR"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:66
+msgid "source.budget"
+msgstr "Sursă: Buget consolidat 2026"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:64
+msgid "source.ins"
+msgstr "Sursă: INS Tempo"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:10
+msgid "app.subtitle"
+msgstr "Tablou de bord cetățenesc — buget consolidat 2026"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:56
+msgid "drilldown.total"
+msgstr "Total"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:26
+msgid "salary.entry.estimatedVat"
+msgstr "TVA estimat (consum)"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:34
+msgid "balance.kpi.revenue"
+msgstr "Venituri"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:32
+msgid "balance.title"
+msgstr "Venituri și cheltuieli"

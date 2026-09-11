@@ -6,6 +6,7 @@ import type { BudgetDestination } from "../../data/budget2026";
 import { formatMilliardeLei, formatPercent } from "../../lib/format";
 import { computeInstitutionShares } from "../../lib/institutions";
 import { SourceBadge } from "./SourceBadge";
+import { m } from "../../messages";
 
 interface DrilldownModalProps {
   destination: BudgetDestination;
@@ -58,10 +59,10 @@ export function DrilldownModal({
             className="hover:text-blue-700 hover:underline"
             onClick={onBackToOverview}
           >
-            {i18n._({ id: "drilldown.breadcrumb.root" })}
+            {i18n._(m["drilldown.breadcrumb.root"])}
           </button>
           <span aria-hidden="true"> › </span>
-          <span>{i18n._({ id: "drilldown.breadcrumb.destinations" })}</span>
+          <span>{i18n._(m["drilldown.breadcrumb.destinations"])}</span>
           <span aria-hidden="true"> › </span>
           <span className="font-semibold text-slate-700">
             {destination.name}
@@ -72,18 +73,18 @@ export function DrilldownModal({
           <div>
             <h3 className="text-lg font-bold">
               {i18n._({
-                id: "drilldown.title",
+                ...m["drilldown.title"],
                 values: { destination: destination.name },
               })}
             </h3>
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "drilldown.description" })}
+              {i18n._(m["drilldown.description"])}
             </p>
           </div>
           <button
             type="button"
             className="rounded-md border border-slate-200 px-2 py-1 text-slate-500 hover:bg-slate-50"
-            aria-label={i18n._({ id: "drilldown.close" })}
+            aria-label={i18n._(m["drilldown.close"])}
             onClick={onClose}
           >
             ✕
@@ -93,17 +94,17 @@ export function DrilldownModal({
         <div className="mt-4">
           {isPending && (
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "drilldown.loading" })}
+              {i18n._(m["drilldown.loading"])}
             </p>
           )}
           {isError && (
             <p className="text-sm text-red-600">
-              {i18n._({ id: "drilldown.error" })}
+              {i18n._(m["drilldown.error"])}
             </p>
           )}
           {data !== undefined && data.institutions.length === 0 && (
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "drilldown.empty" })}
+              {i18n._(m["drilldown.empty"])}
             </p>
           )}
           {data !== undefined && data.institutions.length > 0 && (
@@ -127,7 +128,7 @@ export function DrilldownModal({
                     </div>
                     <span className="w-20 text-right text-xs tabular-nums text-slate-500">
                       {i18n._({
-                        id: "drilldown.share",
+                        ...m["drilldown.share"],
                         values: {
                           sharePercent: formatPercent(share.sharePercent),
                         },
@@ -144,7 +145,7 @@ export function DrilldownModal({
           <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
             <SourceBadge source="source.budget" />
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "drilldown.total" })}:{" "}
+              {i18n._(m["drilldown.total"])}:{" "}
               <span className="font-semibold tabular-nums text-slate-700">
                 {formatMilliardeLei(data.total)}
               </span>
@@ -158,7 +159,7 @@ export function DrilldownModal({
             className="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
             onClick={onClose}
           >
-            {i18n._({ id: "drilldown.close" })}
+            {i18n._(m["drilldown.close"])}
           </button>
         </div>
       </div>

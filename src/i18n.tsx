@@ -1,8 +1,8 @@
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import type { ReactNode } from "react";
-import { messages as enMessages } from "./locales/en/messages";
-import { messages as roMessages } from "./locales/ro/messages";
+import { messages as enMessages } from "./locales/en/messages.po";
+import { messages as roMessages } from "./locales/ro/messages.po";
 
 export const DEFAULT_LOCALE = "ro" as const;
 

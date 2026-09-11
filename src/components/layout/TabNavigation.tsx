@@ -1,6 +1,7 @@
 import { useLingui } from "@lingui/react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "../../lib/cn";
+import { lookupMessage } from "../../messages";
 
 const tabs = [
   { to: "/felia-ta", labelId: "nav.citizenSlice" },
@@ -33,7 +34,7 @@ export function TabNavigation() {
                   : "border-transparent text-slate-500 hover:text-slate-800"
               )}
             >
-              {i18n._({ id: tab.labelId })}
+              {i18n._(lookupMessage(tab.labelId))}
             </span>
           )}
         </Link>

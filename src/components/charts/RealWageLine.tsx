@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { formatLei } from "../../lib/format";
 import type { RealWagePoint } from "../../lib/realWage";
+import { m } from "../../messages";
 
 interface RealWageLineProps {
   series: RealWagePoint[];
@@ -62,7 +63,7 @@ export function RealWageLine({ series }: RealWageLineProps) {
           <Line
             type="monotone"
             dataKey="nominal"
-            name={i18n._({ id: "realWage.nominal" })}
+            name={i18n._(m["realWage.nominal"])}
             stroke="#2563eb"
             strokeWidth={2}
             dot={false}
@@ -71,7 +72,7 @@ export function RealWageLine({ series }: RealWageLineProps) {
           <Line
             type="monotone"
             dataKey="real"
-            name={i18n._({ id: "realWage.real" })}
+            name={i18n._(m["realWage.real"])}
             stroke="#dc2626"
             strokeWidth={2}
             dot={false}

@@ -1,5 +1,6 @@
 import { useLingui } from "@lingui/react";
 import { cn } from "../../lib/cn";
+import { lookupMessage } from "../../messages";
 
 interface SourceBadgeProps {
   /** i18n message id (e.g. "source.ins") or raw text. */
@@ -9,7 +10,7 @@ interface SourceBadgeProps {
 
 export function SourceBadge({ source, className }: SourceBadgeProps) {
   const { i18n } = useLingui();
-  const label = i18n._({ id: source, message: source });
+  const label = i18n._(lookupMessage(source));
 
   return (
     <span

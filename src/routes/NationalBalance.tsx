@@ -20,6 +20,7 @@ import { KpiCard } from "../components/shared/KpiCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
 import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
+import { m } from "../messages";
 
 const DEFAULT_CONTEXT_METRIC = "infant-mortality";
 const CONTEXT_BUDGET_METRIC = "health-budget";
@@ -99,11 +100,9 @@ export function NationalBalance() {
       <section className="space-y-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold">
-              {i18n._({ id: "balance.title" })}
-            </h2>
+            <h2 className="text-xl font-bold">{i18n._(m["balance.title"])}</h2>
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "balance.description" })}
+              {i18n._(m["balance.description"])}
             </p>
           </div>
           <div className="flex gap-2">
@@ -115,26 +114,26 @@ export function NationalBalance() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <KpiCard
               accent="blue"
-              label={i18n._({ id: "balance.kpi.revenue" })}
+              label={i18n._(m["balance.kpi.revenue"])}
               value={formatMilliardeLei(summary.revenue)}
             />
             <KpiCard
               accent="slate"
-              label={i18n._({ id: "balance.kpi.expenditure" })}
+              label={i18n._(m["balance.kpi.expenditure"])}
               value={formatMilliardeLei(summary.expenditure)}
             />
             <KpiCard
               accent="red"
-              label={i18n._({ id: "balance.kpi.deficit" })}
+              label={i18n._(m["balance.kpi.deficit"])}
               value={formatMilliardeLei(summary.deficit)}
             />
             <div className="rounded-xl border border-red-200 bg-red-50 p-4 shadow-sm">
               <p className="text-sm font-medium text-slate-500">
-                {i18n._({ id: "balance.kpi.deficitGdp" })}
+                {i18n._(m["balance.kpi.deficitGdp"])}
               </p>
               <DebtGauge valuePercent={deficitPercent} />
               <p className="mt-1 text-center text-xs text-slate-500">
-                {i18n._({ id: "balance.debtGauge.reference" })}
+                {i18n._(m["balance.debtGauge.reference"])}
               </p>
             </div>
           </div>
@@ -143,11 +142,9 @@ export function NationalBalance() {
 
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-bold">
-            {i18n._({ id: "sankey.title" })}
-          </h2>
+          <h2 className="text-xl font-bold">{i18n._(m["sankey.title"])}</h2>
           <p className="text-sm text-slate-500">
-            {i18n._({ id: "sankey.description" })}
+            {i18n._(m["sankey.description"])}
           </p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -160,11 +157,9 @@ export function NationalBalance() {
 
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-bold">
-            {i18n._({ id: "treemap.title" })}
-          </h2>
+          <h2 className="text-xl font-bold">{i18n._(m["treemap.title"])}</h2>
           <p className="text-sm text-slate-500">
-            {i18n._({ id: "treemap.description" })}
+            {i18n._(m["treemap.description"])}
           </p>
         </div>
         {destinations !== undefined && (
@@ -180,11 +175,9 @@ export function NationalBalance() {
       <section className="space-y-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold">
-              {i18n._({ id: "context.title" })}
-            </h2>
+            <h2 className="text-xl font-bold">{i18n._(m["context.title"])}</h2>
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "context.description" })}
+              {i18n._(m["context.description"])}
             </p>
           </div>
           <div className="flex gap-2">
@@ -198,7 +191,7 @@ export function NationalBalance() {
               htmlFor="ins-metric"
               className="text-sm font-medium text-slate-700"
             >
-              {i18n._({ id: "context.metricLabel" })}
+              {i18n._(m["context.metricLabel"])}
             </label>
             <select
               id="ins-metric"
@@ -218,13 +211,13 @@ export function NationalBalance() {
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <DualAxisTrend
               data={trendData}
-              leftLabel={i18n._({ id: "context.budgetLegend" })}
+              leftLabel={i18n._(m["context.budgetLegend"])}
               rightLabel={insMetric.label}
             />
             {trendInsight !== null && (
               <p className="mt-3 text-sm text-slate-600">
                 {i18n._({
-                  id: "context.insight",
+                  ...m["context.insight"],
                   values: {
                     budgetChange: formatSignedPercent(
                       trendInsight.budgetChangePercent
@@ -245,10 +238,10 @@ export function NationalBalance() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="text-xl font-bold">
-              {i18n._({ id: "investments.title" })}
+              {i18n._(m["investments.title"])}
             </h2>
             <p className="text-sm text-slate-500">
-              {i18n._({ id: "investments.description" })}
+              {i18n._(m["investments.description"])}
             </p>
           </div>
           <div className="flex gap-2">
@@ -262,7 +255,7 @@ export function NationalBalance() {
               total={investments.total}
             />
             <div className="mt-3 flex items-center justify-end gap-2 text-xs text-slate-500">
-              <span>{i18n._({ id: "investments.legendMin" })}</span>
+              <span>{i18n._(m["investments.legendMin"])}</span>
               <span
                 aria-hidden="true"
                 className="inline-block h-3 w-24 rounded-full"
@@ -271,7 +264,7 @@ export function NationalBalance() {
                     "linear-gradient(to right, #dbeafe, #bfdbfe, #93c5fd, #60a5fa, #2563eb)",
                 }}
               />
-              <span>{i18n._({ id: "investments.legendMax" })}</span>
+              <span>{i18n._(m["investments.legendMax"])}</span>
             </div>
           </div>
         )}

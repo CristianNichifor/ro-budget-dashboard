@@ -5,6 +5,7 @@ import { Tooltip, Treemap, ResponsiveContainer } from "recharts";
 import type { CountyInvestment } from "../../api/client";
 import { formatMilliardeLei, formatPercent } from "../../lib/format";
 import { pickIntensityColor } from "../../lib/investmentColor";
+import { m } from "../../messages";
 
 interface InvestmentCartogramProps {
   counties: CountyInvestment[];
@@ -93,7 +94,7 @@ function CartogramTooltip({ active, payload, total }: CartogramTooltipProps) {
       </p>
       <p className="tabular-nums text-slate-500">
         {i18n._({
-          id: "investments.shareOfTotal",
+          ...m["investments.shareOfTotal"],
           values: { sharePercent: formatPercent(share.toDecimalPlaces(1)) },
         })}
       </p>
