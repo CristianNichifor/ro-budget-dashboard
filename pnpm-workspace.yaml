@@ -1,5 +1,7 @@
 allowBuilds:
+  esbuild: true
   unrs-resolver: true
+  workerd: true
 minimumReleaseAgeExclude:
   - "@tanstack/react-router@1.170.35"
   - lint-staged@17.5.1

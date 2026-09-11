@@ -84,6 +84,18 @@ docker run -p 8080:80 ro-budget-dashboard
 
 CI: `.github/workflows/ci.yml` rulează `pnpm check` + build pe fiecare PR și publică imaginea pe GHCR la push pe `main`/tag-uri `v*` (variabila de repo `VITE_API_BASE_URL` poate înlocui BFF-ul la build).
 
+## Cloudflare (deploy principal, gratis)
+
+Site static pe Workers Static Assets (`wrangler.toml`, fallback SPA), live la
+**https://ro-budget-dashboard.cn-webify.workers.dev**.
+
+```bash
+VITE_API_BASE_URL=https://ro-budget-dashboard-bff.cn-webify.workers.dev pnpm build
+pnpm exec wrangler deploy
+```
+
+API-ul e Worker-ul din repo-ul BFF (CORS `*`, date live transparenta.eu). CI: `.github/workflows/deploy-cloudflare.yml` — build + deploy la push pe `main` (necesită secretele `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`; variabila `VITE_API_BASE_URL` e fallback-ul default). Cost: 0 — static unlimited, apeluri Worker în free tier.
+
 ## Git workflow
 
 Conventional Commits; hooks-urile Husky rulează lint-staged (ESLint + Prettier) la commit și commitlint la mesaj.

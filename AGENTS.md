@@ -10,6 +10,7 @@ Convenții de lucru pentru `ro-budget-dashboard` (aliniate cu hack-for-facts-eb-
 - `pnpm build` — tsc -b && vite build
 - `pnpm i18n:extract` — regenerează cataloagele `.po` după modificarea `src/messages.ts`
 - Deploy: imaginea se construiește cu `docker build --build-arg VITE_API_BASE_URL=... .`; stack-ul complet pornește cu `docker compose` din repo-ul BFF. CI publică imaginea pe GHCR la push pe `main`/tag-uri `v*` (variabila de repo `VITE_API_BASE_URL`).
+- **Deploy Cloudflare (principal, gratis)**: `pnpm build` apoi `pnpm exec wrangler deploy` — site static pe Workers Static Assets (`wrangler.toml`, SPA fallback), publicat la https://ro-budget-dashboard.cn-webify.workers.dev. API-ul bazează pe `VITE_API_BASE_URL` (default: worker-ul BFF la `.cn-webify.workers.dev`). CI: `deploy-cloudflare.yml` (push pe `main` + manual, rulează doar dacă secretul `CLOUDFLARE_API_TOKEN` e setat).
 
 ## Reguli de cod
 

@@ -1,0 +1,7 @@
+name = "ro-budget-dashboard"
+compatibility_date = "2026-09-11"
+
+# Static SPA hosted on Workers Static Assets (free tier).
+[assets]
+directory = "./dist/"
+not_found_handling = "single-page-application"
