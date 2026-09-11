@@ -47,7 +47,7 @@ function nodeColor(id: string): string {
     return "#dc2626";
   }
   if (id === SANKEY_REST_NODE_ID) {
-    return "#cbd5e1";
+    return "#94a3b8";
   }
   return "#2563eb";
 }
@@ -144,16 +144,24 @@ export function BudgetSankey({
 
         const middleX = (source.x1 + target.x0) / 2;
         const middleY = (source.y0 + target.y0 + link.width) / 2;
+        const sourceId =
+          typeof source === "object" && "id" in source ? String(source.id) : "";
 
         return (
           <g key={index}>
-            <path d={path} fill="none" stroke="#e2e8f0" strokeWidth={10} />
+            <path
+              d={path}
+              fill="none"
+              stroke={nodeColor(sourceId)}
+              strokeOpacity={0.38}
+              strokeWidth={Math.max(2.5, link.width)}
+            />
             <text
               x={middleX}
               y={middleY}
               textAnchor="middle"
-              fontSize={9}
-              fill="#64748b"
+              fontSize={10}
+              fill="#475569"
             >
               {formatMilliardeLei(link.value)}
             </text>
@@ -186,7 +194,7 @@ export function BudgetSankey({
               rx={2}
               className={
                 isClickable
-                  ? "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-budget-blue"
+                  ? "cursor-pointer transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-budget-blue"
                   : undefined
               }
               tabIndex={isClickable ? 0 : undefined}
@@ -221,8 +229,9 @@ export function BudgetSankey({
               x={labelX}
               y={node.y0 + (node.y1 - node.y0) / 2 + 3}
               textAnchor={labelAnchor}
-              fontSize={10}
-              fill="#334155"
+              fontSize={11}
+              fill="#0f172a"
+              fontWeight={600}
             >
               {labelFor(node)}
             </text>

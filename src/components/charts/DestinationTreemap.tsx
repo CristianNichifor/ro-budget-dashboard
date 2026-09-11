@@ -1,6 +1,10 @@
 import { Tooltip, Treemap, ResponsiveContainer } from "recharts";
 import type { BudgetDestination } from "../../data/budget2026";
 import { formatMilliardeLei } from "../../lib/format";
+import {
+  INTENSITY_COLORS,
+  pickIntensityIndex,
+} from "../../lib/investmentColor";
 
 interface DestinationTreemapProps {
   destinations: BudgetDestination[];
@@ -22,8 +26,13 @@ interface TreemapCellProps {
   id?: string;
   name?: string;
   amount?: number;
+  minAmount: number;
+  maxAmount: number;
   onSelect?: (destinationId: string) => void;
 }
+
+const DARK_TEXT = "#1e3a5f";
+const LIGHT_TEXT = "#ffffff";
 
 function TreemapCell(props: TreemapCellProps) {
   const {
@@ -33,10 +42,17 @@ function TreemapCell(props: TreemapCellProps) {
     height = 0,
     id,
     name,
-    amount,
+    amount = 0,
+    minAmount,
+    maxAmount,
     onSelect,
   } = props;
-  const fill = "#2563eb";
+
+  const index = pickIntensityIndex(amount, minAmount, maxAmount);
+  const fill = INTENSITY_COLORS[index] ?? INTENSITY_COLORS[0];
+  // Light cells need dark text; dark cells need light text.
+  const labelFill = index <= 2 ? DARK_TEXT : LIGHT_TEXT;
+  const amountFill = index <= 2 ? "#1d4ed8" : "#dbeafe";
 
   return (
     <g>
@@ -47,7 +63,11 @@ function TreemapCell(props: TreemapCellProps) {
         height={height}
         fill={fill}
         rx={4}
-        className={onSelect !== undefined ? "cursor-pointer" : undefined}
+        className={
+          onSelect !== undefined
+            ? "cursor-pointer transition-opacity hover:opacity-85"
+            : undefined
+        }
         onClick={() => {
           if (onSelect !== undefined && id !== undefined) {
             onSelect(id);
@@ -62,12 +82,12 @@ function TreemapCell(props: TreemapCellProps) {
             x={x + 8}
             y={y + 18}
             fontSize={12}
-            fill="#ffffff"
+            fill={labelFill}
             fontWeight={600}
           >
             {name ?? ""}
           </text>
-          <text x={x + 8} y={y + 34} fontSize={10} fill="#dbeafe">
+          <text x={x + 8} y={y + 34} fontSize={10} fill={amountFill}>
             {amount !== undefined ? formatMilliardeLei(amount) : ""}
           </text>
         </>
@@ -111,6 +131,10 @@ export function DestinationTreemap({
     amount: Number(destination.amount),
   }));
 
+  const amounts = data.map((destination) => destination.amount);
+  const minAmount = Math.min(...amounts);
+  const maxAmount = Math.max(...amounts);
+
   return (
     <div className="h-80 w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -121,7 +145,12 @@ export function DestinationTreemap({
           stroke="#fff"
           isAnimationActive={false}
           content={(props) => (
-            <TreemapCell {...(props as TreemapCellProps)} onSelect={onSelect} />
+            <TreemapCell
+              {...(props as unknown as TreemapCellProps)}
+              minAmount={minAmount}
+              maxAmount={maxAmount}
+              onSelect={onSelect}
+            />
           )}
         >
           <Tooltip content={(props) => <TreemapTooltip {...props} />} />

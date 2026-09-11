@@ -1,7 +1,7 @@
 import { Decimal } from "decimal.js";
 import type { DecimalValue } from "./salary";
 
-const INTENSITY_COLORS = [
+export const INTENSITY_COLORS = [
   "#dbeafe",
   "#bfdbfe",
   "#93c5fd",
@@ -12,26 +12,36 @@ const INTENSITY_COLORS = [
 export type IntensityColor = (typeof INTENSITY_COLORS)[number];
 
 /**
- * Maps an amount onto the blue intensity palette, relative to the
- * min/max range. Pure — Decimal inside, color index is display-only.
+ * Maps an amount onto the blue intensity palette index, relative to the
+ * min/max range. Pure — Decimal inside, index is display-only.
  */
-export function pickIntensityColor(
+export function pickIntensityIndex(
   amount: DecimalValue,
   min: DecimalValue,
   max: DecimalValue
-): IntensityColor {
+): number {
   const range = new Decimal(max).minus(min);
   if (range.isZero()) {
-    return INTENSITY_COLORS[0];
+    return 0;
   }
   const ratio = new Decimal(amount)
     .minus(min)
     .div(range)
     .clampedTo(0, 1)
     .toNumber();
-  const index = Math.min(
+  return Math.min(
     INTENSITY_COLORS.length - 1,
     Math.floor(ratio * INTENSITY_COLORS.length)
   );
-  return INTENSITY_COLORS[index] ?? INTENSITY_COLORS[0];
+}
+
+export function pickIntensityColor(
+  amount: DecimalValue,
+  min: DecimalValue,
+  max: DecimalValue
+): IntensityColor {
+  return (
+    INTENSITY_COLORS[pickIntensityIndex(amount, min, max)] ??
+    INTENSITY_COLORS[0]
+  );
 }

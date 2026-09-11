@@ -87,10 +87,10 @@ CI: `.github/workflows/ci.yml` rulează `pnpm check` + build pe fiecare PR și p
 ## Cloudflare (deploy principal, gratis)
 
 Site static pe Workers Static Assets (`wrangler.toml`, fallback SPA), live la
-**https://ro-budget-dashboard.cn-webify.workers.dev**.
+**https://buget.cristian-nichifor.com**.
 
 ```bash
-VITE_API_BASE_URL=https://ro-budget-dashboard-bff.cn-webify.workers.dev pnpm build
+VITE_API_BASE_URL=https://api.buget.cristian-nichifor.com pnpm build
 pnpm exec wrangler deploy
 ```
 

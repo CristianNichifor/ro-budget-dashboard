@@ -9,9 +9,9 @@ interface KpiCardProps {
 }
 
 const accentStyles: Record<NonNullable<KpiCardProps["accent"]>, string> = {
-  blue: "border-budget-blue/20 bg-budget-blue/5 text-budget-blue",
-  red: "border-budget-red/20 bg-budget-red/5 text-budget-red",
-  amber: "border-budget-amber/20 bg-budget-amber/5 text-budget-amber",
+  blue: "border-budget-blue/25 bg-budget-blue/10 text-budget-blue",
+  red: "border-budget-red/25 bg-budget-red/10 text-budget-red",
+  amber: "border-budget-amber/25 bg-budget-amber/10 text-budget-amber",
   slate: "border-slate-200 bg-slate-50 text-slate-700",
 };
 
