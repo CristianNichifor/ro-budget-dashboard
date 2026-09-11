@@ -579,3 +579,100 @@ export async function fetchUnemployment(): Promise<UnemploymentSeries | null> {
 export async function fetchFx(): Promise<FxSeries | null> {
   return request("/api/macro/fx", fxSchema);
 }
+
+export const gdpGrowthSchema = z.object({
+  quarterly: z.array(z.object({ quarter: z.string(), pctChange: z.number() })),
+});
+
+export type GdpGrowthSeries = z.infer<typeof gdpGrowthSchema>;
+
+export const gdpPerCapitaSchema = z.object({
+  yearly: z.array(
+    z.object({ year: z.string(), pps: z.number(), eu27Index: z.number() })
+  ),
+});
+
+export type GdpPerCapitaSeries = z.infer<typeof gdpPerCapitaSchema>;
+
+export const debtSchema = z.object({
+  yearly: z.array(z.object({ year: z.string(), percentGdp: z.number() })),
+});
+
+export type DebtSeries = z.infer<typeof debtSchema>;
+
+export const tradeSchema = z.object({
+  yearly: z.array(
+    z.object({
+      year: z.string(),
+      exportsPctGdp: z.number(),
+      importsPctGdp: z.number(),
+      balancePctGdp: z.number(),
+    })
+  ),
+});
+
+export type TradeSeries = z.infer<typeof tradeSchema>;
+
+export const demographicsSchema = z.object({
+  yearly: z.array(z.object({ year: z.string(), oldAgeDependency: z.number() })),
+});
+
+export type DemographicSeries = z.infer<typeof demographicsSchema>;
+
+export async function fetchGdpGrowth(): Promise<GdpGrowthSeries | null> {
+  return request("/api/macro/gdp-growth", gdpGrowthSchema);
+}
+
+export async function fetchGdpPerCapita(): Promise<GdpPerCapitaSeries | null> {
+  return request("/api/macro/gdp-per-capita", gdpPerCapitaSchema);
+}
+
+export async function fetchDebt(): Promise<DebtSeries | null> {
+  return request("/api/macro/debt", debtSchema);
+}
+
+export async function fetchTrade(): Promise<TradeSeries | null> {
+  return request("/api/macro/trade", tradeSchema);
+}
+
+export async function fetchDemographics(): Promise<DemographicSeries | null> {
+  return request("/api/macro/demographics", demographicsSchema);
+}
+
+export interface PensionYearPoint {
+  year: number;
+  milliarde: number;
+}
+
+/** Functional code of the public-pensions destination (COFOG-style). */
+export const PENSION_DESTINATION_ID = "68.03.00";
+
+/**
+ * Pensions spending per year, in milliarde lei, taken from the per-year
+ * budget destinations. Falls back to the demo seed when the BFF is down.
+ */
+export async function fetchPensionTrend(
+  years: number[]
+): Promise<PensionYearPoint[]> {
+  const results = await Promise.all(
+    years.map(async (year) => {
+      const destinations = await fetchDestinations(String(year));
+      const pension = destinations.find(
+        (destination) =>
+          destination.id === PENSION_DESTINATION_ID ||
+          destination.id === "pensii"
+      );
+      if (pension === undefined) {
+        return null;
+      }
+      return {
+        year,
+        milliarde: new Decimal(pension.amount)
+          .div(1e9)
+          .toDecimalPlaces(1)
+          .toNumber(),
+      };
+    })
+  );
+  return results.filter((point): point is PensionYearPoint => point !== null);
+}

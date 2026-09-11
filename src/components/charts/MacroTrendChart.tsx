@@ -18,9 +18,12 @@ interface MacroTrendChartProps {
   heightClass?: string;
 }
 
-function shortLabel(ym: string): string {
-  if (ym.endsWith("-01")) {
-    return ym.slice(0, 4);
+function shortLabel(label: string): string {
+  if (/^\d{4}$/.test(label)) {
+    return label;
+  }
+  if (label.endsWith("-01")) {
+    return label.slice(0, 4);
   }
   return "";
 }

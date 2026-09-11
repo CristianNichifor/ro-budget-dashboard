@@ -94,6 +94,100 @@ export const m = {
   }),
   "economy.percent": msg({ id: "economy.percent", message: "%" }),
   "economy.lei": msg({ id: "economy.lei", message: "lei" }),
+  "economy.kpi.gdpGrowth": msg({
+    id: "economy.kpi.gdpGrowth",
+    message: "Creștere PIB",
+  }),
+  "economy.kpi.gdpPerCapita": msg({
+    id: "economy.kpi.gdpPerCapita",
+    message: "PIB pe locuitor",
+  }),
+  "economy.kpi.eu27": msg({ id: "economy.kpi.eu27", message: "din media UE" }),
+  "economy.kpi.debt": msg({
+    id: "economy.kpi.debt",
+    message: "Datorie publică",
+  }),
+  "economy.kpi.trade": msg({
+    id: "economy.kpi.trade",
+    message: "Balanța comercială",
+  }),
+  "economy.growth.title": msg({
+    id: "economy.growth.title",
+    message: "Creșterea economică",
+  }),
+  "economy.growth.description": msg({
+    id: "economy.growth.description",
+    message:
+      "Variația trimestrială a PIB-ului real, ajustată sezonier și calendaristic (Eurostat).",
+  }),
+  "economy.gdpPerCapita.title": msg({
+    id: "economy.gdpPerCapita.title",
+    message: "PIB pe locuitor",
+  }),
+  "economy.gdpPerCapita.description": msg({
+    id: "economy.gdpPerCapita.description",
+    message:
+      "PIB pe locuitor la paritatea puterii de cumpărare (PPS) și indicele față de media UE (UE27 = 100).",
+  }),
+  "economy.gdpPerCapita.ppsLegend": msg({
+    id: "economy.gdpPerCapita.ppsLegend",
+    message: "PIB/loc (PPS)",
+  }),
+  "economy.gdpPerCapita.indexLegend": msg({
+    id: "economy.gdpPerCapita.indexLegend",
+    message: "Indice UE27=100",
+  }),
+  "economy.debt.title": msg({
+    id: "economy.debt.title",
+    message: "Datoria publică",
+  }),
+  "economy.debt.description": msg({
+    id: "economy.debt.description",
+    message:
+      "Datoria brută consolidată a administrației publice, % din PIB (Eurostat), cu pragul Maastricht de 60%.",
+  }),
+  "economy.debt.maastricht": msg({
+    id: "economy.debt.maastricht",
+    message: "Maastricht 60%",
+  }),
+  "economy.trade.title": msg({
+    id: "economy.trade.title",
+    message: "Comerțul internațional",
+  }),
+  "economy.trade.description": msg({
+    id: "economy.trade.description",
+    message:
+      "Exporturile și importurile de bunuri și servicii, % din PIB (Eurostat), cu balanța derivată.",
+  }),
+  "economy.trade.exports": msg({
+    id: "economy.trade.exports",
+    message: "Exporturi",
+  }),
+  "economy.trade.imports": msg({
+    id: "economy.trade.imports",
+    message: "Importuri",
+  }),
+  "economy.trade.balance": msg({
+    id: "economy.trade.balance",
+    message: "Balanța",
+  }),
+  "economy.pensions.title": msg({
+    id: "economy.pensions.title",
+    message: "Îmbătrânirea populației și pensiile",
+  }),
+  "economy.pensions.description": msg({
+    id: "economy.pensions.description",
+    message:
+      "Cheltuielile cu pensiile (execuție bugetară, mld. lei) față de raportul de dependență a vârstnicilor: 65+ la 100 de persoane 15–64.",
+  }),
+  "economy.pensions.pensionsLegend": msg({
+    id: "economy.pensions.pensionsLegend",
+    message: "Pensii (mld. lei)",
+  }),
+  "economy.pensions.dependencyLegend": msg({
+    id: "economy.pensions.dependencyLegend",
+    message: "Dependența vârstnicilor",
+  }),
   "source.eurostat": msg({ id: "source.eurostat", message: "Sursă: Eurostat" }),
   "source.ecb": msg({ id: "source.ecb", message: "Sursă: BCE" }),
   "nav.companies": msg({
