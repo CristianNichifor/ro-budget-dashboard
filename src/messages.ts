@@ -15,6 +15,11 @@ export const m = {
     id: "app.dataNote",
     message: "Date statice demo — integrare API în faza P2",
   }),
+  "app.footer": msg({
+    id: "app.footer",
+    message:
+      "Demo educațional — valorile sunt aproximative și provin din date statice; sursele oficiale sunt afișate pe fiecare grafic.",
+  }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),
   "nav.nationalBalance": msg({
     id: "nav.nationalBalance",
@@ -29,6 +34,11 @@ export const m = {
   "salary.grossLabel": msg({
     id: "salary.grossLabel",
     message: "Salariu brut (lei/lună)",
+  }),
+  "salary.perMonth": msg({ id: "salary.perMonth", message: "/ lună" }),
+  "salary.rateNote": msg({
+    id: "salary.rateNote",
+    message: "Ratele folosite sunt cele ale bugetului 2026.",
   }),
   "salary.netStat": msg({ id: "salary.netStat", message: "Îți rămân" }),
   "salary.stateShareStat": msg({
@@ -208,6 +218,11 @@ export const m = {
     message: "mai mult",
   }),
   "source.demo": msg({ id: "source.demo", message: "Demo" }),
+  "error.title": msg({ id: "error.title", message: "Ceva nu a mers bine" }),
+  "error.reload": msg({
+    id: "error.reload",
+    message: "Reîncarcă pagina sau încearcă din nou mai târziu.",
+  }),
   "source.ins": msg({ id: "source.ins", message: "Sursă: INS Tempo" }),
   "source.bnr": msg({ id: "source.bnr", message: "Sursă: BNR" }),
   "source.budget": msg({

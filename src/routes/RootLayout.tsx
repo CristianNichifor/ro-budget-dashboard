@@ -1,8 +1,12 @@
+import { useLingui } from "@lingui/react";
 import { Outlet } from "@tanstack/react-router";
 import { Header } from "../components/layout/Header";
 import { TabNavigation } from "../components/layout/TabNavigation";
+import { m } from "../messages";
 
 export function RootLayout() {
+  const { i18n } = useLingui();
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -13,8 +17,7 @@ export function RootLayout() {
         <Outlet />
       </main>
       <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs text-slate-400">
-        Demo educațional — valorile sunt aproximative și provin din date
-        statice; sursele oficiale sunt afișate pe fiecare grafic.
+        {i18n._(m["app.footer"])}
       </footer>
     </div>
   );

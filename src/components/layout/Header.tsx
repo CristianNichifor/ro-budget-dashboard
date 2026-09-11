@@ -1,7 +1,8 @@
 import { useLingui } from "@lingui/react";
 import { Database } from "lucide-react";
-import { SourceBadge } from "../shared/SourceBadge";
 import { m } from "../../messages";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+import { SourceBadge } from "../shared/SourceBadge";
 
 export function Header() {
   const { i18n } = useLingui();
@@ -23,6 +24,7 @@ export function Header() {
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <LocaleSwitcher />
           <SourceBadge source="source.demo" />
           <span className="text-xs text-slate-500">
             {i18n._(m["app.dataNote"])}

@@ -94,7 +94,7 @@ export function CitizenSlice() {
                 accent="blue"
                 label={i18n._(m["salary.netStat"])}
                 value={formatLei(breakdown.net)}
-                sub={formatLei(breakdown.net) + " / lună"}
+                sub={`${formatLei(breakdown.net)} ${i18n._(m["salary.perMonth"])}`}
               />
               <KpiCard
                 accent="red"
@@ -147,8 +147,7 @@ export function CitizenSlice() {
       <section className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
         <Wallet className="size-5 shrink-0" aria-hidden="true" />
         <p>
-          {i18n._(m["app.dataNote"])} — {i18n._(m["salary.title"])} folosește
-          ratele bugetului 2026.
+          {i18n._(m["app.dataNote"])} — {i18n._(m["salary.rateNote"])}
         </p>
       </section>
     </div>

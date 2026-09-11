@@ -14,32 +14,37 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:183
+#: src/messages.ts:193
 msgid "drilldown.share"
 msgstr "{sharePercent} of total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:198
+#: src/messages.ts:208
 msgid "investments.shareOfTotal"
 msgstr "{sharePercent} of total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:19
+#: src/messages.ts:38
+msgid "salary.perMonth"
+msgstr "/ month"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:24
 msgid "nav.nationalBalance"
 msgstr "National balance"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:154
+#: src/messages.ts:164
 msgid "drilldown.breadcrumb.root"
 msgstr "National balance"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:141
+#: src/messages.ts:151
 msgid "context.budgetLegend"
 msgstr "Health budget (bn lei)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:92
+#: src/messages.ts:102
 msgid "balance.description"
 msgstr "Consolidated budget 2026: revenue, expenditure and deficit, following the Open Budget model."
 
@@ -49,42 +54,47 @@ msgid "app.title"
 msgstr "Romania's Budget"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:136
+#: src/messages.ts:146
 msgid "context.description"
 msgstr "Health budget (bars, bn lei) next to a social indicator (line): money allocated vs. measurable outcome."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:54
+#: src/messages.ts:64
 msgid "salary.entry.cas"
 msgstr "CAS — pensions (25%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:58
+#: src/messages.ts:68
 msgid "salary.entry.cass"
 msgstr "CASS — health (10%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:24
+#: src/messages.ts:29
 msgid "salary.description"
 msgstr "How much of your labour cost goes to the state and how much you keep."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:101
+#: src/messages.ts:221
+msgid "error.title"
+msgstr "Something went wrong"
+
+#. js-lingui-explicit-id
+#: src/messages.ts:111
 msgid "balance.kpi.expenditure"
 msgstr "Expenditure"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:132
+#: src/messages.ts:142
 msgid "context.title"
 msgstr "Context from INS statistics"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:50
+#: src/messages.ts:60
 msgid "salary.entry.employerContribution"
 msgstr "Employer contribution (CAM 2.25%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:46
+#: src/messages.ts:56
 msgid "salary.entry.gross"
 msgstr "Total employer cost"
 
@@ -94,187 +104,202 @@ msgid "app.dataNote"
 msgstr "Static demo data — API integration in phase P2"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:114
+#: src/messages.ts:124
 msgid "sankey.title"
 msgstr "Where the money comes from and goes"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:105
+#: src/messages.ts:115
 msgid "balance.kpi.deficit"
 msgstr "Deficit"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:106
+#: src/messages.ts:116
 msgid "balance.kpi.deficitGdp"
 msgstr "Deficit (% GDP)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:210
+#: src/messages.ts:220
 msgid "source.demo"
 msgstr "Demo"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:123
+#: src/messages.ts:18
+msgid "app.footer"
+msgstr "Educational demo — values are approximate and come from static data; official sources are shown on each chart."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:133
 msgid "treemap.title"
 msgstr "Spending destinations"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:158
+#: src/messages.ts:168
 msgid "drilldown.breadcrumb.destinations"
 msgstr "Destinations"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:179
+#: src/messages.ts:189
 msgid "drilldown.empty"
 msgstr "No institutions listed for this destination."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:149
+#: src/messages.ts:159
 msgid "context.insight"
 msgstr "Compared to 2021, the health budget changed by {budgetChange}; the “{insLabel}” indicator: {insChange}."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:42
+#: src/messages.ts:52
 msgid "salary.vsAverage"
 msgstr "vs. average net salary (INS)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:18
+#: src/messages.ts:23
 msgid "nav.citizenSlice"
 msgstr "Your slice"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:118
+#: src/messages.ts:128
 msgid "sankey.description"
 msgstr "Public money flow: revenue sources → consolidated budget → destinations. The deficit appears as a source (borrowing)."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:34
+#: src/messages.ts:44
 msgid "salary.stateShareStat"
 msgstr "The state takes"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:62
+#: src/messages.ts:72
 msgid "salary.entry.incomeTax"
 msgstr "Income tax (10%)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:188
+#: src/messages.ts:198
 msgid "drilldown.close"
 msgstr "Close"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:145
+#: src/messages.ts:155
 msgid "context.metricLabel"
 msgstr "Tracked indicator"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:166
+#: src/messages.ts:176
 msgid "drilldown.description"
 msgstr "Institutions funded from this destination, with each one's share of the total."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:189
+#: src/messages.ts:199
 msgid "investments.title"
 msgstr "Public investments by county"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:33
+#: src/messages.ts:43
 msgid "salary.netStat"
 msgstr "You keep"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:206
+#: src/messages.ts:216
 msgid "investments.legendMax"
 msgstr "more"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:202
+#: src/messages.ts:212
 msgid "investments.legendMin"
 msgstr "less"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:70
+#: src/messages.ts:80
 msgid "salary.entry.net"
 msgstr "Net salary"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:175
+#: src/messages.ts:185
 msgid "drilldown.error"
 msgstr "Could not load institutions — try again."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:38
+#: src/messages.ts:48
 msgid "salary.effectiveRate"
 msgstr "Effective fiscal burden"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:193
+#: src/messages.ts:203
 msgid "investments.description"
 msgstr "The 2026 investments program, by county. Cartogram: area = allocated amount, color = intensity relative to other counties."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:110
+#: src/messages.ts:39
+msgid "salary.rateNote"
+msgstr "The rates used are those of the 2026 budget."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:120
 msgid "balance.debtGauge.reference"
 msgstr "EU reference (Maastricht): 3% of GDP"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:29
+#: src/messages.ts:222
+msgid "error.reload"
+msgstr "Reload the page or try again later."
+
+#. js-lingui-explicit-id
+#: src/messages.ts:34
 msgid "salary.grossLabel"
 msgstr "Gross salary (RON/month)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:80
+#: src/messages.ts:90
 msgid "realWage.nominal"
 msgstr "Nominal net wage"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:84
+#: src/messages.ts:94
 msgid "realWage.real"
 msgstr "Real wage (inflation-adjusted)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:75
+#: src/messages.ts:85
 msgid "realWage.description"
 msgstr "Nominal net wage (INS) adjusted with inflation (BNR). When the red line lags the blue one, purchasing power grows slower than pay."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:71
+#: src/messages.ts:81
 msgid "realWage.title"
 msgstr "Real vs. nominal wage"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:171
+#: src/messages.ts:181
 msgid "drilldown.loading"
 msgstr "Loading institutions…"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:23
+#: src/messages.ts:28
 msgid "salary.title"
 msgstr "Your fiscal situation"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:162
+#: src/messages.ts:172
 msgid "drilldown.title"
 msgstr "Institutional structure: {destination}"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:127
+#: src/messages.ts:137
 msgid "treemap.description"
 msgstr "Each rectangle's area is proportional to the allocated amount."
 
 #. js-lingui-explicit-id
-#: src/messages.ts:212
+#: src/messages.ts:227
 msgid "source.bnr"
 msgstr "Source: BNR"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:213
+#: src/messages.ts:228
 msgid "source.budget"
 msgstr "Source: Consolidated budget 2026"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:211
+#: src/messages.ts:226
 msgid "source.ins"
 msgstr "Source: INS Tempo"
 
@@ -284,21 +309,21 @@ msgid "app.subtitle"
 msgstr "Citizen dashboard — consolidated budget 2026"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:187
+#: src/messages.ts:197
 msgid "drilldown.total"
 msgstr "Total"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:66
+#: src/messages.ts:76
 msgid "salary.entry.estimatedVat"
 msgstr "Estimated VAT (consumption)"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:97
+#: src/messages.ts:107
 msgid "balance.kpi.revenue"
 msgstr "Revenue"
 
 #. js-lingui-explicit-id
-#: src/messages.ts:88
+#: src/messages.ts:98
 msgid "balance.title"
 msgstr "Revenue and expenditure"
