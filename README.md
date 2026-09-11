@@ -62,8 +62,8 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 | P2   | Integrare BFF: `fetch*` din `src/api/client.ts` → `ro-budget-dashboard-bff` (`VITE_API_BASE_URL`), fallback local | ✓      |
 | P3   | Trenduri INS (endpoint `/api/ins/metrics`, secțiunea „Context din statisticile INS”)                              | ✓      |
 | P4   | Context BNR: seed JSON + script trimestrial (`pnpm bnr:update`) în repo-ul BFF                                    | ✓      |
-| P5   | Drill-down instituțional (modal + breadcrumb)                                                                     | —      |
-| P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                               | —      |
+| P5   | Drill-down instituțional (modal + breadcrumb)                                                                     | ✓      |
+| P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                               | ✓      |
 
 ## Note demo
 
