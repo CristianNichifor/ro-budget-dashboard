@@ -64,6 +64,7 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 | P4   | Context BNR: seed JSON + script trimestrial (`pnpm bnr:update`) în repo-ul BFF                                    | ✓      |
 | P5   | Drill-down instituțional (modal + breadcrumb)                                                                     | ✓      |
 | P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                               | ✓      |
+| P7   | Indicator INS selectabil în secțiunea de context (`/api/ins/catalog`)                                             | ✓      |
 
 ## Note demo
 
