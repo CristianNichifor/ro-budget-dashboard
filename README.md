@@ -71,6 +71,7 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 - Cifrele din `src/data/budget2026.ts` provin din Open Budget 2026; sursele de venit sunt **estimări ilustrative** până la P2.
 - Seria BNR din `src/data/bnrInflation.ts` este un seed aproximativ; actualizarea manuală trimestrială este prevăzută în P4.
 - i18n: mesajele sunt declarate cu macro-ul `msg` în `src/messages.ts`; cataloagele `.po` din `src/locales/` se generează cu `pnpm i18n:extract` și sunt compilate de plugin-ul Lingui pentru Vite. Locale sursă: `ro`; traduceri: `en`.
+- Date reale: când BFF-ul rulează cu `DATA_SOURCE=hackforfacts` (API-ul public transparenta.eu), dashboard-ul afișează datele live; fallback-ul static rămâne activ dacă BFF-ul nu răspunde. Vezi caveat-urile din README-ul BFF-ului.
 
 ## Docker
 
