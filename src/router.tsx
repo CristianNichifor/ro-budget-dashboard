@@ -2,12 +2,22 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  lazyRouteComponent,
   redirect,
 } from "@tanstack/react-router";
-import { CitizenSlice } from "./routes/CitizenSlice";
 import { DefaultError } from "./routes/DefaultError";
-import { NationalBalance } from "./routes/NationalBalance";
 import { RootLayout } from "./routes/RootLayout";
+import { RoutePending } from "./routes/RoutePending";
+
+const CitizenSlice = lazyRouteComponent(
+  () => import("./routes/CitizenSlice"),
+  "CitizenSlice"
+);
+
+const NationalBalance = lazyRouteComponent(
+  () => import("./routes/NationalBalance"),
+  "NationalBalance"
+);
 
 const rootRoute = createRootRoute({
   component: RootLayout,
@@ -41,7 +51,11 @@ const routeTree = rootRoute.addChildren([
   nationalBalanceRoute,
 ]);
 
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  defaultPendingComponent: RoutePending,
+  defaultPendingMs: 150,
+});
 
 declare module "@tanstack/react-router" {
   interface Register {

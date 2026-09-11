@@ -11,4 +11,24 @@ export default defineConfig({
     babel({ presets: [linguiTransformerBabelPreset()] }),
     tailwindcss(),
   ],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "recharts",
+              test: /node_modules[\\/](recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
+            },
+            {
+              name: "react",
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+            },
+            { name: "lingui", test: /node_modules[\\/]@lingui[\\/]/ },
+            { name: "tanstack", test: /node_modules[\\/]@tanstack[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
 });

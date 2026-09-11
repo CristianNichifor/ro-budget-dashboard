@@ -20,6 +20,7 @@ export const m = {
     message:
       "Demo educațional — valorile sunt aproximative și provin din date statice; sursele oficiale sunt afișate pe fiecare grafic.",
   }),
+  "app.loading": msg({ id: "app.loading", message: "Se încarcă…" }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),
   "nav.nationalBalance": msg({
     id: "nav.nationalBalance",
