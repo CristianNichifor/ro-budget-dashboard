@@ -1,7 +1,7 @@
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Decimal } from "decimal.js";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   fetchBudgetSummary,
   fetchBudgetTrend,
@@ -12,6 +12,7 @@ import { BudgetSankey } from "../components/charts/BudgetSankey";
 import { DebtGauge } from "../components/charts/DebtGauge";
 import { DestinationTreemap } from "../components/charts/DestinationTreemap";
 import { DualAxisTrend } from "../components/charts/DualAxisTrend";
+import { DrilldownModal } from "../components/shared/DrilldownModal";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
@@ -22,6 +23,9 @@ const CONTEXT_BUDGET_METRIC = "health-budget";
 
 export function NationalBalance() {
   const { i18n } = useLingui();
+  const [selectedDestinationId, setSelectedDestinationId] = useState<
+    string | null
+  >(null);
 
   const { data: summary } = useQuery({
     queryKey: ["budget-summary"],
@@ -61,6 +65,20 @@ export function NationalBalance() {
     summary !== undefined
       ? new Decimal(summary.deficitPercentGdp).toNumber()
       : 0;
+
+  const destinationIds = useMemo(
+    () => new Set(destinations?.map((destination) => destination.id) ?? []),
+    [destinations]
+  );
+
+  const selectedDestination =
+    selectedDestinationId !== null
+      ? (destinations?.find(
+          (destination) => destination.id === selectedDestinationId
+        ) ?? null)
+      : null;
+
+  const closeDrilldown = () => setSelectedDestinationId(null);
 
   return (
     <div className="space-y-10">
@@ -119,7 +137,10 @@ export function NationalBalance() {
           </p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <BudgetSankey />
+          <BudgetSankey
+            selectableIds={destinationIds}
+            onSelect={setSelectedDestinationId}
+          />
         </div>
       </section>
 
@@ -134,7 +155,10 @@ export function NationalBalance() {
         </div>
         {destinations !== undefined && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <DestinationTreemap destinations={destinations} />
+            <DestinationTreemap
+              destinations={destinations}
+              onSelect={setSelectedDestinationId}
+            />
           </div>
         )}
       </section>
@@ -180,6 +204,14 @@ export function NationalBalance() {
           </div>
         )}
       </section>
+
+      {selectedDestination !== null && (
+        <DrilldownModal
+          destination={selectedDestination}
+          onClose={closeDrilldown}
+          onBackToOverview={closeDrilldown}
+        />
+      )}
     </div>
   );
 }

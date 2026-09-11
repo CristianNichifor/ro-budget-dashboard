@@ -4,6 +4,7 @@ import { formatMilliardeLei } from "../../lib/format";
 
 interface DestinationTreemapProps {
   destinations: BudgetDestination[];
+  onSelect?: (destinationId: string) => void;
 }
 
 type TreemapDatum = BudgetDestination & Record<string, unknown>;
@@ -13,17 +14,43 @@ interface TreemapCellProps {
   y?: number;
   width?: number;
   height?: number;
+  id?: string;
   name?: string;
   amount?: string;
+  onSelect?: (destinationId: string) => void;
 }
 
 function TreemapCell(props: TreemapCellProps) {
-  const { x = 0, y = 0, width = 0, height = 0, name, amount } = props;
+  const {
+    x = 0,
+    y = 0,
+    width = 0,
+    height = 0,
+    id,
+    name,
+    amount,
+    onSelect,
+  } = props;
   const fill = "#2563eb";
 
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} fill={fill} rx={4} />
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        fill={fill}
+        rx={4}
+        className={onSelect !== undefined ? "cursor-pointer" : undefined}
+        onClick={() => {
+          if (onSelect !== undefined && id !== undefined) {
+            onSelect(id);
+          }
+        }}
+      >
+        <title>{`${name ?? ""} — ${amount !== undefined ? formatMilliardeLei(amount) : ""}`}</title>
+      </rect>
       {width > 70 && height > 40 && (
         <>
           <text
@@ -70,7 +97,10 @@ function TreemapTooltip({
   );
 }
 
-export function DestinationTreemap({ destinations }: DestinationTreemapProps) {
+export function DestinationTreemap({
+  destinations,
+  onSelect,
+}: DestinationTreemapProps) {
   const data = destinations as TreemapDatum[];
 
   return (
@@ -82,7 +112,9 @@ export function DestinationTreemap({ destinations }: DestinationTreemapProps) {
           aspectRatio={4 / 3}
           stroke="#fff"
           isAnimationActive={false}
-          content={(props) => <TreemapCell {...(props as TreemapCellProps)} />}
+          content={(props) => (
+            <TreemapCell {...(props as TreemapCellProps)} onSelect={onSelect} />
+          )}
         >
           <Tooltip content={(props) => <TreemapTooltip {...props} />} />
         </Treemap>

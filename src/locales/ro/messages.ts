@@ -54,6 +54,18 @@ export const messages: Messages = {
   "context.insight":
     "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}, iar {insLabel} cu {insChange}.",
 
+  "drilldown.breadcrumb.root": "Bilanțul național",
+  "drilldown.breadcrumb.destinations": "Destinații",
+  "drilldown.title": "Structura instituțională: {destination}",
+  "drilldown.description":
+    "Instituțiile finanțate din această destinație, cu ponderea fiecăreia în total.",
+  "drilldown.loading": "Se încarcă instituțiile…",
+  "drilldown.error": "Nu am putut încărca instituțiile — încearcă din nou.",
+  "drilldown.empty": "Fără instituții listate pentru această destinație.",
+  "drilldown.share": "{sharePercent} din total",
+  "drilldown.total": "Total",
+  "drilldown.close": "Închide",
+
   "source.demo": "Demo",
   "source.ins": "Sursă: INS Tempo",
   "source.bnr": "Sursă: BNR",

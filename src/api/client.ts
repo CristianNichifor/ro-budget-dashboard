@@ -141,6 +141,34 @@ export async function fetchDestinations(): Promise<BudgetDestination[]> {
   return z.array(budgetDestinationSchema).parse(BUDGET_DESTINATIONS);
 }
 
+export const institutionsResponseSchema = z.object({
+  category: z.string(),
+  total: z.string(),
+  institutions: z.array(budgetSubDestinationSchema),
+});
+
+export type InstitutionsResponse = z.infer<typeof institutionsResponseSchema>;
+
+export async function fetchInstitutions(
+  category: string
+): Promise<InstitutionsResponse> {
+  const remote = await request(
+    `/api/budget/institutions?category=${category}`,
+    institutionsResponseSchema
+  );
+  if (remote !== null) {
+    return remote;
+  }
+  const destination = BUDGET_DESTINATIONS.find(
+    (entry) => entry.id === category
+  );
+  return {
+    category,
+    total: destination?.amount ?? "0",
+    institutions: destination?.subDestinations ?? [],
+  };
+}
+
 export async function fetchSalaryBreakdown(
   gross: number
 ): Promise<SalaryBreakdown | null> {

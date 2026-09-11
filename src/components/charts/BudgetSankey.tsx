@@ -63,7 +63,12 @@ function computeLayout(): SankeyGraphD {
   });
 }
 
-export function BudgetSankey() {
+interface BudgetSankeyProps {
+  selectableIds?: ReadonlySet<string>;
+  onSelect?: (destinationId: string) => void;
+}
+
+export function BudgetSankey({ selectableIds, onSelect }: BudgetSankeyProps) {
   const graph = useMemo(() => computeLayout(), []);
   const linkPath = sankeyLinkHorizontal<SankeyNodeD, SankeyLinkD>();
 
@@ -125,6 +130,7 @@ export function BudgetSankey() {
         const isLeftColumn = node.x0 < WIDTH / 2;
         const labelX = isLeftColumn ? node.x1 + 6 : node.x0 - 6;
         const labelAnchor = isLeftColumn ? "start" : "end";
+        const isClickable = selectableIds?.has(node.id) === true;
 
         return (
           <g key={node.id}>
@@ -135,7 +141,15 @@ export function BudgetSankey() {
               height={node.y1 - node.y0}
               fill={nodeColor(node.id)}
               rx={2}
-            />
+              className={isClickable ? "cursor-pointer" : undefined}
+              onClick={() => {
+                if (isClickable && onSelect !== undefined) {
+                  onSelect(node.id);
+                }
+              }}
+            >
+              <title>{node.name}</title>
+            </rect>
             <text
               x={labelX}
               y={node.y0 + (node.y1 - node.y0) / 2 + 3}

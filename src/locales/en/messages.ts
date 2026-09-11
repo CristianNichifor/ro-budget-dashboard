@@ -54,6 +54,18 @@ export const messages: Messages = {
   "context.insight":
     "Compared to 2021, the health budget changed by {budgetChange}, while {insLabel} changed by {insChange}.",
 
+  "drilldown.breadcrumb.root": "National balance",
+  "drilldown.breadcrumb.destinations": "Destinations",
+  "drilldown.title": "Institutional structure: {destination}",
+  "drilldown.description":
+    "Institutions funded from this destination, with each one's share of the total.",
+  "drilldown.loading": "Loading institutions…",
+  "drilldown.error": "Could not load institutions — try again.",
+  "drilldown.empty": "No institutions listed for this destination.",
+  "drilldown.share": "{sharePercent} of total",
+  "drilldown.total": "Total",
+  "drilldown.close": "Close",
+
   "source.demo": "Demo",
   "source.ins": "Source: INS Tempo",
   "source.bnr": "Source: BNR",
