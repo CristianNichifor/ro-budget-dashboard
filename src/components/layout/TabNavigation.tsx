@@ -11,6 +11,7 @@ const tabs = [
   { to: "/societate", labelId: "nav.society" },
   { to: "/energie", labelId: "nav.energy" },
   { to: "/piata-muncii", labelId: "nav.labour" },
+  { to: "/justitie", labelId: "nav.justice" },
 ] as const;
 
 export function TabNavigation() {

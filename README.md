@@ -2,7 +2,7 @@
 
 Tablou de bord cetățenesc pentru bugetul consolidat al României (central, social, sănătate), pe modelul [Open Budget 2026](https://openbudget.ro/buget/2026/), cu context INS/Eurostat (salarii, statistici, inflație, datorie).
 
-> **Status: P36.** Frontend-ul apelează `ro-budget-dashboard-bff` (date live Eurostat/BCE/MFP) și cade pe datele locale demo când BFF-ul nu răspunde. Șapte tab-uri: Feliuța ta, Bilanțul național, Companii de stat, Economie, Societate, Energie, Piața muncii.
+> **Status: P36.** Frontend-ul apelează `ro-budget-dashboard-bff` (date live Eurostat/BCE/MFP) și cade pe datele locale demo când BFF-ul nu răspunde. Opt tab-uri: Feliuța ta, Bilanțul național, Companii de stat, Economie, Societate, Energie, Piața muncii, Justiție.
 
 ## Tab-uri
 
@@ -15,6 +15,7 @@ Tablou de bord cetățenesc pentru bugetul consolidat al României (central, soc
 | **Societate** (`/societate`)                 | Populație, cheltuieli publice sănătate/educație (% PIB), educație, sănătate, demografie, indicatori sociali                               | Eurostat, INS                                                |
 | **Energie** (`/energie`)                     | Preț electricitate gospodării, energie regenerabilă, dependență de import                                                                 | Eurostat                                                     |
 | **Piața muncii** (`/piata-muncii`)           | Rata NEET (15–29), șomajul tinerilor, rata locurilor de muncă vacante                                                                     | Eurostat                                                     |
+| **Justiție** (`/justitie`)                   | Omucideri intenționate, populație carcerală, efectivul de polițiști                                                                       | Eurostat                                                     |
 
 ## Tech stack
 
@@ -94,6 +95,7 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 | P32  | „Față de salariul mediu” derivat din date live (SES + curs ECB)                                                   | ✓      |
 | P33  | sourceUpdated pe macro / wages / context + afișat în UI                                                           | ✓      |
 | P34  | Tab nou „Piața muncii” (NEET, șomaj tineri, locuri vacante)                                                       | ✓      |
+| P35  | Tab nou „Justiție” (omucideri, penitenciar, polițiști)                                                            | ✓      |
 
 ## Note demo
 

@@ -52,6 +52,7 @@ export const m = {
   "nav.society": msg({ id: "nav.society", message: "Societate" }),
   "nav.energy": msg({ id: "nav.energy", message: "Energie" }),
   "nav.labour": msg({ id: "nav.labour", message: "Piața muncii" }),
+  "nav.justice": msg({ id: "nav.justice", message: "Justiție" }),
   "society.title": msg({
     id: "society.title",
     message: "Societatea în cifre",
@@ -249,6 +250,53 @@ export const m = {
     id: "labour.vacancy.description",
     message:
       "Rata locurilor de muncă vacante în industrie, construcții și servicii (NACE B-S), ajustată sezonier (Eurostat).",
+  }),
+  "justice.title": msg({
+    id: "justice.title",
+    message: "Justiția în cifre",
+  }),
+  "justice.description": msg({
+    id: "justice.description",
+    message:
+      "Omuciderile intenționate, populația carcerală și efectivul de polițiști (Eurostat).",
+  }),
+  "justice.kpi.homicides": msg({
+    id: "justice.kpi.homicides",
+    message: "Omucideri intenționate",
+  }),
+  "justice.kpi.prison": msg({
+    id: "justice.kpi.prison",
+    message: "Persoane în penitenciar",
+  }),
+  "justice.kpi.police": msg({
+    id: "justice.kpi.police",
+    message: "Polițiști",
+  }),
+  "justice.homicides.title": msg({
+    id: "justice.homicides.title",
+    message: "Omucideri intenționate",
+  }),
+  "justice.homicides.description": msg({
+    id: "justice.homicides.description",
+    message:
+      "Infracțiuni de omucidere intenționată înregistrate (ICCS 0101), număr anual (Eurostat).",
+  }),
+  "justice.prison.title": msg({
+    id: "justice.prison.title",
+    message: "Populația carcerală",
+  }),
+  "justice.prison.description": msg({
+    id: "justice.prison.description",
+    message:
+      "Numărul persoanelor deținute efectiv în penitenciare, la sfârșitul anului (Eurostat).",
+  }),
+  "justice.police.title": msg({
+    id: "justice.police.title",
+    message: "Efectivul de polițiști",
+  }),
+  "justice.police.description": msg({
+    id: "justice.police.description",
+    message: "Numărul polițiștilor (ISCO 5412), număr anual (Eurostat).",
   }),
   "society.ins.title": msg({
     id: "society.ins.title",

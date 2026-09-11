@@ -874,6 +874,21 @@ export async function fetchLabourContext(): Promise<LabourContext | null> {
   return request("/api/labour/context", labourContextSchema);
 }
 
+// ── Justiție (Eurostat via BFF) ────────────────────────────────────────
+
+export const justiceContextSchema = z.object({
+  homicides: z.array(z.object({ year: z.string(), count: z.number() })),
+  prison: z.array(z.object({ year: z.string(), prisoners: z.number() })),
+  police: z.array(z.object({ year: z.string(), officers: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type JusticeContext = z.infer<typeof justiceContextSchema>;
+
+export async function fetchJusticeContext(): Promise<JusticeContext | null> {
+  return request("/api/justice/context", justiceContextSchema);
+}
+
 export interface PensionYearPoint {
   year: number;
   milliarde: number;

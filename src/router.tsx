@@ -41,6 +41,11 @@ const PiataMuncii = lazyRouteComponent(
   "PiataMuncii"
 );
 
+const Justitie = lazyRouteComponent(
+  () => import("./routes/Justitie"),
+  "Justitie"
+);
+
 const rootRoute = createRootRoute({
   component: RootLayout,
   errorComponent: DefaultError,
@@ -97,6 +102,12 @@ const labourRoute = createRoute({
   component: PiataMuncii,
 });
 
+const justiceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/justitie",
+  component: Justitie,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   citizenSliceRoute,
@@ -106,6 +117,7 @@ const routeTree = rootRoute.addChildren([
   societyRoute,
   energyRoute,
   labourRoute,
+  justiceRoute,
 ]);
 
 export const router = createRouter({
