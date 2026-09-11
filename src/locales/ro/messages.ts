@@ -47,6 +47,13 @@ export const messages: Messages = {
   "treemap.description":
     "Suprafața fiecărui dreptunghi este proporțională cu suma alocată.",
 
+  "context.title": "Context din statisticile INS",
+  "context.description":
+    "Bugetul sănătății (bare, mld. lei) alături de un indicator social (linie): banii alocați vs. rezultatul măsurabil.",
+  "context.budgetLegend": "Buget sănătate (mld. lei)",
+  "context.insight":
+    "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}, iar {insLabel} cu {insChange}.",
+
   "source.demo": "Demo",
   "source.ins": "Sursă: INS Tempo",
   "source.bnr": "Sursă: BNR",

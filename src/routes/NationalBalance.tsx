@@ -1,13 +1,24 @@
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Decimal } from "decimal.js";
-import { fetchBudgetSummary, fetchDestinations } from "../api/client";
+import { useMemo } from "react";
+import {
+  fetchBudgetSummary,
+  fetchBudgetTrend,
+  fetchDestinations,
+  fetchInsMetric,
+} from "../api/client";
 import { BudgetSankey } from "../components/charts/BudgetSankey";
 import { DebtGauge } from "../components/charts/DebtGauge";
 import { DestinationTreemap } from "../components/charts/DestinationTreemap";
+import { DualAxisTrend } from "../components/charts/DualAxisTrend";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
-import { formatMilliardeLei } from "../lib/format";
+import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
+import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
+
+const CONTEXT_METRIC = "infant-mortality";
+const CONTEXT_BUDGET_METRIC = "health-budget";
 
 export function NationalBalance() {
   const { i18n } = useLingui();
@@ -21,6 +32,30 @@ export function NationalBalance() {
     queryKey: ["destinations"],
     queryFn: fetchDestinations,
   });
+
+  const { data: budgetTrend } = useQuery({
+    queryKey: ["budget-trend", CONTEXT_BUDGET_METRIC],
+    queryFn: () => fetchBudgetTrend(CONTEXT_BUDGET_METRIC),
+  });
+
+  const { data: insMetric } = useQuery({
+    queryKey: ["ins-metric", CONTEXT_METRIC],
+    queryFn: () => fetchInsMetric(CONTEXT_METRIC),
+  });
+
+  const trendData = useMemo(() => {
+    if (budgetTrend === undefined || insMetric === undefined) {
+      return null;
+    }
+    return joinBudgetWithIns(budgetTrend.data, insMetric.data);
+  }, [budgetTrend, insMetric]);
+
+  const trendInsight = useMemo(() => {
+    if (budgetTrend === undefined || insMetric === undefined) {
+      return null;
+    }
+    return computeTrendInsight(budgetTrend.data, insMetric.data);
+  }, [budgetTrend, insMetric]);
 
   const deficitPercent =
     summary !== undefined
@@ -100,6 +135,48 @@ export function NationalBalance() {
         {destinations !== undefined && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <DestinationTreemap destinations={destinations} />
+          </div>
+        )}
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold">
+              {i18n._({ id: "context.title" })}
+            </h2>
+            <p className="text-sm text-slate-500">
+              {i18n._({ id: "context.description" })}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <SourceBadge source="source.ins" />
+            <SourceBadge source="source.budget" />
+          </div>
+        </div>
+        {trendData !== null && insMetric !== undefined && (
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <DualAxisTrend
+              data={trendData}
+              leftLabel={i18n._({ id: "context.budgetLegend" })}
+              rightLabel={insMetric.label}
+            />
+            {trendInsight !== null && (
+              <p className="mt-3 text-sm text-slate-600">
+                {i18n._({
+                  id: "context.insight",
+                  values: {
+                    budgetChange: formatSignedPercent(
+                      trendInsight.budgetChangePercent
+                    ),
+                    insChange: formatSignedPercent(
+                      trendInsight.insChangePercent
+                    ),
+                    insLabel: insMetric.label.toLowerCase(),
+                  },
+                })}
+              </p>
+            )}
           </div>
         )}
       </section>

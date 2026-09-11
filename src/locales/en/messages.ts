@@ -47,6 +47,13 @@ export const messages: Messages = {
   "treemap.description":
     "Each rectangle's area is proportional to the allocated amount.",
 
+  "context.title": "Context from INS statistics",
+  "context.description":
+    "Health budget (bars, bn lei) next to a social indicator (line): money allocated vs. measurable outcome.",
+  "context.budgetLegend": "Health budget (bn lei)",
+  "context.insight":
+    "Compared to 2021, the health budget changed by {budgetChange}, while {insLabel} changed by {insChange}.",
+
   "source.demo": "Demo",
   "source.ins": "Source: INS Tempo",
   "source.bnr": "Source: BNR",

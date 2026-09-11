@@ -3,9 +3,12 @@ import { z } from "zod";
 import {
   BUDGET_DESTINATIONS,
   BUDGET_SUMMARY,
+  HEALTH_BUDGET_TREND,
   type BudgetDestination,
+  type YearAmount,
 } from "../data/budget2026";
 import { BNR_INFLATION_SERIES } from "../data/bnrInflation";
+import { INS_METRICS_SEED, type InsMetric } from "../data/insStats";
 import { buildRealWageSeries, type RealWagePoint } from "../lib/realWage";
 import { calculateSalaryBreakdown, type SalaryBreakdown } from "../lib/salary";
 
@@ -157,4 +160,55 @@ export async function fetchRealWageSeries(): Promise<RealWagePoint[]> {
     return remote.realWage;
   }
   return buildRealWageSeries(BNR_INFLATION_SERIES);
+}
+
+export const insMetricSchema = z.object({
+  code: z.string(),
+  unit: z.string(),
+  label: z.string(),
+  data: z.array(
+    z.object({
+      year: z.number().int(),
+      value: z.number(),
+    })
+  ),
+});
+
+export async function fetchInsMetric(code: string): Promise<InsMetric> {
+  const remote = await request(
+    `/api/ins/metrics?code=${code}`,
+    insMetricSchema
+  );
+  if (remote !== null) {
+    return remote;
+  }
+  return INS_METRICS_SEED[code] ?? { code, unit: "", label: code, data: [] };
+}
+
+export interface BudgetTrend {
+  metric: string;
+  source: string;
+  data: YearAmount[];
+}
+
+const budgetTrendSchema = z.object({
+  metric: z.string(),
+  source: z.string(),
+  data: z.array(
+    z.object({
+      year: z.number().int(),
+      amount: z.string(),
+    })
+  ),
+});
+
+export async function fetchBudgetTrend(metric: string): Promise<BudgetTrend> {
+  const remote = await request(
+    `/api/context/trends?metric=${metric}`,
+    budgetTrendSchema
+  );
+  if (remote !== null) {
+    return remote;
+  }
+  return { metric, source: "seed demo", data: HEALTH_BUDGET_TREND };
 }
