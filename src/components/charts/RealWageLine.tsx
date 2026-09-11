@@ -9,12 +9,19 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { formatLei } from "../../lib/format";
-import type { RealWagePoint } from "../../lib/realWage";
+import type { RealWageSeries } from "../../api/client";
 import { m } from "../../messages";
 
 interface RealWageLineProps {
-  series: RealWagePoint[];
+  series: RealWageSeries["series"];
+}
+
+const eurFormatter = new Intl.NumberFormat("ro-RO", {
+  maximumFractionDigits: 0,
+});
+
+function formatEur(value: number): string {
+  return `${eurFormatter.format(value)} €`;
 }
 
 function RealWageTooltip({
@@ -24,7 +31,7 @@ function RealWageTooltip({
 }: {
   active?: boolean;
   payload?: Array<{ name: string; value: number }>;
-  label?: number;
+  label?: string;
 }) {
   if (active !== true || payload === undefined || payload.length === 0) {
     return null;
@@ -35,7 +42,7 @@ function RealWageTooltip({
       <p className="font-semibold">{label ?? ""}</p>
       {payload.map((entry) => (
         <p key={entry.name} className="tabular-nums text-slate-600">
-          {entry.name}: {formatLei(entry.value)}
+          {entry.name}: {formatEur(entry.value)}
         </p>
       ))}
     </div>
@@ -53,16 +60,13 @@ export function RealWageLine({ series }: RealWageLineProps) {
           margin={{ top: 8, right: 8, left: 8, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="year" />
-          <YAxis
-            tickFormatter={(value: number) => formatLei(value)}
-            width={90}
-          />
+          <XAxis dataKey="quarter" />
+          <YAxis tickFormatter={formatEur} width={90} />
           <Tooltip content={<RealWageTooltip />} />
           <Legend />
           <Line
             type="monotone"
-            dataKey="nominal"
+            dataKey="nominalEur"
             name={i18n._(m["realWage.nominal"])}
             stroke="#2563eb"
             strokeWidth={2}
@@ -71,7 +75,7 @@ export function RealWageLine({ series }: RealWageLineProps) {
           />
           <Line
             type="monotone"
-            dataKey="real"
+            dataKey="realEur"
             name={i18n._(m["realWage.real"])}
             stroke="#dc2626"
             strokeWidth={2}

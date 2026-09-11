@@ -4,8 +4,8 @@ import type { InsMetricPoint } from "../data/insStats";
 
 export interface DualTrendPoint {
   year: number;
-  /** Budget amount, in milliarde lei (display-ready). */
-  budgetMilliarde: number;
+  /** Health spending, in milliarde EUR (display-ready). */
+  budgetMilliardeEur: number;
   /** INS indicator value, or null when the year is missing. */
   ins: number | null;
 }
@@ -15,10 +15,11 @@ export interface TrendInsight {
   insChangePercent: number;
 }
 
-const BILLION = 1_000_000_000;
+const THOUSAND = 1000;
 
 /**
- * Inner-joins a budget time series with an INS metric on year.
+ * Inner-joins a health-spending time series with an INS metric on year.
+ * The BFF serves amounts in millions EUR; this converts to milliarde EUR.
  * Pure function — Decimal for the money math, numbers only at the boundary.
  */
 export function joinBudgetWithIns(
@@ -29,7 +30,7 @@ export function joinBudgetWithIns(
 
   return budget.map((point) => ({
     year: point.year,
-    budgetMilliarde: new Decimal(point.amount).div(BILLION).toNumber(),
+    budgetMilliardeEur: new Decimal(point.amount).div(THOUSAND).toNumber(),
     ins: insByYear.get(point.year) ?? null,
   }));
 }

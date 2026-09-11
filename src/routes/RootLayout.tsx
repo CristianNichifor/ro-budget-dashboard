@@ -9,11 +9,17 @@ export function RootLayout() {
 
   return (
     <div className="min-h-screen">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-budget-blue focus:shadow"
+      >
+        {i18n._(m["a11y.skipToContent"])}
+      </a>
       <Header />
       <div className="border-b border-slate-200 bg-white">
         <TabNavigation />
       </div>
-      <main className="mx-auto max-w-6xl px-4 py-8">
+      <main id="main-content" className="mx-auto max-w-6xl px-4 py-8">
         <Outlet />
       </main>
       <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs text-slate-500">

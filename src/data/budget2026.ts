@@ -102,12 +102,16 @@ export interface YearAmount {
   amount: string;
 }
 
-/** Ministry of Health budget, 2021–2026 (Open Budget press coverage). */
+/**
+ * Public health spending, millions EUR (Eurostat COFOG gov_10a_exp, GF07).
+ * DEMO NOTE: static snapshot — the BFF serves this live; it is only used
+ * when the API is unreachable.
+ */
 export const HEALTH_BUDGET_TREND: YearAmount[] = [
-  { year: 2021, amount: "22000000000" },
-  { year: 2022, amount: "24500000000" },
-  { year: 2023, amount: "26000000000" },
-  { year: 2024, amount: "27100000000" },
-  { year: 2025, amount: "26140000000" },
-  { year: 2026, amount: "22780000000" },
+  { year: 2019, amount: "11171.0" },
+  { year: 2020, amount: "12064.4" },
+  { year: 2021, amount: "13232.4" },
+  { year: 2022, amount: "13920.9" },
+  { year: 2023, amount: "15277.8" },
+  { year: 2024, amount: "18319.5" },
 ];

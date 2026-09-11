@@ -8,13 +8,19 @@ const tabs = [
   { to: "/bilantul-national", labelId: "nav.nationalBalance" },
   { to: "/companii-de-stat", labelId: "nav.companies" },
   { to: "/economie", labelId: "nav.economy" },
+  { to: "/societate", labelId: "nav.society" },
+  { to: "/energie", labelId: "nav.energy" },
+  { to: "/piata-muncii", labelId: "nav.labour" },
 ] as const;
 
 export function TabNavigation() {
   const { i18n } = useLingui();
 
   return (
-    <nav className="mx-auto flex max-w-6xl gap-1 px-4">
+    <nav
+      aria-label={i18n._(lookupMessage("nav.label"))}
+      className="mx-auto flex max-w-6xl gap-1 px-4"
+    >
       {tabs.map((tab) => (
         <Link
           key={tab.to}

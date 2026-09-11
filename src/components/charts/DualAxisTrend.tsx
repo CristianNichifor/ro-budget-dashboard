@@ -41,7 +41,7 @@ function DualAxisTooltip({
       {datum !== undefined && (
         <>
           <p className="tabular-nums text-slate-600">
-            {leftLabel}: {datum.budgetMilliarde} mld. lei
+            {leftLabel}: {datum.budgetMilliardeEur} mld. EUR
           </p>
           <p className="tabular-nums text-slate-600">
             {rightLabel}: {datum.ins ?? "—"}
@@ -53,7 +53,7 @@ function DualAxisTooltip({
 }
 
 /**
- * Budget bars (left axis, milliarde lei) + INS indicator line (right axis).
+ * Health-spending bars (left axis, milliarde EUR) + INS indicator line (right axis).
  */
 export function DualAxisTrend({
   data,
@@ -86,7 +86,7 @@ export function DualAxisTrend({
           <Legend />
           <Bar
             yAxisId="budget"
-            dataKey="budgetMilliarde"
+            dataKey="budgetMilliardeEur"
             name={leftLabel}
             fill="#2563eb"
             radius={[3, 3, 0, 0]}

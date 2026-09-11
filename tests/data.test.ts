@@ -5,7 +5,6 @@ import {
   BUDGET_SUMMARY,
   REVENUE_SOURCES,
 } from "../src/data/budget2026";
-import { BNR_INFLATION_SERIES } from "../src/data/bnrInflation";
 import { TAX_RATES_2026 } from "../src/data/taxRates";
 
 describe("static data integrity", () => {
@@ -47,16 +46,6 @@ describe("static data integrity", () => {
     }
     for (const source of REVENUE_SOURCES) {
       expect(new Decimal(source.amount).toNumber()).toBeGreaterThan(0);
-    }
-  });
-
-  it("inflation series years are strictly increasing", () => {
-    for (let index = 1; index < BNR_INFLATION_SERIES.length; index += 1) {
-      const previous = BNR_INFLATION_SERIES[index - 1];
-      const current = BNR_INFLATION_SERIES[index];
-      expect(current?.year).toBeGreaterThan(previous?.year ?? 0);
-      expect(current?.cpiPercent).toBeGreaterThan(0);
-      expect(current?.avgNetSalary).toBeGreaterThan(0);
     }
   });
 

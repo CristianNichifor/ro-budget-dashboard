@@ -26,6 +26,25 @@ jobs:
       - name: Build
         run: pnpm build
 
+  e2e:
+    name: e2e smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run e2e smoke
+        run: pnpm e2e
+
   docker:
     name: docker build
     runs-on: ubuntu-latest

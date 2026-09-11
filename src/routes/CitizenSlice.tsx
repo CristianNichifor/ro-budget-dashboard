@@ -2,14 +2,21 @@ import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import * as Slider from "@radix-ui/react-slider";
 import { Wallet } from "lucide-react";
-import { fetchRealWageSeries, fetchSalaryBreakdown } from "../api/client";
+import {
+  fetchFx,
+  fetchRealWage,
+  fetchSalaryBreakdown,
+  fetchWageContext,
+  fetchWageMonthly,
+} from "../api/client";
+import { MacroTrendChart } from "../components/charts/MacroTrendChart";
 import { RealWageLine } from "../components/charts/RealWageLine";
 import { SalaryWaterfall } from "../components/charts/SalaryWaterfall";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
-import { AVERAGE_NET_SALARY_2026 } from "../data/salaryStats";
 import { formatLei, formatPercent } from "../lib/format";
+import { estimateAverageNetSalary } from "../lib/averageSalary";
 import { buildSalaryWaterfallRows } from "../lib/waterfall";
 import { useSalaryStore } from "../store/useSalaryStore";
 import { m } from "../messages";
@@ -26,17 +33,35 @@ export function CitizenSlice() {
 
   const { data: realWage } = useQuery({
     queryKey: ["real-wage"],
-    queryFn: fetchRealWageSeries,
+    queryFn: fetchRealWage,
   });
 
+  const { data: wageContext } = useQuery({
+    queryKey: ["wage-context"],
+    queryFn: fetchWageContext,
+  });
+
+  const { data: wageMonthly } = useQuery({
+    queryKey: ["wage-monthly"],
+    queryFn: fetchWageMonthly,
+  });
+
+  const { data: fx } = useQuery({
+    queryKey: ["fx"],
+    queryFn: fetchFx,
+  });
+
+  const estimatedAverageNet = estimateAverageNetSalary(
+    wageContext?.sesAnchors ?? [],
+    fx?.series ?? []
+  );
+
   const vsAverage =
-    breakdown !== null && breakdown !== undefined
-      ? breakdown.net
-          .div(AVERAGE_NET_SALARY_2026)
-          .mul(100)
-          .minus(100)
-          .toNumber()
-      : 0;
+    breakdown !== null &&
+    breakdown !== undefined &&
+    estimatedAverageNet !== null
+      ? breakdown.net.div(estimatedAverageNet).mul(100).minus(100).toNumber()
+      : null;
 
   return (
     <div className="space-y-10">
@@ -108,13 +133,19 @@ export function CitizenSlice() {
                 accent="slate"
                 label={i18n._(m["salary.vsAverage"])}
                 value={
-                  Math.abs(vsAverage) < 0.5
-                    ? "0%"
-                    : vsAverage > 0
-                      ? `+${vsAverage.toFixed(0)}%`
-                      : `${vsAverage.toFixed(0)}%`
+                  vsAverage === null
+                    ? "—"
+                    : Math.abs(vsAverage) < 0.5
+                      ? "0%"
+                      : vsAverage > 0
+                        ? `+${vsAverage.toFixed(0)}%`
+                        : `${vsAverage.toFixed(0)}%`
                 }
-                sub={`${i18n._(m["salary.netStat"])}: ${formatLei(AVERAGE_NET_SALARY_2026)}`}
+                sub={
+                  estimatedAverageNet !== null
+                    ? `${i18n._(m["salary.netStat"])}: ${formatLei(estimatedAverageNet)}`
+                    : i18n._(m["salary.estimateLoading"])
+                }
               />
             </div>
 
@@ -144,18 +175,113 @@ export function CitizenSlice() {
             </p>
           </div>
           <div className="flex gap-2">
-            <SourceBadge source="source.ins" />
-            <SourceBadge source="source.bnr" />
+            <SourceBadge source="source.eurostat" />
           </div>
         </div>
 
-        {realWage !== undefined && (
+        {realWage !== null &&
+          realWage !== undefined &&
+          realWage.sourceUpdated.length > 0 && (
+            <p className="text-xs text-slate-400">
+              {i18n._({
+                ...m["source.updatedAt"],
+                values: { date: realWage.sourceUpdated },
+              })}
+            </p>
+          )}
+
+        {realWage !== null && realWage !== undefined && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <RealWageLine series={realWage} />
+            <RealWageLine series={realWage.series} />
+            {realWage.estimated && (
+              <p className="mt-2 text-xs text-slate-400">
+                {i18n._(m["wageContext.estimatedNote"])}
+              </p>
+            )}
           </div>
         )}
-        {realWage === undefined && <SkeletonCard className="h-64" />}
+        {(realWage === null || realWage === undefined) && (
+          <SkeletonCard className="h-64" />
+        )}
       </section>
+
+      {wageContext !== null && wageContext !== undefined && (
+        <section className="space-y-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["wageContext.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["wageContext.description"])}
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <SourceBadge source="source.eurostat" />
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {wageContext.sesAnchors.map((anchor) => (
+              <KpiCard
+                key={anchor.year}
+                accent="blue"
+                label={i18n._({
+                  ...m["wageContext.anchor"],
+                  values: { year: anchor.year },
+                })}
+                value={`${anchor.meanGrossEur.toLocaleString("ro-RO")} €`}
+                sub={i18n._(m["wageContext.anchorSub"])}
+              />
+            ))}
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <h3 className="text-sm font-semibold text-slate-700">
+              {i18n._(m["wageContext.lciTitle"])}
+            </h3>
+            <p className="mb-2 text-xs text-slate-500">
+              {i18n._(m["wageContext.lciDescription"])}
+            </p>
+            <MacroTrendChart
+              data={wageContext.lciQuarterly.map((point) => ({
+                label: point.quarter,
+                value: point.pctChange,
+              }))}
+              color="#2563eb"
+              ariaLabel={i18n._(m["wageContext.lciTitle"])}
+              valueFormatter={(value) => `${value.toFixed(1)}%`}
+              heightClass="h-56"
+            />
+          </div>
+
+          {wageMonthly !== null && wageMonthly !== undefined && (
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-slate-700">
+                {i18n._(m["wageContext.monthlyTitle"])}
+              </h3>
+              <p className="mb-2 text-xs text-slate-500">
+                {i18n._(m["wageContext.monthlyDescription"])}
+              </p>
+              <MacroTrendChart
+                data={wageMonthly.monthly.map((point) => ({
+                  label: point.quarter,
+                  value: point.grossMonthlyEur,
+                }))}
+                color="#7c3aed"
+                ariaLabel={i18n._(m["wageContext.monthlyTitle"])}
+                valueFormatter={(value) => `${value.toLocaleString("ro-RO")} €`}
+                heightClass="h-56"
+              />
+              {wageMonthly.estimated && (
+                <p className="mt-2 text-xs text-slate-400">
+                  {i18n._(m["wageContext.estimatedNote"])}
+                </p>
+              )}
+            </div>
+          )}
+        </section>
+      )}
 
       <section className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
         <Wallet className="size-5 shrink-0" aria-hidden="true" />

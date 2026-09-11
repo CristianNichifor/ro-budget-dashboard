@@ -2,26 +2,33 @@ import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
+  fetchCurrentAccount,
   fetchDebt,
+  fetchDeficit,
   fetchDemographics,
+  fetchEmployment,
   fetchFx,
   fetchGdpGrowth,
   fetchGdpPerCapita,
+  fetchGdpRegions,
   fetchInflation,
   fetchPensionTrend,
+  fetchRates,
   fetchTrade,
   fetchUnemployment,
 } from "../api/client";
+import { CurrentAccountBars } from "../components/charts/CurrentAccountBars";
 import { GdpGrowthBars } from "../components/charts/GdpGrowthBars";
 import { GdpPerCapitaChart } from "../components/charts/GdpPerCapitaChart";
 import { MacroTrendChart } from "../components/charts/MacroTrendChart";
 import { PensionAgeChart } from "../components/charts/PensionAgeChart";
+import { RegionGdpBar } from "../components/charts/RegionGdpBar";
 import { TradeBalanceChart } from "../components/charts/TradeBalanceChart";
 import { KpiCard } from "../components/shared/KpiCard";
 import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatPercent, formatSignedPercent } from "../lib/format";
-import { joinPensionAge } from "../lib/macro";
+import { joinPensionAge, toBalanceMld } from "../lib/macro";
 import { m } from "../messages";
 
 const PENSION_YEARS_START = 2020;
@@ -54,6 +61,11 @@ export function Economie() {
     queryFn: fetchGdpPerCapita,
   });
 
+  const { data: gdpRegions, isPending: gdpRegionsPending } = useQuery({
+    queryKey: ["macro-gdp-regions"],
+    queryFn: fetchGdpRegions,
+  });
+
   const { data: debt, isPending: debtPending } = useQuery({
     queryKey: ["macro-debt"],
     queryFn: fetchDebt,
@@ -67,6 +79,26 @@ export function Economie() {
   const { data: demographics, isPending: demographicsPending } = useQuery({
     queryKey: ["macro-demographics"],
     queryFn: fetchDemographics,
+  });
+
+  const { data: deficit, isPending: deficitPending } = useQuery({
+    queryKey: ["macro-deficit"],
+    queryFn: fetchDeficit,
+  });
+
+  const { data: employment, isPending: employmentPending } = useQuery({
+    queryKey: ["macro-employment"],
+    queryFn: fetchEmployment,
+  });
+
+  const { data: currentAccount, isPending: currentAccountPending } = useQuery({
+    queryKey: ["macro-current-account"],
+    queryFn: fetchCurrentAccount,
+  });
+
+  const { data: rates, isPending: ratesPending } = useQuery({
+    queryKey: ["macro-rates"],
+    queryFn: fetchRates,
   });
 
   const currentYear = new Date().getFullYear();
@@ -90,6 +122,10 @@ export function Economie() {
   const latestPerCapita = gdpPerCapita?.yearly.at(-1);
   const latestDebt = debt?.yearly.at(-1);
   const latestTrade = trade?.yearly.at(-1);
+  const latestDeficit = deficit?.quarterly.at(-1);
+  const latestEmployment = employment?.quarterly.at(-1);
+  const latestCurrentAccount = currentAccount?.quarterly.at(-1);
+  const latestRate = rates?.ecb.at(-1);
 
   const inflationData =
     inflation?.monthly.map((point) => ({
@@ -110,6 +146,22 @@ export function Economie() {
       label: point.year,
       value: point.percentGdp,
     })) ?? [];
+  const deficitData =
+    deficit?.quarterly.map((point) => ({
+      label: point.quarter,
+      value: point.percentGdp,
+    })) ?? [];
+  const employmentData =
+    employment?.quarterly.map((point) => ({
+      label: point.quarter,
+      value: point.rate,
+    })) ?? [];
+  const currentAccountData = toBalanceMld(currentAccount?.quarterly ?? []);
+  const ratesData =
+    rates?.ecb.map((point) => ({
+      label: point.date,
+      value: point.depositRate,
+    })) ?? [];
 
   const pensionAgeData = useMemo(
     () => joinPensionAge(pensionTrend ?? [], demographics?.yearly ?? []),
@@ -124,7 +176,11 @@ export function Economie() {
     gdpPerCapita === null &&
     debt === null &&
     trade === null &&
-    demographics === null;
+    demographics === null &&
+    deficit === null &&
+    employment === null &&
+    currentAccount === null &&
+    rates === null;
 
   return (
     <div className="space-y-10">
@@ -143,6 +199,17 @@ export function Economie() {
             <SourceBadge source="source.budget" />
           </div>
         </div>
+
+        {inflation !== null &&
+          inflation !== undefined &&
+          inflation.sourceUpdated.length > 0 && (
+            <p className="text-xs text-slate-400">
+              {i18n._({
+                ...m["source.updatedAt"],
+                values: { date: inflation.sourceUpdated },
+              })}
+            </p>
+          )}
 
         {(inflationPending || unemploymentPending || fxPending) && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -186,7 +253,11 @@ export function Economie() {
         {(gdpGrowthPending ||
           gdpPerCapitaPending ||
           debtPending ||
-          tradePending) && (
+          tradePending ||
+          deficitPending ||
+          employmentPending ||
+          currentAccountPending ||
+          ratesPending) && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[0, 1, 2, 3].map((index) => (
               <SkeletonCard key={index} className="h-28" />
@@ -197,7 +268,11 @@ export function Economie() {
         {latestGrowth !== undefined &&
           latestPerCapita !== undefined &&
           latestDebt !== undefined &&
-          latestTrade !== undefined && (
+          latestTrade !== undefined &&
+          latestDeficit !== undefined &&
+          latestEmployment !== undefined &&
+          latestCurrentAccount !== undefined &&
+          latestRate !== undefined && (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <KpiCard
                 accent="blue"
@@ -222,6 +297,32 @@ export function Economie() {
                 label={i18n._(m["economy.kpi.trade"])}
                 value={formatSignedPercent(latestTrade.balancePctGdp)}
                 sub={`% PIB · ${latestTrade.year}`}
+              />
+              <KpiCard
+                accent="red"
+                label={i18n._(m["economy.kpi.deficit"])}
+                value={formatSignedPercent(latestDeficit.percentGdp)}
+                sub={`% PIB · ${latestDeficit.quarter}`}
+              />
+              <KpiCard
+                accent="blue"
+                label={i18n._(m["economy.kpi.employment"])}
+                value={formatPercent(latestEmployment.rate)}
+                sub={latestEmployment.quarter}
+              />
+              <KpiCard
+                accent="amber"
+                label={i18n._(m["economy.kpi.currentAccount"])}
+                value={`${latestCurrentAccount.balanceMioEur >= 0 ? "+" : "−"}${(
+                  Math.abs(latestCurrentAccount.balanceMioEur) / 1000
+                ).toFixed(1)} ${i18n._(m["economy.mldEur"])}`}
+                sub={latestCurrentAccount.quarter}
+              />
+              <KpiCard
+                accent="slate"
+                label={i18n._(m["economy.kpi.rates"])}
+                value={formatPercent(latestRate.depositRate)}
+                sub={latestRate.date}
               />
             </div>
           )}
@@ -341,6 +442,26 @@ export function Economie() {
           </section>
         )}
 
+        {gdpRegions !== null && gdpRegions !== undefined && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["economy.gdpRegions.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["economy.gdpRegions.description"])}
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <RegionGdpBar
+                data={gdpRegions.regions}
+                ariaLabel={i18n._(m["economy.gdpRegions.title"])}
+              />
+            </div>
+          </section>
+        )}
+        {gdpRegionsPending && <SkeletonCard className="h-80" />}
+
         {debt !== null && debt !== undefined && (
           <section className="space-y-4">
             <div>
@@ -383,6 +504,92 @@ export function Economie() {
                 importsLabel={i18n._(m["economy.trade.imports"])}
                 balanceLabel={i18n._(m["economy.trade.balance"])}
                 ariaLabel={i18n._(m["economy.trade.title"])}
+              />
+            </div>
+          </section>
+        )}
+
+        {deficit !== null && deficit !== undefined && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["economy.deficit.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["economy.deficit.description"])}
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <MacroTrendChart
+                data={deficitData}
+                color="#dc2626"
+                ariaLabel={i18n._(m["economy.deficit.title"])}
+                valueFormatter={(value) => `${value.toFixed(1)}%`}
+                reference={{
+                  value: -3,
+                  label: i18n._(m["economy.deficit.maastricht"]),
+                }}
+              />
+            </div>
+          </section>
+        )}
+
+        {employment !== null && employment !== undefined && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["economy.employment.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["economy.employment.description"])}
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <MacroTrendChart
+                data={employmentData}
+                color="#0ea5e9"
+                ariaLabel={i18n._(m["economy.employment.title"])}
+                valueFormatter={(value) => `${value.toFixed(1)}%`}
+              />
+            </div>
+          </section>
+        )}
+
+        {currentAccount !== null && currentAccount !== undefined && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["economy.currentAccount.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["economy.currentAccount.description"])}
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <CurrentAccountBars
+                data={currentAccountData}
+                ariaLabel={i18n._(m["economy.currentAccount.title"])}
+              />
+            </div>
+          </section>
+        )}
+
+        {rates !== null && rates !== undefined && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                {i18n._(m["economy.rates.title"])}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {i18n._(m["economy.rates.description"])}
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <MacroTrendChart
+                data={ratesData}
+                color="#7c3aed"
+                ariaLabel={i18n._(m["economy.rates.title"])}
+                valueFormatter={(value) => `${value.toFixed(2)}%`}
               />
             </div>
           </section>

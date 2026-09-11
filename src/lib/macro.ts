@@ -47,3 +47,26 @@ export function shortQuarter(quarter: string): string {
   }
   return `Q${match[1]} '${quarter.slice(2, 4)}`;
 }
+
+/** "2026-06-17" -> "2026-06" for dense date axes. */
+export function shortDate(date: string): string {
+  return date.slice(0, 7);
+}
+
+export interface CurrentAccountBarPoint {
+  quarter: string;
+  balanceMldEur: number;
+}
+
+/**
+ * Current account balances from million EUR to milliard EUR, one decimal
+ * (negative = deficit). Pure display-boundary transform.
+ */
+export function toBalanceMld(
+  points: { quarter: string; balanceMioEur: number }[]
+): CurrentAccountBarPoint[] {
+  return points.map((point) => ({
+    quarter: point.quarter,
+    balanceMldEur: Math.round((point.balanceMioEur / 1000) * 10) / 10,
+  }));
+}

@@ -1,0 +1,4 @@
+pnpm-lock.yaml
+test-results
+playwright-report
+src/locales/*/messages.js

@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { shortQuarter } from "../../lib/macro";
 
 interface MacroTrendChartProps {
   data: { label: string; value: number }[];
@@ -22,8 +23,17 @@ function shortLabel(label: string): string {
   if (/^\d{4}$/.test(label)) {
     return label;
   }
-  if (label.endsWith("-01")) {
-    return label.slice(0, 4);
+  if (/^\d{4}-Q\d$/.test(label)) {
+    return shortQuarter(label);
+  }
+  if (/^\d{4}-S\d$/.test(label)) {
+    return `${label.slice(0, 4)} S${label.slice(6)}`;
+  }
+  if (/^\d{4}-\d{2}$/.test(label)) {
+    return label.endsWith("-01") ? label.slice(0, 4) : label.slice(0, 7);
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(label)) {
+    return label.slice(0, 7);
   }
   return "";
 }

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { joinPensionAge, shortQuarter } from "../src/lib/macro";
+import {
+  joinPensionAge,
+  shortDate,
+  shortQuarter,
+  toBalanceMld,
+} from "../src/lib/macro";
 
 describe("joinPensionAge", () => {
   it("joins both series on the union of years with nulls for gaps", () => {
@@ -33,5 +38,29 @@ describe("shortQuarter", () => {
 
   it("passes through unknown formats", () => {
     expect(shortQuarter("2026")).toBe("2026");
+  });
+});
+
+describe("shortDate", () => {
+  it("truncates ISO dates to year-month", () => {
+    expect(shortDate("2026-06-17")).toBe("2026-06");
+  });
+});
+
+describe("toBalanceMld", () => {
+  it("converts million EUR to milliard EUR with one decimal", () => {
+    expect(
+      toBalanceMld([
+        { quarter: "2020-Q1", balanceMioEur: -1141.7 },
+        { quarter: "2020-Q2", balanceMioEur: 2500 },
+      ])
+    ).toEqual([
+      { quarter: "2020-Q1", balanceMldEur: -1.1 },
+      { quarter: "2020-Q2", balanceMldEur: 2.5 },
+    ]);
+  });
+
+  it("returns an empty array for empty input", () => {
+    expect(toBalanceMld([])).toEqual([]);
   });
 });

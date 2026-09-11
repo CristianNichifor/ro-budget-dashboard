@@ -7,3 +7,6 @@ coverage
 !.env.example
 .DS_Store
 .wrangler
+test-results
+playwright-report
+src/locales/*/messages.js

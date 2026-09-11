@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Decimal } from "decimal.js";
 import { useMemo, useState } from "react";
 import {
+  fetchBudgetComparison,
   fetchBudgetSummary,
   fetchBudgetTrend,
   fetchCountyInvestments,
@@ -10,6 +11,7 @@ import {
   fetchInsCatalog,
   fetchInsMetric,
 } from "../api/client";
+import { AdoptedExecutionChart } from "../components/charts/AdoptedExecutionChart";
 import { BudgetSankey } from "../components/charts/BudgetSankey";
 import { DebtGauge } from "../components/charts/DebtGauge";
 import { DestinationTreemap } from "../components/charts/DestinationTreemap";
@@ -22,6 +24,7 @@ import { SkeletonCard } from "../components/shared/SkeletonCard";
 import { SourceBadge } from "../components/shared/SourceBadge";
 import { YearSelector } from "../components/shared/YearSelector";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
+import { findComparisonPoint, toDeficitSeries } from "../lib/adoptedComparison";
 import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
 import { useBudgetYearStore } from "../store/useBudgetYearStore";
 import { m } from "../messages";
@@ -69,6 +72,24 @@ export function NationalBalance() {
     queryKey: ["investments-by-county"],
     queryFn: fetchCountyInvestments,
   });
+
+  const { data: comparison } = useQuery({
+    queryKey: ["budget-comparison"],
+    queryFn: fetchBudgetComparison,
+  });
+
+  const comparisonSeries = useMemo(
+    () => toDeficitSeries(comparison?.points ?? []),
+    [comparison]
+  );
+
+  const comparisonForYear = useMemo(
+    () =>
+      comparison !== null && comparison !== undefined && year !== null
+        ? (findComparisonPoint(comparison.points, year) ?? null)
+        : null,
+    [comparison, year]
+  );
 
   const trendData = useMemo(() => {
     if (budgetTrend === undefined || insMetric === undefined) {
@@ -163,6 +184,76 @@ export function NationalBalance() {
       </section>
 
       <section className="space-y-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold">
+              {i18n._(m["comparison.title"])}
+            </h2>
+            <p className="text-sm text-slate-500">
+              {i18n._(m["comparison.description"])}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <SourceBadge source="source.mfp" />
+            <SourceBadge source="source.transparenta" />
+          </div>
+        </div>
+
+        {comparisonForYear !== null && (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <KpiCard
+              accent="slate"
+              label={i18n._(m["comparison.kpi.adoptedDeficit"])}
+              value={formatMilliardeLei(comparisonForYear.adopted.deficit)}
+            />
+            <KpiCard
+              accent="red"
+              label={i18n._(m["comparison.kpi.executedDeficit"])}
+              value={
+                comparisonForYear.executed === null
+                  ? "—"
+                  : formatMilliardeLei(comparisonForYear.executed.deficit)
+              }
+            />
+            <KpiCard
+              accent="amber"
+              label={i18n._(m["comparison.kpi.delta"])}
+              value={
+                comparisonForYear.deficitDelta === null
+                  ? "—"
+                  : formatMilliardeLei(comparisonForYear.deficitDelta)
+              }
+            />
+            <KpiCard
+              accent="red"
+              label={i18n._(m["comparison.kpi.executedGdp"])}
+              value={
+                comparisonForYear.executed === null
+                  ? "—"
+                  : `${comparisonForYear.executed.deficitPercentGdp}%`
+              }
+            />
+          </div>
+        )}
+
+        {comparisonSeries.length > 0 && (
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <AdoptedExecutionChart data={comparisonSeries} />
+            <p className="mt-3 text-xs text-slate-500">
+              {i18n._(m["comparison.scopeNote"])}
+            </p>
+          </div>
+        )}
+
+        {comparison === null && (
+          <p className="text-sm text-slate-500">
+            {i18n._(m["comparison.unavailable"])}
+          </p>
+        )}
+        {comparison === undefined && <SkeletonCard className="h-80" />}
+      </section>
+
+      <section className="space-y-4">
         <div>
           <h2 className="text-xl font-bold">{i18n._(m["sankey.title"])}</h2>
           <p className="text-sm text-slate-500">
@@ -211,10 +302,17 @@ export function NationalBalance() {
             </p>
           </div>
           <div className="flex gap-2">
-            <SourceBadge source="source.ins" />
-            <SourceBadge source="source.budget" />
+            <SourceBadge source="source.eurostat" />
           </div>
         </div>
+        {budgetTrend !== undefined && budgetTrend.sourceUpdated.length > 0 && (
+          <p className="text-xs text-slate-400">
+            {i18n._({
+              ...m["source.updatedAt"],
+              values: { date: budgetTrend.sourceUpdated },
+            })}
+          </p>
+        )}
         {insCatalog !== undefined && insCatalog.length > 0 && (
           <InsMetricSelect
             options={insCatalog}
@@ -261,7 +359,7 @@ export function NationalBalance() {
             </p>
           </div>
           <div className="flex gap-2">
-            <SourceBadge source="source.budget" />
+            <SourceBadge source="source.demo" />
           </div>
         </div>
         {investments != null && investments.counties.length > 0 && (
@@ -270,6 +368,11 @@ export function NationalBalance() {
               counties={investments.counties}
               total={investments.total}
             />
+            {investments.estimated && (
+              <p className="mt-2 text-xs text-slate-400">
+                {i18n._(m["investments.estimatedNote"])}
+              </p>
+            )}
             <div className="mt-3 flex items-center justify-end gap-2 text-xs text-slate-500">
               <span>{i18n._(m["investments.legendMin"])}</span>
               <span

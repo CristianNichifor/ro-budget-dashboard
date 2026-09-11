@@ -24,6 +24,10 @@ export const m = {
     message: "Date parțial demo",
   }),
   "lang.label": msg({ id: "lang.label", message: "Limbă" }),
+  "a11y.skipToContent": msg({
+    id: "a11y.skipToContent",
+    message: "Sari la conținut",
+  }),
   "sankey.ariaLabel": msg({
     id: "sankey.ariaLabel",
     message: "Fluxul banilor publici",
@@ -43,7 +47,218 @@ export const m = {
   }),
   "app.loading": msg({ id: "app.loading", message: "Se încarcă…" }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),
+  "nav.label": msg({ id: "nav.label", message: "Navigare principală" }),
   "nav.economy": msg({ id: "nav.economy", message: "Economie" }),
+  "nav.society": msg({ id: "nav.society", message: "Societate" }),
+  "nav.energy": msg({ id: "nav.energy", message: "Energie" }),
+  "nav.labour": msg({ id: "nav.labour", message: "Piața muncii" }),
+  "society.title": msg({
+    id: "society.title",
+    message: "Societatea în cifre",
+  }),
+  "society.description": msg({
+    id: "society.description",
+    message:
+      "Populația, cheltuielile publice cu sănătatea și educația și indicatori sociali măsurabili.",
+  }),
+  "society.kpi.population": msg({
+    id: "society.kpi.population",
+    message: "Populație rezidentă",
+  }),
+  "society.kpi.populationChange": msg({
+    id: "society.kpi.populationChange",
+    message: "Variație față de anul anterior",
+  }),
+  "society.kpi.populationChangeSub": msg({
+    id: "society.kpi.populationChangeSub",
+    message: "persoane",
+  }),
+  "society.population.title": msg({
+    id: "society.population.title",
+    message: "Populația României",
+  }),
+  "society.population.description": msg({
+    id: "society.population.description",
+    message:
+      "Populația rezidentă totală, la 1 ianuarie a fiecărui an (Eurostat).",
+  }),
+  "society.spending.title": msg({
+    id: "society.spending.title",
+    message: "Cheltuieli publice: sănătate vs. educație",
+  }),
+  "society.spending.description": msg({
+    id: "society.spending.description",
+    message:
+      "Cheltuielile administrației publice cu sănătatea (COFOG GF07) și educația (GF09), % din PIB (Eurostat).",
+  }),
+  "society.spending.health": msg({
+    id: "society.spending.health",
+    message: "Sănătate",
+  }),
+  "society.spending.education": msg({
+    id: "society.spending.education",
+    message: "Educație",
+  }),
+  "society.education.title": msg({
+    id: "society.education.title",
+    message: "Educație",
+  }),
+  "society.education.description": msg({
+    id: "society.education.description",
+    message:
+      "Părăsirea timpurie a școlii și absolvenții de studii terțiare, % din populația 18–24, respectiv 25–34 de ani (Eurostat).",
+  }),
+  "society.education.earlyLeavers": msg({
+    id: "society.education.earlyLeavers",
+    message: "Părăsire timpurie a școlii",
+  }),
+  "society.education.tertiary": msg({
+    id: "society.education.tertiary",
+    message: "Studii terțiare (25–34 ani)",
+  }),
+  "society.health.title": msg({
+    id: "society.health.title",
+    message: "Sănătate",
+  }),
+  "society.health.description": msg({
+    id: "society.health.description",
+    message:
+      "Medici practicanți la 100.000 de locuitori — densitatea medicală în timp (Eurostat, calculat cu populația rezidentă).",
+  }),
+  "society.health.physicians": msg({
+    id: "society.health.physicians",
+    message: "Medici la 100.000 locuitori",
+  }),
+  "society.demographics.title": msg({
+    id: "society.demographics.title",
+    message: "Demografie",
+  }),
+  "society.demographics.description": msg({
+    id: "society.demographics.description",
+    message:
+      "Vârsta mediană a populației și migrația netă anuală la 1.000 de locuitori (Eurostat).",
+  }),
+  "society.demographics.medianAge": msg({
+    id: "society.demographics.medianAge",
+    message: "Vârsta mediană",
+  }),
+  "society.demographics.netMigration": msg({
+    id: "society.demographics.netMigration",
+    message: "Migrație netă (la 1.000)",
+  }),
+  "energy.title": msg({
+    id: "energy.title",
+    message: "Energia în date",
+  }),
+  "energy.description": msg({
+    id: "energy.description",
+    message:
+      "Prețul energiei electrice pentru gospodării, ponderea energiei regenerabile și dependența de importuri (Eurostat).",
+  }),
+  "energy.kpi.electricity": msg({
+    id: "energy.kpi.electricity",
+    message: "Preț electricitate",
+  }),
+  "energy.kpi.renewables": msg({
+    id: "energy.kpi.renewables",
+    message: "Energie regenerabilă",
+  }),
+  "energy.kpi.import": msg({
+    id: "energy.kpi.import",
+    message: "Dependență de import",
+  }),
+  "energy.renewablesLegend": msg({
+    id: "energy.renewablesLegend",
+    message: "din consumul final brut",
+  }),
+  "energy.importLegend": msg({
+    id: "energy.importLegend",
+    message: "din consum",
+  }),
+  "energy.electricity.title": msg({
+    id: "energy.electricity.title",
+    message: "Prețul energiei electrice (gospodării)",
+  }),
+  "energy.electricity.description": msg({
+    id: "energy.electricity.description",
+    message:
+      "Prețul mediu al energiei electrice pentru gospodării, bandă 2.500–5.000 kWh/an, toate taxele incluse (Eurostat, semestrial).",
+  }),
+  "energy.renewables.title": msg({
+    id: "energy.renewables.title",
+    message: "Ponderea energiei regenerabile",
+  }),
+  "energy.renewables.description": msg({
+    id: "energy.renewables.description",
+    message:
+      "Ponderea energiei din surse regenerabile în consumul final brut de energie, % (Eurostat).",
+  }),
+  "energy.import.title": msg({
+    id: "energy.import.title",
+    message: "Dependența energetică de importuri",
+  }),
+  "energy.import.description": msg({
+    id: "energy.import.description",
+    message:
+      "Dependența energetică totală de importuri (toate produsele), % din consumul brut (Eurostat).",
+  }),
+  "labour.title": msg({
+    id: "labour.title",
+    message: "Piața muncii",
+  }),
+  "labour.description": msg({
+    id: "labour.description",
+    message:
+      "Tinerii care nu învață și nu lucrează (NEET), șomajul în rândul tinerilor și rata locurilor de muncă vacante (Eurostat).",
+  }),
+  "labour.kpi.neet": msg({
+    id: "labour.kpi.neet",
+    message: "Rata NEET (15–29 ani)",
+  }),
+  "labour.kpi.youth": msg({
+    id: "labour.kpi.youth",
+    message: "Șomajul tinerilor (sub 25)",
+  }),
+  "labour.kpi.vacancy": msg({
+    id: "labour.kpi.vacancy",
+    message: "Locuri de muncă vacante",
+  }),
+  "labour.neet.title": msg({
+    id: "labour.neet.title",
+    message: "Tineri NEET (15–29 ani)",
+  }),
+  "labour.neet.description": msg({
+    id: "labour.neet.description",
+    message:
+      "Ponderea tinerilor de 15–29 de ani care nu sunt încadrați profesional și nu urmează niciun program educațional (Eurostat).",
+  }),
+  "labour.youth.title": msg({
+    id: "labour.youth.title",
+    message: "Șomajul tinerilor (sub 25 ani)",
+  }),
+  "labour.youth.description": msg({
+    id: "labour.youth.description",
+    message:
+      "Rata șomajului pentru persoanele sub 25 de ani, ajustată sezonier, % din forța de muncă (Eurostat).",
+  }),
+  "labour.vacancy.title": msg({
+    id: "labour.vacancy.title",
+    message: "Rata locurilor de muncă vacante",
+  }),
+  "labour.vacancy.description": msg({
+    id: "labour.vacancy.description",
+    message:
+      "Rata locurilor de muncă vacante în industrie, construcții și servicii (NACE B-S), ajustată sezonier (Eurostat).",
+  }),
+  "society.ins.title": msg({
+    id: "society.ins.title",
+    message: "Indicatori sociali (Eurostat)",
+  }),
+  "society.ins.description": msg({
+    id: "society.ins.description",
+    message:
+      "Un indicator social la alegere: mortalitate infantilă, speranța de viață, paturi de spital.",
+  }),
   "economy.title": msg({
     id: "economy.title",
     message: "Economia României în date",
@@ -137,6 +352,15 @@ export const m = {
     id: "economy.gdpPerCapita.indexLegend",
     message: "Indice UE27=100",
   }),
+  "economy.gdpRegions.title": msg({
+    id: "economy.gdpRegions.title",
+    message: "PIB pe locuitor pe regiuni",
+  }),
+  "economy.gdpRegions.description": msg({
+    id: "economy.gdpRegions.description",
+    message:
+      "PIB pe locuitor la paritatea puterii de cumpărare, indice față de media UE (UE27 = 100), pe cele 8 regiuni de dezvoltare (Eurostat).",
+  }),
   "economy.debt.title": msg({
     id: "economy.debt.title",
     message: "Datoria publică",
@@ -188,7 +412,72 @@ export const m = {
     id: "economy.pensions.dependencyLegend",
     message: "Dependența vârstnicilor",
   }),
+  "economy.deficit.title": msg({
+    id: "economy.deficit.title",
+    message: "Deficitul bugetar trimestrial",
+  }),
+  "economy.deficit.description": msg({
+    id: "economy.deficit.description",
+    message:
+      "Deficitul (−)/excedentul (+) administrației publice, % din PIB (Eurostat, date GFS trimestriale), cu pragul Maastricht de −3%.",
+  }),
+  "economy.deficit.maastricht": msg({
+    id: "economy.deficit.maastricht",
+    message: "Maastricht −3%",
+  }),
+  "economy.kpi.deficit": msg({
+    id: "economy.kpi.deficit",
+    message: "Deficit bugetar",
+  }),
+  "economy.employment.title": msg({
+    id: "economy.employment.title",
+    message: "Rata de ocupare",
+  }),
+  "economy.employment.description": msg({
+    id: "economy.employment.description",
+    message:
+      "Ponderea populației 20–64 de ani angajate, ajustat sezonier (Eurostat).",
+  }),
+  "economy.kpi.employment": msg({
+    id: "economy.kpi.employment",
+    message: "Ocupare 20–64",
+  }),
+  "economy.currentAccount.title": msg({
+    id: "economy.currentAccount.title",
+    message: "Contul curent",
+  }),
+  "economy.currentAccount.description": msg({
+    id: "economy.currentAccount.description",
+    message:
+      "Balanța contului curent cu restul lumii, trimestrial, în miliarde de euro (Eurostat, BPM6). Barele roșii = deficit extern.",
+  }),
+  "economy.kpi.currentAccount": msg({
+    id: "economy.kpi.currentAccount",
+    message: "Cont curent",
+  }),
+  "economy.mldEur": msg({ id: "economy.mldEur", message: "mld. €" }),
+  "economy.rates.title": msg({
+    id: "economy.rates.title",
+    message: "Dobânda BCE",
+  }),
+  "economy.rates.description": msg({
+    id: "economy.rates.description",
+    message:
+      "Rata dobânzii la facilitatea de depozit a Băncii Centrale Europene — reperul politicii monetare pentru RON.",
+  }),
+  "economy.kpi.rates": msg({
+    id: "economy.kpi.rates",
+    message: "Dobânda BCE",
+  }),
+  "economy.kpi.currentAccountSub": msg({
+    id: "economy.kpi.currentAccountSub",
+    message: "trimestrial",
+  }),
   "source.eurostat": msg({ id: "source.eurostat", message: "Sursă: Eurostat" }),
+  "source.updatedAt": msg({
+    id: "source.updatedAt",
+    message: "Sursă actualizată la {date}",
+  }),
   "source.ecb": msg({ id: "source.ecb", message: "Sursă: BCE" }),
   "nav.companies": msg({
     id: "nav.companies",
@@ -225,7 +514,11 @@ export const m = {
   }),
   "salary.vsAverage": msg({
     id: "salary.vsAverage",
-    message: "față de salariul mediu net (INS)",
+    message: "față de salariul mediu net (estimat)",
+  }),
+  "salary.estimateLoading": msg({
+    id: "salary.estimateLoading",
+    message: "Estimare salariu mediu…",
   }),
   "salary.entry.gross": msg({
     id: "salary.entry.gross",
@@ -259,15 +552,54 @@ export const m = {
   "realWage.description": msg({
     id: "realWage.description",
     message:
-      "Salariul net nominal (INS) ajustat cu inflația (BNR). Când linia roșie scade sub cea albastră, puterea de cumpărare crește mai încet decât salariul.",
+      "Câștigul mediu lunar brut estimat (Eurostat), nominal și ajustat cu inflația HICP. Când linia roșie crește mai încet decât cea albastră, puterea de cumpărare scade.",
   }),
   "realWage.nominal": msg({
     id: "realWage.nominal",
-    message: "Salariu net nominal",
+    message: "Câștig brut nominal",
   }),
   "realWage.real": msg({
     id: "realWage.real",
-    message: "Salariu real (ajustat la inflație)",
+    message: "Câștig real (prețuri constante)",
+  }),
+  "wageContext.title": msg({
+    id: "wageContext.title",
+    message: "Context salarial",
+  }),
+  "wageContext.description": msg({
+    id: "wageContext.description",
+    message:
+      "INS nu publică salariul mediu lunar ca serie de date curată; folosim indicele costului muncii ca tendință și câștigul mediu anual brut din Ancheta structurală (o dată la 4 ani).",
+  }),
+  "wageContext.lciTitle": msg({
+    id: "wageContext.lciTitle",
+    message: "Indicele costului muncii",
+  }),
+  "wageContext.lciDescription": msg({
+    id: "wageContext.lciDescription",
+    message:
+      "Variația anuală a costului orar al muncii în economie, % față de același trimestru al anului trecut (Eurostat).",
+  }),
+  "wageContext.anchor": msg({
+    id: "wageContext.anchor",
+    message: "Câștig mediu anual brut ({year})",
+  }),
+  "wageContext.anchorSub": msg({
+    id: "wageContext.anchorSub",
+    message: "€ pe an · angajați",
+  }),
+  "wageContext.monthlyTitle": msg({
+    id: "wageContext.monthlyTitle",
+    message: "Salariul mediu brut lunar (estimare)",
+  }),
+  "wageContext.monthlyDescription": msg({
+    id: "wageContext.monthlyDescription",
+    message:
+      "Estimare: nivelul mediu anual brut (Ancheta structurală a câștigurilor, Eurostat) ajustat cu indicele costului muncii (LCI). Compară cu salariul tău brut din secțiunea de mai sus.",
+  }),
+  "wageContext.estimatedNote": msg({
+    id: "wageContext.estimatedNote",
+    message: "Serie estimată — nu este salariul mediu oficial publicat de INS.",
   }),
   "balance.title": msg({
     id: "balance.title",
@@ -302,6 +634,49 @@ export const m = {
   "balance.debtGauge.reference": msg({
     id: "balance.debtGauge.reference",
     message: "Referință UE (Maastricht): 3% din PIB",
+  }),
+  "comparison.title": msg({
+    id: "comparison.title",
+    message: "Buget adoptat vs. execuție",
+  }),
+  "comparison.description": msg({
+    id: "comparison.description",
+    message:
+      "Cât deficit a promis legea bugetului (MFP) și cât s-a executat în realitate (transparenta.eu). Deficitul este comparabil direct — transferurile între fonduri se anulează.",
+  }),
+  "comparison.kpi.adoptedDeficit": msg({
+    id: "comparison.kpi.adoptedDeficit",
+    message: "Deficit adoptat",
+  }),
+  "comparison.kpi.executedDeficit": msg({
+    id: "comparison.kpi.executedDeficit",
+    message: "Deficit executat",
+  }),
+  "comparison.kpi.delta": msg({
+    id: "comparison.kpi.delta",
+    message: "Depășire față de lege",
+  }),
+  "comparison.kpi.executedGdp": msg({
+    id: "comparison.kpi.executedGdp",
+    message: "Execuție % PIB",
+  }),
+  "comparison.legend.adopted": msg({
+    id: "comparison.legend.adopted",
+    message: "Adoptat (legea bugetului)",
+  }),
+  "comparison.legend.executed": msg({
+    id: "comparison.legend.executed",
+    message: "Execuție",
+  }),
+  "comparison.scopeNote": msg({
+    id: "comparison.scopeNote",
+    message:
+      "Bugetul adoptat acoperă bugetul de stat și fondurile BASS, BSAN, BSOM (MFP, data.gov.ro); execuția acoperă aceiași ordonatori principali (transparenta.eu). Ambele includ transferurile intra-bugetare.",
+  }),
+  "comparison.unavailable": msg({
+    id: "comparison.unavailable",
+    message:
+      "Comparația adoptat vs. execuție este indisponibilă — sursa de date nu a răspuns.",
   }),
   "sankey.title": msg({
     id: "sankey.title",
@@ -339,16 +714,16 @@ export const m = {
   }),
   "context.title": msg({
     id: "context.title",
-    message: "Context din statisticile INS",
+    message: "Context social",
   }),
   "context.description": msg({
     id: "context.description",
     message:
-      "Bugetul sănătății (bare, mld. lei) alături de un indicator social (linie): banii alocați vs. rezultatul măsurabil.",
+      "Cheltuielile publice pentru sănătate (bare, mld. EUR, Eurostat COFOG) alături de un indicator social (linie) — banii alocați vs. rezultatul măsurabil.",
   }),
   "context.budgetLegend": msg({
     id: "context.budgetLegend",
-    message: "Buget sănătate (mld. lei)",
+    message: "Cheltuieli sănătate (mld. EUR)",
   }),
   "context.metricLabel": msg({
     id: "context.metricLabel",
@@ -415,6 +790,11 @@ export const m = {
     id: "investments.legendMax",
     message: "mai mult",
   }),
+  "investments.estimatedNote": msg({
+    id: "investments.estimatedNote",
+    message:
+      "Estimare: programul de investiții publice 2026 nu are o sursă publică structurată la nivel de județ; sumele sunt aproximative.",
+  }),
   "source.demo": msg({ id: "source.demo", message: "Demo" }),
   "error.title": msg({ id: "error.title", message: "Ceva nu a mers bine" }),
   "error.reload": msg({
@@ -423,6 +803,14 @@ export const m = {
   }),
   "source.ins": msg({ id: "source.ins", message: "Sursă: INS Tempo" }),
   "source.bnr": msg({ id: "source.bnr", message: "Sursă: BNR" }),
+  "source.mfp": msg({
+    id: "source.mfp",
+    message: "Sursă: MFP via data.gov.ro",
+  }),
+  "source.transparenta": msg({
+    id: "source.transparenta",
+    message: "Sursă: transparenta.eu",
+  }),
   "source.budget": msg({
     id: "source.budget",
     message: "Sursă: Buget consolidat 2026",

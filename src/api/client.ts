@@ -8,9 +8,7 @@ import {
   type BudgetDestination,
   type YearAmount,
 } from "../data/budget2026";
-import { BNR_INFLATION_SERIES } from "../data/bnrInflation";
 import { INS_METRICS_SEED, type InsMetric } from "../data/insStats";
-import { buildRealWageSeries, type RealWagePoint } from "../lib/realWage";
 import { calculateSalaryBreakdown, type SalaryBreakdown } from "../lib/salary";
 
 /**
@@ -26,11 +24,12 @@ const REQUEST_TIMEOUT_MS = 2500;
 
 async function request<T>(
   path: string,
-  schema: z.ZodType<T>
+  schema: z.ZodType<T>,
+  timeoutMs: number = REQUEST_TIMEOUT_MS
 ): Promise<T | null> {
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeoutMs),
     });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -85,26 +84,6 @@ const salaryResponseSchema = z.object({
 });
 
 type SalaryResponse = z.infer<typeof salaryResponseSchema>;
-
-const monetarySchema = z.object({
-  inflation: z.object({
-    current: z.number(),
-    target: z.number(),
-  }),
-  realWage: z.array(
-    z.object({
-      year: z.number().int(),
-      nominal: z.number(),
-      real: z.number(),
-    })
-  ),
-  debt: z.object({
-    total: z.string(),
-    interestPayment: z.string(),
-    averageRate: z.number(),
-    debtServiceRatio: z.string(),
-  }),
-});
 
 function toSalaryBreakdown(response: SalaryResponse): SalaryBreakdown {
   return {
@@ -213,6 +192,8 @@ const investmentsByCountySchema = z.object({
   year: z.number().int(),
   total: z.string(),
   counties: z.array(countyInvestmentSchema),
+  estimated: z.boolean(),
+  note: z.string(),
 });
 
 export type InvestmentsByCounty = z.infer<typeof investmentsByCountySchema>;
@@ -235,12 +216,23 @@ export async function fetchSalaryBreakdown(
   return calculateSalaryBreakdown(gross);
 }
 
-export async function fetchRealWageSeries(): Promise<RealWagePoint[]> {
-  const remote = await request("/api/context/monetary", monetarySchema);
-  if (remote !== null) {
-    return remote.realWage;
-  }
-  return buildRealWageSeries(BNR_INFLATION_SERIES);
+export const realWageSeriesSchema = z.object({
+  series: z.array(
+    z.object({
+      quarter: z.string(),
+      nominalEur: z.number(),
+      realEur: z.number(),
+    })
+  ),
+  estimated: z.boolean(),
+  note: z.string(),
+  sourceUpdated: z.string(),
+});
+
+export type RealWageSeries = z.infer<typeof realWageSeriesSchema>;
+
+export async function fetchRealWage(): Promise<RealWageSeries | null> {
+  return request("/api/wages/real", realWageSeriesSchema);
 }
 
 export const insMetricSchema = z.object({
@@ -295,12 +287,14 @@ export async function fetchInsCatalog(): Promise<InsCatalogEntry[]> {
 export interface BudgetTrend {
   metric: string;
   source: string;
+  sourceUpdated: string;
   data: YearAmount[];
 }
 
 const budgetTrendSchema = z.object({
   metric: z.string(),
   source: z.string(),
+  sourceUpdated: z.string(),
   data: z.array(
     z.object({
       year: z.number().int(),
@@ -317,7 +311,54 @@ export async function fetchBudgetTrend(metric: string): Promise<BudgetTrend> {
   if (remote !== null) {
     return remote;
   }
-  return { metric, source: "seed demo", data: HEALTH_BUDGET_TREND };
+  return {
+    metric,
+    source: "seed demo",
+    sourceUpdated: "",
+    data: HEALTH_BUDGET_TREND,
+  };
+}
+
+// ── Buget adoptat vs. execuție (MFP via data.gov.ro, prin BFF) ────────
+
+/**
+ * The comparison joins adopted totals (CKAN anexa XML, cold-cache latency)
+ * with per-year execution summaries — allow a generous timeout.
+ */
+const COMPARISON_TIMEOUT_MS = 30000;
+
+export const budgetComparisonSchema = z.object({
+  points: z.array(
+    z.object({
+      year: z.number().int(),
+      adopted: z.object({
+        revenue: z.string(),
+        expenditure: z.string(),
+        deficit: z.string(),
+      }),
+      executed: z
+        .object({
+          revenue: z.string(),
+          expenditure: z.string(),
+          deficit: z.string(),
+          deficitPercentGdp: z.string(),
+        })
+        .nullable(),
+      deficitDelta: z.string().nullable(),
+      note: z.string(),
+    })
+  ),
+});
+
+export type BudgetComparison = z.infer<typeof budgetComparisonSchema>;
+export type BudgetComparisonPoint = BudgetComparison["points"][number];
+
+export async function fetchBudgetComparison(): Promise<BudgetComparison | null> {
+  return request(
+    "/api/budget/comparison",
+    budgetComparisonSchema,
+    COMPARISON_TIMEOUT_MS
+  );
 }
 
 // ── Companii de stat (companiidestat.ro via BFF) ──────────────────────
@@ -552,18 +593,21 @@ export async function fetchSoeListed(): Promise<SoeListed | null> {
 export const inflationSchema = z.object({
   targetPercent: z.number(),
   monthly: z.array(z.object({ ym: z.string(), annualRate: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type InflationSeries = z.infer<typeof inflationSchema>;
 
 export const unemploymentSchema = z.object({
   monthly: z.array(z.object({ ym: z.string(), rate: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type UnemploymentSeries = z.infer<typeof unemploymentSchema>;
 
 export const fxSchema = z.object({
   series: z.array(z.object({ date: z.string(), eurRon: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type FxSeries = z.infer<typeof fxSchema>;
@@ -582,6 +626,7 @@ export async function fetchFx(): Promise<FxSeries | null> {
 
 export const gdpGrowthSchema = z.object({
   quarterly: z.array(z.object({ quarter: z.string(), pctChange: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type GdpGrowthSeries = z.infer<typeof gdpGrowthSchema>;
@@ -590,12 +635,28 @@ export const gdpPerCapitaSchema = z.object({
   yearly: z.array(
     z.object({ year: z.string(), pps: z.number(), eu27Index: z.number() })
   ),
+  sourceUpdated: z.string(),
 });
 
 export type GdpPerCapitaSeries = z.infer<typeof gdpPerCapitaSchema>;
 
+export const gdpRegionsSchema = z.object({
+  year: z.string(),
+  regions: z.array(
+    z.object({
+      code: z.string(),
+      label: z.string(),
+      indexEu27: z.number(),
+    })
+  ),
+  sourceUpdated: z.string(),
+});
+
+export type GdpRegionsSeries = z.infer<typeof gdpRegionsSchema>;
+
 export const debtSchema = z.object({
   yearly: z.array(z.object({ year: z.string(), percentGdp: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type DebtSeries = z.infer<typeof debtSchema>;
@@ -609,15 +670,47 @@ export const tradeSchema = z.object({
       balancePctGdp: z.number(),
     })
   ),
+  sourceUpdated: z.string(),
 });
 
 export type TradeSeries = z.infer<typeof tradeSchema>;
 
 export const demographicsSchema = z.object({
   yearly: z.array(z.object({ year: z.string(), oldAgeDependency: z.number() })),
+  sourceUpdated: z.string(),
 });
 
 export type DemographicSeries = z.infer<typeof demographicsSchema>;
+
+export const deficitSeriesSchema = z.object({
+  quarterly: z.array(z.object({ quarter: z.string(), percentGdp: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type DeficitSeries = z.infer<typeof deficitSeriesSchema>;
+
+export const employmentSeriesSchema = z.object({
+  quarterly: z.array(z.object({ quarter: z.string(), rate: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type EmploymentSeries = z.infer<typeof employmentSeriesSchema>;
+
+export const currentAccountSeriesSchema = z.object({
+  quarterly: z.array(
+    z.object({ quarter: z.string(), balanceMioEur: z.number() })
+  ),
+  sourceUpdated: z.string(),
+});
+
+export type CurrentAccountSeries = z.infer<typeof currentAccountSeriesSchema>;
+
+export const ratesSeriesSchema = z.object({
+  ecb: z.array(z.object({ date: z.string(), depositRate: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type RatesSeries = z.infer<typeof ratesSeriesSchema>;
 
 export async function fetchGdpGrowth(): Promise<GdpGrowthSeries | null> {
   return request("/api/macro/gdp-growth", gdpGrowthSchema);
@@ -625,6 +718,10 @@ export async function fetchGdpGrowth(): Promise<GdpGrowthSeries | null> {
 
 export async function fetchGdpPerCapita(): Promise<GdpPerCapitaSeries | null> {
   return request("/api/macro/gdp-per-capita", gdpPerCapitaSchema);
+}
+
+export async function fetchGdpRegions(): Promise<GdpRegionsSeries | null> {
+  return request("/api/macro/gdp-regions", gdpRegionsSchema);
 }
 
 export async function fetchDebt(): Promise<DebtSeries | null> {
@@ -637,6 +734,144 @@ export async function fetchTrade(): Promise<TradeSeries | null> {
 
 export async function fetchDemographics(): Promise<DemographicSeries | null> {
   return request("/api/macro/demographics", demographicsSchema);
+}
+
+export async function fetchDeficit(): Promise<DeficitSeries | null> {
+  return request("/api/macro/deficit", deficitSeriesSchema);
+}
+
+export async function fetchEmployment(): Promise<EmploymentSeries | null> {
+  return request("/api/macro/employment", employmentSeriesSchema);
+}
+
+export async function fetchCurrentAccount(): Promise<CurrentAccountSeries | null> {
+  return request("/api/macro/current-account", currentAccountSeriesSchema);
+}
+
+export async function fetchRates(): Promise<RatesSeries | null> {
+  return request("/api/macro/rates", ratesSeriesSchema);
+}
+
+// ── Context salarial (Eurostat LCI + SES via BFF) ─────────────────────
+
+export const wageContextSchema = z.object({
+  lciQuarterly: z.array(
+    z.object({ quarter: z.string(), pctChange: z.number() })
+  ),
+  sesAnchors: z.array(z.object({ year: z.string(), meanGrossEur: z.number() })),
+  note: z.string(),
+  sourceUpdated: z.string(),
+});
+
+export type WageContext = z.infer<typeof wageContextSchema>;
+
+export async function fetchWageContext(): Promise<WageContext | null> {
+  return request("/api/wages/context", wageContextSchema);
+}
+
+export const wageMonthlySchema = z.object({
+  monthly: z.array(
+    z.object({ quarter: z.string(), grossMonthlyEur: z.number() })
+  ),
+  estimated: z.boolean(),
+  note: z.string(),
+  sourceUpdated: z.string(),
+});
+
+export type WageMonthly = z.infer<typeof wageMonthlySchema>;
+
+export async function fetchWageMonthly(): Promise<WageMonthly | null> {
+  return request("/api/wages/monthly", wageMonthlySchema);
+}
+
+// ── Societate (populație + cheltuieli sociale, Eurostat via BFF) ───────
+
+export const societyPopulationSchema = z.object({
+  yearly: z.array(z.object({ year: z.string(), population: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type SocietyPopulation = z.infer<typeof societyPopulationSchema>;
+
+export const societySpendingSchema = z.object({
+  health: z.array(z.object({ year: z.string(), percentGdp: z.number() })),
+  education: z.array(z.object({ year: z.string(), percentGdp: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type SocietySpending = z.infer<typeof societySpendingSchema>;
+
+export async function fetchSocietyPopulation(): Promise<SocietyPopulation | null> {
+  return request("/api/society/population", societyPopulationSchema);
+}
+
+export async function fetchSocietySpending(): Promise<SocietySpending | null> {
+  return request("/api/society/spending", societySpendingSchema);
+}
+
+export const societyEducationSchema = z.object({
+  earlyLeavers: z.array(z.object({ year: z.string(), pct: z.number() })),
+  tertiaryAttainment: z.array(z.object({ year: z.string(), pct: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type SocietyEducation = z.infer<typeof societyEducationSchema>;
+
+export const societyHealthSchema = z.object({
+  physicians: z.array(z.object({ year: z.string(), count: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type SocietyHealth = z.infer<typeof societyHealthSchema>;
+
+export const societyDemographicsSchema = z.object({
+  medianAge: z.array(z.object({ year: z.string(), age: z.number() })),
+  netMigration: z.array(z.object({ year: z.string(), per1000: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type SocietyDemographics = z.infer<typeof societyDemographicsSchema>;
+
+export async function fetchSocietyEducation(): Promise<SocietyEducation | null> {
+  return request("/api/society/education", societyEducationSchema);
+}
+
+export async function fetchSocietyHealth(): Promise<SocietyHealth | null> {
+  return request("/api/society/health", societyHealthSchema);
+}
+
+export async function fetchSocietyDemographics(): Promise<SocietyDemographics | null> {
+  return request("/api/society/demographics", societyDemographicsSchema);
+}
+
+// ── Energie (Eurostat via BFF) ─────────────────────────────────────────
+
+export const energyContextSchema = z.object({
+  electricity: z.array(z.object({ period: z.string(), eurPerKwh: z.number() })),
+  renewables: z.array(z.object({ year: z.string(), pct: z.number() })),
+  importDependency: z.array(z.object({ year: z.string(), pct: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type EnergyContext = z.infer<typeof energyContextSchema>;
+
+export async function fetchEnergyContext(): Promise<EnergyContext | null> {
+  return request("/api/energy/context", energyContextSchema);
+}
+
+// ── Piața muncii (Eurostat via BFF) ────────────────────────────────────
+
+export const labourContextSchema = z.object({
+  neet: z.array(z.object({ year: z.string(), pct: z.number() })),
+  youthUnemployment: z.array(z.object({ ym: z.string(), rate: z.number() })),
+  vacancies: z.array(z.object({ quarter: z.string(), pct: z.number() })),
+  sourceUpdated: z.string(),
+});
+
+export type LabourContext = z.infer<typeof labourContextSchema>;
+
+export async function fetchLabourContext(): Promise<LabourContext | null> {
+  return request("/api/labour/context", labourContextSchema);
 }
 
 export interface PensionYearPoint {

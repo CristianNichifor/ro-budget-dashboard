@@ -29,6 +29,18 @@ const Economie = lazyRouteComponent(
   "Economie"
 );
 
+const Societate = lazyRouteComponent(
+  () => import("./routes/Societate"),
+  "Societate"
+);
+
+const Energie = lazyRouteComponent(() => import("./routes/Energie"), "Energie");
+
+const PiataMuncii = lazyRouteComponent(
+  () => import("./routes/PiataMuncii"),
+  "PiataMuncii"
+);
+
 const rootRoute = createRootRoute({
   component: RootLayout,
   errorComponent: DefaultError,
@@ -67,12 +79,33 @@ const economyRoute = createRoute({
   component: Economie,
 });
 
+const societyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/societate",
+  component: Societate,
+});
+
+const energyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/energie",
+  component: Energie,
+});
+
+const labourRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/piata-muncii",
+  component: PiataMuncii,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   citizenSliceRoute,
   nationalBalanceRoute,
   companiesRoute,
   economyRoute,
+  societyRoute,
+  energyRoute,
+  labourRoute,
 ]);
 
 export const router = createRouter({

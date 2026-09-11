@@ -22,6 +22,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "e2e": "playwright test",
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm format:check",
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile"
@@ -52,6 +53,7 @@
     "@lingui/babel-plugin-lingui-macro": "^6.6.0",
     "@lingui/cli": "^6.6.0",
     "@lingui/vite-plugin": "^6.6.0",
+    "@playwright/test": "^1.63.0",
     "@rolldown/plugin-babel": "^0.2.4",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",

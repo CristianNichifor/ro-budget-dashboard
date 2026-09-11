@@ -9,16 +9,17 @@ if (infantMortality === undefined) {
 }
 
 describe("joinBudgetWithIns", () => {
-  it("inner-joins budget and INS series on year", () => {
+  it("joins health spending and INS series on year", () => {
     const joined = joinBudgetWithIns(HEALTH_BUDGET_TREND, infantMortality.data);
 
     expect(joined).toHaveLength(HEALTH_BUDGET_TREND.length);
-    for (const point of joined) {
-      expect(point.ins).not.toBeNull();
-    }
+    // 2019 and 2020 precede the INS seed range.
+    expect(joined[0]?.ins).toBeNull();
+    expect(joined[1]?.ins).toBeNull();
+    expect(joined[2]?.ins).not.toBeNull();
   });
 
-  it("converts budget amounts to milliarde lei", () => {
+  it("converts millions EUR to milliarde EUR", () => {
     const joined = joinBudgetWithIns(HEALTH_BUDGET_TREND, infantMortality.data);
 
     const first = joined[0];
@@ -26,8 +27,8 @@ describe("joinBudgetWithIns", () => {
     if (first === undefined) {
       return;
     }
-    expect(first.budgetMilliarde).toBeCloseTo(22, 1);
-    expect(first.year).toBe(2021);
+    expect(first.budgetMilliardeEur).toBeCloseTo(11.2, 1);
+    expect(first.year).toBe(2019);
   });
 
   it("leaves ins as null when the year is missing", () => {
@@ -51,8 +52,8 @@ describe("computeTrendInsight", () => {
       return;
     }
 
-    // 22.0B → 22.78B ≈ +3.5%
-    expect(insight.budgetChangePercent).toBeCloseTo(3.5, 0);
+    // 11171.0M → 18319.5M ≈ +64%
+    expect(insight.budgetChangePercent).toBeCloseTo(64, 0);
     // 6.1 → 5.2 ≈ −14.8%
     expect(insight.insChangePercent).toBeCloseTo(-14.8, 0);
   });
