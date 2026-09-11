@@ -72,6 +72,15 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 - Seria BNR din `src/data/bnrInflation.ts` este un seed aproximativ; actualizarea manuală trimestrială este prevăzută în P4.
 - i18n folosește cataloage runtime (fără macros/babel). Migrarea la macros + `lingui extract` se face când apar traduceri suplimentare.
 
+## Docker
+
+```bash
+docker build -t ro-budget-dashboard --build-arg VITE_API_BASE_URL=http://localhost:3000 .
+docker run -p 8080:80 ro-budget-dashboard
+```
+
+`VITE_API_BASE_URL` este încorporat la build (Vite); nginx servește bundle-ul cu fallback SPA. CI-ul din `.github/workflows/ci.yml` rulează `pnpm check`, `pnpm build` și build-ul imaginii.
+
 ## Git workflow
 
 Conventional Commits; hooks-urile Husky rulează lint-staged (ESLint + Prettier) la commit și commitlint la mesaj.
