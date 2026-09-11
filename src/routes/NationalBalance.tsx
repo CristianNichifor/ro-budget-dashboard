@@ -7,6 +7,7 @@ import {
   fetchBudgetTrend,
   fetchCountyInvestments,
   fetchDestinations,
+  fetchInsCatalog,
   fetchInsMetric,
 } from "../api/client";
 import { BudgetSankey } from "../components/charts/BudgetSankey";
@@ -20,7 +21,7 @@ import { SourceBadge } from "../components/shared/SourceBadge";
 import { formatMilliardeLei, formatSignedPercent } from "../lib/format";
 import { computeTrendInsight, joinBudgetWithIns } from "../lib/trendJoin";
 
-const CONTEXT_METRIC = "infant-mortality";
+const DEFAULT_CONTEXT_METRIC = "infant-mortality";
 const CONTEXT_BUDGET_METRIC = "health-budget";
 
 export function NationalBalance() {
@@ -28,6 +29,7 @@ export function NationalBalance() {
   const [selectedDestinationId, setSelectedDestinationId] = useState<
     string | null
   >(null);
+  const [contextMetric, setContextMetric] = useState(DEFAULT_CONTEXT_METRIC);
 
   const { data: summary } = useQuery({
     queryKey: ["budget-summary"],
@@ -44,9 +46,14 @@ export function NationalBalance() {
     queryFn: () => fetchBudgetTrend(CONTEXT_BUDGET_METRIC),
   });
 
+  const { data: insCatalog } = useQuery({
+    queryKey: ["ins-catalog"],
+    queryFn: fetchInsCatalog,
+  });
+
   const { data: insMetric } = useQuery({
-    queryKey: ["ins-metric", CONTEXT_METRIC],
-    queryFn: () => fetchInsMetric(CONTEXT_METRIC),
+    queryKey: ["ins-metric", contextMetric],
+    queryFn: () => fetchInsMetric(contextMetric),
   });
 
   const { data: investments } = useQuery({
@@ -185,6 +192,28 @@ export function NationalBalance() {
             <SourceBadge source="source.budget" />
           </div>
         </div>
+        {insCatalog !== undefined && insCatalog.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <label
+              htmlFor="ins-metric"
+              className="text-sm font-medium text-slate-700"
+            >
+              {i18n._({ id: "context.metricLabel" })}
+            </label>
+            <select
+              id="ins-metric"
+              className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-budget-blue"
+              value={contextMetric}
+              onChange={(event) => setContextMetric(event.target.value)}
+            >
+              {insCatalog.map((metric) => (
+                <option key={metric.code} value={metric.code}>
+                  {metric.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         {trendData !== null && insMetric !== undefined && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <DualAxisTrend

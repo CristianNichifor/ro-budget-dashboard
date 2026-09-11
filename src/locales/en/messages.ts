@@ -51,6 +51,7 @@ export const messages: Messages = {
   "context.description":
     "Health budget (bars, bn lei) next to a social indicator (line): money allocated vs. measurable outcome.",
   "context.budgetLegend": "Health budget (bn lei)",
+  "context.metricLabel": "Tracked indicator",
   "context.insight":
     "Compared to 2021, the health budget changed by {budgetChange}, while {insLabel} changed by {insChange}.",
 

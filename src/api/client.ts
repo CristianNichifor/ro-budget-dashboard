@@ -232,6 +232,32 @@ export async function fetchInsMetric(code: string): Promise<InsMetric> {
   return INS_METRICS_SEED[code] ?? { code, unit: "", label: code, data: [] };
 }
 
+export const insCatalogSchema = z.object({
+  metrics: z.array(
+    z.object({
+      code: z.string(),
+      label: z.string(),
+      unit: z.string(),
+    })
+  ),
+});
+
+export type InsCatalogEntry = z.infer<
+  typeof insCatalogSchema
+>["metrics"][number];
+
+export async function fetchInsCatalog(): Promise<InsCatalogEntry[]> {
+  const remote = await request("/api/ins/catalog", insCatalogSchema);
+  if (remote !== null) {
+    return remote.metrics;
+  }
+  return Object.values(INS_METRICS_SEED).map(({ code, label, unit }) => ({
+    code,
+    label,
+    unit,
+  }));
+}
+
 export interface BudgetTrend {
   metric: string;
   source: string;

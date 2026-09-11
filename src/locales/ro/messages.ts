@@ -51,6 +51,7 @@ export const messages: Messages = {
   "context.description":
     "Bugetul sănătății (bare, mld. lei) alături de un indicator social (linie): banii alocați vs. rezultatul măsurabil.",
   "context.budgetLegend": "Buget sănătate (mld. lei)",
+  "context.metricLabel": "Indicator urmărit",
   "context.insight":
     "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}, iar {insLabel} cu {insChange}.",
 
