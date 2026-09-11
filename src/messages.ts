@@ -43,6 +43,59 @@ export const m = {
   }),
   "app.loading": msg({ id: "app.loading", message: "Se încarcă…" }),
   "nav.citizenSlice": msg({ id: "nav.citizenSlice", message: "Feliuța ta" }),
+  "nav.economy": msg({ id: "nav.economy", message: "Economie" }),
+  "economy.title": msg({
+    id: "economy.title",
+    message: "Economia României în date",
+  }),
+  "economy.description": msg({
+    id: "economy.description",
+    message:
+      "Inflație, șomaj și cursul de schimb — indicatori lunari din surse europene oficiale.",
+  }),
+  "economy.kpi.inflation": msg({
+    id: "economy.kpi.inflation",
+    message: "Inflație anuală",
+  }),
+  "economy.kpi.target": msg({ id: "economy.kpi.target", message: "Ținta BNR" }),
+  "economy.kpi.unemployment": msg({
+    id: "economy.kpi.unemployment",
+    message: "Șomaj (BIM)",
+  }),
+  "economy.kpi.fx": msg({ id: "economy.kpi.fx", message: "EUR/RON" }),
+  "economy.inflation.title": msg({
+    id: "economy.inflation.title",
+    message: "Inflația anuală (IAPC)",
+  }),
+  "economy.inflation.description": msg({
+    id: "economy.inflation.description",
+    message:
+      "Rata anuală a inflației armonizate (Eurostat), cu ținta BNR marcată.",
+  }),
+  "economy.inflation.targetLine": msg({
+    id: "economy.inflation.targetLine",
+    message: "Ținta BNR",
+  }),
+  "economy.unemployment.title": msg({
+    id: "economy.unemployment.title",
+    message: "Rata șomajului",
+  }),
+  "economy.unemployment.description": msg({
+    id: "economy.unemployment.description",
+    message: "Șomaj BIM (15–74 ani), ajustat sezonier, % din populația activă.",
+  }),
+  "economy.fx.title": msg({
+    id: "economy.fx.title",
+    message: "Cursul EUR/RON",
+  }),
+  "economy.fx.description": msg({
+    id: "economy.fx.description",
+    message: "Cursul de referință zilnic al Băncii Centrale Europene.",
+  }),
+  "economy.percent": msg({ id: "economy.percent", message: "%" }),
+  "economy.lei": msg({ id: "economy.lei", message: "lei" }),
+  "source.eurostat": msg({ id: "source.eurostat", message: "Sursă: Eurostat" }),
+  "source.ecb": msg({ id: "source.ecb", message: "Sursă: BCE" }),
   "nav.companies": msg({
     id: "nav.companies",
     message: "Companii de stat",

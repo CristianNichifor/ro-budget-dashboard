@@ -24,6 +24,11 @@ const CompaniiDeStat = lazyRouteComponent(
   "CompaniiDeStat"
 );
 
+const Economie = lazyRouteComponent(
+  () => import("./routes/Economie"),
+  "Economie"
+);
+
 const rootRoute = createRootRoute({
   component: RootLayout,
   errorComponent: DefaultError,
@@ -56,11 +61,18 @@ const companiesRoute = createRoute({
   component: CompaniiDeStat,
 });
 
+const economyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/economie",
+  component: Economie,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   citizenSliceRoute,
   nationalBalanceRoute,
   companiesRoute,
+  economyRoute,
 ]);
 
 export const router = createRouter({

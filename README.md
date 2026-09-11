@@ -11,6 +11,7 @@ Tablou de bord cetățenesc pentru bugetul consolidat al României (central, soc
 | **Feliuța ta** (`/felia-ta`)                 | Waterfall salariu, indice salariu real vs. nominal                                            | Rate fiscale 2026 (static), INS + BNR (seed) |
 | **Bilanțul național** (`/bilantul-national`) | KPI venituri/cheltuieli/deficit, Sankey flux bugetar, Treemap destinații, gauge deficit % PIB | Open Budget 2026 (static)                    |
 | **Companii de stat** (`/companii-de-stat`)   | KPI, scatter salariu × marjă, trend sectoare, hartă județe, subvenții locale, listate BVB     | companiidestat.ro (API public)               |
+| **Economie** (`/economie`)                   | Inflația anuală vs. ținta BNR, rata șomajului, cursul EUR/RON                                 | Eurostat, BCE, BNR                           |
 
 ## Tech stack
 

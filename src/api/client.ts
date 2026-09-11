@@ -515,3 +515,36 @@ export async function fetchSoeSubsidies(
 export async function fetchSoeListed(): Promise<SoeListed | null> {
   return request("/api/soe/listed", soeListedSchema);
 }
+
+// ── Macro (Eurostat + BCE via BFF) ────────────────────────────────────
+
+export const inflationSchema = z.object({
+  targetPercent: z.number(),
+  monthly: z.array(z.object({ ym: z.string(), annualRate: z.number() })),
+});
+
+export type InflationSeries = z.infer<typeof inflationSchema>;
+
+export const unemploymentSchema = z.object({
+  monthly: z.array(z.object({ ym: z.string(), rate: z.number() })),
+});
+
+export type UnemploymentSeries = z.infer<typeof unemploymentSchema>;
+
+export const fxSchema = z.object({
+  series: z.array(z.object({ date: z.string(), eurRon: z.number() })),
+});
+
+export type FxSeries = z.infer<typeof fxSchema>;
+
+export async function fetchInflation(): Promise<InflationSeries | null> {
+  return request("/api/macro/inflation", inflationSchema);
+}
+
+export async function fetchUnemployment(): Promise<UnemploymentSeries | null> {
+  return request("/api/macro/unemployment", unemploymentSchema);
+}
+
+export async function fetchFx(): Promise<FxSeries | null> {
+  return request("/api/macro/fx", fxSchema);
+}
