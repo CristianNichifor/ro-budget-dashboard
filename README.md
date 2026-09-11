@@ -80,7 +80,9 @@ docker build -t ro-budget-dashboard --build-arg VITE_API_BASE_URL=http://localho
 docker run -p 8080:80 ro-budget-dashboard
 ```
 
-`VITE_API_BASE_URL` este încorporat la build (Vite); nginx servește bundle-ul cu fallback SPA. CI-ul din `.github/workflows/ci.yml` rulează `pnpm check`, `pnpm build` și build-ul imaginii.
+`VITE_API_BASE_URL` este încorporat la build (Vite); nginx servește bundle-ul cu fallback SPA. Stack-ul complet (frontend + BFF) se pornește cu `docker compose` din repo-ul BFF — vezi `docker-compose.yml` acolo.
+
+CI: `.github/workflows/ci.yml` rulează `pnpm check` + build pe fiecare PR și publică imaginea pe GHCR la push pe `main`/tag-uri `v*` (variabila de repo `VITE_API_BASE_URL` poate înlocui BFF-ul la build).
 
 ## Git workflow
 

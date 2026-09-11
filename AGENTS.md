@@ -8,6 +8,8 @@ Convenții de lucru pentru `ro-budget-dashboard` (aliniate cu hack-for-facts-eb-
 - `pnpm check` — typecheck + lint + test + format:check (rulează întotdeauna înainte de commit)
 - `pnpm test` — vitest run
 - `pnpm build` — tsc -b && vite build
+- `pnpm i18n:extract` — regenerează cataloagele `.po` după modificarea `src/messages.ts`
+- Deploy: imaginea se construiește cu `docker build --build-arg VITE_API_BASE_URL=... .`; stack-ul complet pornește cu `docker compose` din repo-ul BFF. CI publică imaginea pe GHCR la push pe `main`/tag-uri `v*` (variabila de repo `VITE_API_BASE_URL`).
 
 ## Reguli de cod
 
