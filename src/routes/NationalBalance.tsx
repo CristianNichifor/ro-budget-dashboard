@@ -225,7 +225,7 @@ export function NationalBalance() {
                     insChange: formatSignedPercent(
                       trendInsight.insChangePercent
                     ),
-                    insLabel: insMetric.label.toLowerCase(),
+                    insLabel: insMetric.label,
                   },
                 })}
               </p>

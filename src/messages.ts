@@ -149,7 +149,7 @@ export const m = {
   "context.insight": msg({
     id: "context.insight",
     message:
-      "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}, iar {insLabel} cu {insChange}.",
+      "Față de 2021, bugetul sănătății s-a modificat cu {budgetChange}; indicatorul „{insLabel}”: {insChange}.",
   }),
   "drilldown.breadcrumb.root": msg({
     id: "drilldown.breadcrumb.root",
