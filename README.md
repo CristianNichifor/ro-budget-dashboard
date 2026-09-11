@@ -60,8 +60,8 @@ Regula din celelalte repo-uri: **nucleul funcțional nu face I/O și nu aruncă*
 | P0   | Waterfall salariu cu rate 2026 hardcodate                                                                         | ✓      |
 | P1   | Sankey + treemap cu date buget static                                                                             | ✓      |
 | P2   | Integrare BFF: `fetch*` din `src/api/client.ts` → `ro-budget-dashboard-bff` (`VITE_API_BASE_URL`), fallback local | ✓      |
-| P3   | Trenduri INS via transparenta-eu-ins-loader                                                                       | —      |
-| P4   | Context BNR: inflație/datorie prin script de actualizare trimestrială sau dataset-uri server                      | —      |
+| P3   | Trenduri INS (endpoint `/api/ins/metrics`, secțiunea „Context din statisticile INS”)                              | ✓      |
+| P4   | Context BNR: seed JSON + script trimestrial (`pnpm bnr:update`) în repo-ul BFF                                    | ✓      |
 | P5   | Drill-down instituțional (modal + breadcrumb)                                                                     | —      |
 | P6   | Harta investițiilor (county heatmap — API există deja în eb-server)                                               | —      |
 
