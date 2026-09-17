@@ -24,3 +24,13 @@ Convenții de lucru pentru `ro-budget-dashboard` (aliniate cu hack-for-facts-eb-
 
 - Contract API: `src/api/client.ts` (scheme zod). P0 rezolvă local; P2 înlocuiește corpurile cu `fetch` către BFF — schemele nu se schimbă.
 - Date: `src/data/` (seed-uri). Componente vizuale: `src/components/charts/`. Tab-uri: `src/routes/`.
+
+
+## How this repo is gated
+
+- `dev` is the default branch and where work lands. Pull requests are required, and **no status check is required yet**.
+- `main` is production. It is restricted: only an admin can advance it, so an agent can open a pull request against it but cannot merge one.
+- This repo ships Cloudflare (Workers or Pages) via wrangler. That fires on a merge to `main`, which is the restricted branch — so an agent's work reaching `dev` deploys nothing.
+
+*(Appended from measured repository settings. Branch rules are enforced by
+GitHub; this section describes them, it does not create them.)*
