@@ -1,5 +1,7 @@
 # ro-budget-dashboard
 
+Contributor setup and checks: [CONTRIBUTING.md](CONTRIBUTING.md).
+
 Tablou de bord cetățenesc pentru bugetul consolidat al României (central, social, sănătate), pe modelul [Open Budget 2026](https://openbudget.ro/buget/2026/), cu context INS/Eurostat (salarii, statistici, inflație, datorie).
 
 > **Status: P36.** Frontend-ul apelează `ro-budget-dashboard-bff` (date live Eurostat/BCE/MFP) și cade pe datele locale demo când BFF-ul nu răspunde. Opt tab-uri: Feliuța ta, Bilanțul național, Companii de stat, Economie, Societate, Energie, Piața muncii, Justiție.
